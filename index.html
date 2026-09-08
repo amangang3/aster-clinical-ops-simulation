@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aster Life Sciences — Agentic Allocation Simulation</title>
+<meta name="description" content="A fictional teaching simulation on enterprise resource allocation for agentic AI.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-head" data-chrome="head"></header>
+
+<main>
+  <div class="wrap">
+
+    <section>
+      <h1 id="title">Aster Life Sciences — Agentic Allocation Simulation</h1>
+      <p class="disclaimer" id="disclaimer"></p>
+      <div class="stack" id="situation"></div>
+    </section>
+
+    <section>
+      <div class="eyebrow">What's on the table</div>
+      <h2>Three things are being negotiated at once</h2>
+      <p class="muted" style="max-width:66ch">Two of them are prizes. One is a burden. That is what makes this hard.</p>
+      <div id="table-mount"></div>
+    </section>
+
+    <section>
+      <div class="eyebrow">How this works</div>
+      <div class="steps" id="steps"></div>
+      <p class="muted small" id="steps-note"></p>
+    </section>
+
+    <section>
+      <div class="callout accent a-slate">
+        <div class="eyebrow">The one rule that matters</div>
+        <p class="objective mb0" id="one-rule"></p>
+      </div>
+    </section>
+
+    <section>
+      <div class="eyebrow">Find your section</div>
+      <h2>Click into your own section only</h2>
+      <p class="muted" style="max-width:66ch">Each section sees a different page. Part of what you know, the
+        others do not — and part of what they know, you do not.</p>
+      <div class="section-cards" id="section-cards"></div>
+    </section>
+
+    <section>
+      <div class="eyebrow">Where we are</div>
+      <div class="rounds" id="rounds"></div>
+      <div id="fac-round" class="hide" style="margin-top:14px">
+        <div class="btn-row">
+          <button class="btn" id="round-prev">← Previous round</button>
+          <button class="btn btn-primary a-slate" id="round-next">Advance round →</button>
+          <span class="muted small">Facilitator control. Students do not see this.</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-foot" data-chrome="foot"></footer>
+
+<script src="data/scenario.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  var A = window.Aster, S = A.S, el = A.el;
+
+  document.addEventListener("DOMContentLoaded", function () {
+    A.qs("#title").textContent = S.meta.title;
+    A.qs("#disclaimer").textContent = S.meta.disclaimer;
+    A.qs("#one-rule").textContent = S.one_rule;
+    A.qs("#steps-note").textContent = S.steps_note;
+
+    var sit = A.qs("#situation");
+    S.situation.forEach(function (p, i) {
+      sit.appendChild(el("p", { class: i === 0 ? "lede" : "", text: p }));
+    });
+
+    A.renderTable(A.qs("#table-mount"));
+
+    var steps = A.qs("#steps");
+    S.steps.forEach(function (s, i) {
+      steps.appendChild(el("div", { class: "step" }, [
+        el("div", { class: "n", text: "STEP " + (i + 1) }),
+        el("div", { class: "t", text: s })
+      ]));
+    });
+
+    var cards = A.qs("#section-cards");
+    S.groups.forEach(function (g) {
+      var card = el("a", { class: "section-card", href: "role.html?g=" + g.id }, [
+        el("div", { class: "code", text: g.agent }),
+        el("h3", { text: g.name }),
+        el("p", { text: g.descriptor }),
+        el("div", { class: "go", text: "Open role brief →" })
+      ]);
+      A.applyAccent(card, g.accent);
+      cards.appendChild(card);
+    });
+
+    var round = A.getRound();
+    A.renderRounds(A.qs("#rounds"), round);
+
+    if (A.isFacilitator()) {
+      A.qs("#fac-round").classList.remove("hide");
+      A.qs("#round-next").addEventListener("click", function () {
+        round = A.setRound(round + 1); A.renderRounds(A.qs("#rounds"), round);
+      });
+      A.qs("#round-prev").addEventListener("click", function () {
+        round = A.setRound(round - 1); A.renderRounds(A.qs("#rounds"), round);
+      });
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Live run output — regenerated each class, not committed.
+# facilitator/demo-run/ is committed on purpose as the offline fallback.
+runs/*
+!runs/.gitkeep
+
+# Student briefs are their work, not repo content.
+briefs/round*/*.md

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Debrief — Aster Agentic Allocation Simulation</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-head" data-chrome="head"></header>
+
+<main>
+  <div class="wrap">
+
+    <section>
+      <h1>Debrief</h1>
+      <p class="lede">Six questions. Answer them about your own brief, not about the other sections'.</p>
+    </section>
+
+    <div id="questions"></div>
+
+    <section>
+      <div class="callout accent a-slate">
+        <p class="objective mb0" id="closing"></p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-foot" data-chrome="foot"></footer>
+
+<script src="data/scenario.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  var A = window.Aster, S = A.S, el = A.el;
+  document.addEventListener("DOMContentLoaded", function () {
+    var box = A.qs("#questions");
+    S.debrief.forEach(function (q, i) {
+      box.appendChild(el("div", { class: "q-block" }, [
+        el("div", { class: "qn", text: "QUESTION " + (i + 1) }),
+        el("div", { class: "qt", text: q })
+      ]));
+    });
+    A.qs("#closing").textContent = S.debrief_closing;
+  });
+})();
+</script>
+</body>
+</html>
