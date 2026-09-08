@@ -66,9 +66,20 @@ prompt in memory (or under `runs/round<N>/prompts/`) so the repo stays clean bet
 
 ### 4. Run the protocol
 
-Invoke the `orchestrator` subagent (ATLAS) to preside, and the `site-ops`, `data-analytics`, and
-`patient-engagement` subagents as the three negotiators. Run the five phases exactly as specified in
-`.claude/agents/orchestrator.md` §2:
+**You conduct this yourself, in the main session. Do not delegate the turns to subagents.**
+
+A subagent's output only reaches the terminal once that subagent has *finished*, which would buffer the whole
+negotiation and destroy the thing this is for. Instead, read all four agent files —
+`.claude/agents/{site-ops,data-analytics,patient-engagement,orchestrator}.md` — and voice each agent yourself,
+printing every turn to the terminal the moment you compose it. The agent files are the authoritative persona,
+voice, and constraint definitions; treat each one as binding on the turns you write for that agent.
+
+Hold the four contexts separately in your head. Each group agent knows **only** what is in its own file plus
+its own brief plus what has been said publicly. **Never let one agent reason from another agent's private
+information or unsent brief.** In phase 2, a message is known only to its sender and its recipient until
+someone refers to it out loud.
+
+Run the five phases exactly as specified in `.claude/agents/orchestrator.md` §2:
 
 1. **Opening positions** — sequential, Site Ops → Data & Analytics → Patient Engagement.
 2. **Mesh exchange** — six direct messages. May be generated in parallel; **must be printed grouped by
@@ -86,9 +97,12 @@ ask it once for a corrected turn before printing.
 
 ### 5. Score and compute
 
-Hand the full transcript to ATLAS. It applies the rubric, allocates, computes the math from
-`.claude/agents/orchestrator.md` §4 against the constants in `data/scenario.js`, prints its arithmetic in the
-terminal, and writes:
+Now switch fully into ATLAS and score the round. Apply the rubric, allocate, and compute the math from
+`.claude/agents/orchestrator.md` §4 against the constants in `data/scenario.js`.
+
+**Compute the arithmetic with a script, not in your head.** Write a short Python file under
+`runs/round<N>/`, run it, and print its output. Every number the class sees has to be reproducible, and a
+student will re-derive one of them. Then write:
 
 - `runs/round<N>/results.json`
 - `runs/round<N>/transcript.md`

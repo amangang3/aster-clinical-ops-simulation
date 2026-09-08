@@ -19,7 +19,8 @@ Runs the full five-phase protocol using `facilitator/fallback-briefs/` as all th
    - `data-analytics.md` — technical and defensive
    - `patient-engagement.md` — cooperative and outgunned
 
-2. Run `/run-round` exactly as specified, with these overrides:
+2. Run the protocol exactly as `/run-round` specifies — you conduct it in the main session, voicing each
+   agent yourself; do not delegate turns to subagents — with these overrides:
    - `PACE=fast` — no pauses between phases
    - output directory `runs/dry-run/` instead of `runs/round<N>/`
    - round number `0` in the results JSON
