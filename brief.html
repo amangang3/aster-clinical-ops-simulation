@@ -86,9 +86,9 @@
 
   function blank() {
     return {
-      opening: "", priorities: ["", "", ""], evidence: "", redlines: "", concessions: "",
+      opening: "", evidence: "", redlines: "", concessions: "",
       infrastructure: { stance: "contribute if others do", text: "" },
-      standing: "", tone: "Collaborative"
+      tone: "Collaborative"
     };
   }
 
@@ -118,24 +118,6 @@
         ta.value = data[f.id] || "";
         ta.addEventListener("input", function () { data[f.id] = ta.value; sync(); });
         form.appendChild(wrapField(f, ta));
-
-      } else if (f.type === "ranked") {
-        var box = el("div");
-        for (var i = 0; i < f.count; i++) {
-          (function (idx) {
-            var inp = el("input", { type: "text", id: "f-priorities-" + idx });
-            inp.value = (data.priorities || [])[idx] || "";
-            inp.addEventListener("input", function () { data.priorities[idx] = inp.value; sync(); });
-            box.appendChild(el("div", { class: "ranked-row" }, [
-              el("div", { class: "rk", text: (idx + 1) + "." }), inp
-            ]));
-          })(i);
-        }
-        form.appendChild(el("div", { class: "field" }, [
-          el("div", { class: "lab", text: f.label }),
-          el("div", { class: "help", text: f.help }),
-          box, counterEl(f.id)
-        ]));
 
       } else if (f.type === "radio-textarea") {
         var set = el("div", { class: "radio-set" });
@@ -174,7 +156,6 @@
   /* ---- live sync ---- */
 
   function fieldLen(f) {
-    if (f.type === "ranked") return (data.priorities || []).reduce(function (a, p) { return a + (p || "").length; }, 0);
     if (f.type === "radio-textarea") return (data.infrastructure.text || "").length;
     return (data[f.id] || "").length;
   }
@@ -185,25 +166,16 @@
     S.brief_fields.forEach(function (f) {
       if (f.cap <= 0) return;
       var used = fieldLen(f);
-      var limit = f.type === "ranked" ? f.cap * f.count : f.cap;
       var c = A.qs("#cnt-" + f.id);
       if (c) {
-        c.textContent = used + " / " + limit;
-        c.className = "counter" + (used > limit ? " over" : "");
+        c.textContent = used + " / " + f.cap;
+        c.className = "counter" + (used > f.cap ? " over" : "");
       }
-      var over = used > limit;
+      var over = used > f.cap;
       if (over) overAny = true;
 
-      if (f.type === "ranked") {
-        for (var i = 0; i < f.count; i++) {
-          var inp = A.qs("#f-priorities-" + i);
-          if (inp) inp.classList.toggle("over", (data.priorities[i] || "").length > f.cap);
-          if ((data.priorities[i] || "").length > f.cap) overAny = true;
-        }
-      } else {
-        var node = A.qs("#f-" + f.id);
-        if (node) node.classList.toggle("over", over);
-      }
+      var node = A.qs("#f-" + f.id);
+      if (node) node.classList.toggle("over", over);
     });
 
     var total = A.briefLength(data);
@@ -330,7 +302,6 @@
       }
     }
     if (!data) data = blank();
-    if (!data.priorities) data.priorities = ["", "", ""];
     if (!data.infrastructure) data.infrastructure = { stance: "contribute if others do", text: "" };
 
     buildForm();

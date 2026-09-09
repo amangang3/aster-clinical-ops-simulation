@@ -243,9 +243,7 @@
     var n = 0;
     S.brief_fields.forEach(function (f) {
       if (f.type === "select") return;                       // tone is a choice, not prose
-      if (f.type === "ranked") {
-        (data.priorities || []).forEach(function (p) { n += (p || "").length; });
-      } else if (f.type === "radio-textarea") {
+      if (f.type === "radio-textarea") {
         n += ((data[f.id] && data[f.id].text) || "").length;  // stance is a choice
       } else {
         n += (data[f.id] || "").length;
@@ -263,10 +261,6 @@
     L.push("## Opening position");
     L.push((data.opening || "").trim());
     L.push("");
-    L.push("## Priorities");
-    var pr = data.priorities || ["", "", ""];
-    for (var i = 0; i < 3; i++) L.push((i + 1) + ". " + (pr[i] || "").trim());
-    L.push("");
     L.push("## Evidence");
     L.push((data.evidence || "").trim());
     L.push("");
@@ -279,9 +273,6 @@
     L.push("## Shared infrastructure");
     L.push("Stance: " + ((data.infrastructure && data.infrastructure.stance) || "contribute if others do"));
     L.push(((data.infrastructure && data.infrastructure.text) || "").trim());
-    L.push("");
-    L.push("## Standing instruction");
-    L.push((data.standing || "").trim());
     L.push("");
     return L.join("\n");
   }

@@ -237,17 +237,8 @@ window.ASTER_SCENARIO =
       "label": "Opening position",
       "type": "textarea",
       "cap": 400,
-      "help": "Capital, engineers, and the target your group is prepared to commit to. Be specific — numbers. Nobody can set that target for you.",
+      "help": "Capital, engineers, and the target your group is prepared to commit to. Be specific — numbers, and say which of them matters most. Nobody can set that target for you.",
       "heading": "Opening position"
-    },
-    {
-      "id": "priorities",
-      "label": "Ranked priorities",
-      "type": "ranked",
-      "cap": 120,
-      "count": 3,
-      "help": "If your agent can only win three things, what are they, in order?",
-      "heading": "Priorities"
     },
     {
       "id": "evidence",
@@ -270,7 +261,7 @@ window.ASTER_SCENARIO =
       "label": "Authorized concessions",
       "type": "textarea",
       "cap": 400,
-      "help": "What your agent may give away, and what it should demand in return.",
+      "help": "What your agent may give away, and what it must get back for it. Include what it should do if the negotiation turns against you.",
       "heading": "Authorized concessions"
     },
     {
@@ -287,14 +278,6 @@ window.ASTER_SCENARIO =
       ]
     },
     {
-      "id": "standing",
-      "label": "Standing instruction",
-      "type": "textarea",
-      "cap": 300,
-      "help": "What should your agent do if the negotiation is going badly for you?",
-      "heading": "Standing instruction"
-    },
-    {
       "id": "tone",
       "label": "Tone",
       "type": "select",
@@ -305,7 +288,7 @@ window.ASTER_SCENARIO =
     }
   ],
 
-  "brief_total_cap": 2400,
+  "brief_total_cap": 1600,
 
   "debrief": [
     "Look at your brief. What did you tell your agent to want — and what did you forget to tell it entirely?",

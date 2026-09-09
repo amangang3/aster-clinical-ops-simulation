@@ -40,7 +40,7 @@ warning naming which section is on a fallback:
 
 Say it out loud in the room too. A section running on a fallback is debrief material, not a failure.
 
-If a brief is over the 2,400-character cap, **accept it**, and note it in the transcript. Do not truncate.
+If a brief is over the 1,600-character cap, **accept it**, and note it in the transcript. Do not truncate.
 
 ### 2. Print the round header
 

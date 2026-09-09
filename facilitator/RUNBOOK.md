@@ -250,8 +250,8 @@ for. **Pick 6–8 total.** Do not run the whole bank.
 | "Read your brief again. What did your agent do that you never authorized?" | The specific line. Make them read it aloud. |
 | "What did you leave out — and did that omission read as *use your judgment* or as *this doesn't matter*?" | **B2.** The best single question in the bank. |
 | "Your agent held every red line you wrote. Did it hold anything you didn't write down?" | No. Never. That is the lesson. |
-| "You had 2,400 characters. How many did you spend on what you wanted versus what you'd concede?" | Most rooms spend almost nothing on concessions and are then surprised by what got conceded. |
-| "Did anyone write a standing instruction that actually got used? Did it help?" | Contingency planning is the thing people skip and then need. |
+| "You had 1,600 characters. How many did you spend on what you wanted versus what you'd concede?" | Most rooms spend almost nothing on concessions and are then surprised by what got conceded. |
+| "Did anyone tell their agent what to do if things went badly? Or only what to want?" | Almost nobody plans for the losing case — the brief form no longer prompts for it, so this is now a pure omission test. |
 | "One sentence added to your round-1 brief. What is it?" | This is `debrief.html` Q6 and the best closing question you have. |
 | "You chose your own target. Would you have scored better by promising less?" | **Yes — and they should feel it.** Then: "Is that how targets work in your company? What stops it?" This is A5 and it is the sharpest new question in the bank. |
 | "Who committed the smallest share of their own pool? Did they win?" | Usually Site Operations, and usually yes. |
@@ -347,7 +347,7 @@ Close on: *"Nothing about the opportunity changed between those rounds."*
 |---|---|
 | **A section hands in nothing.** | Run the matching file from `facilitator/fallback-briefs/`. Say so out loud — "Section C is running on a house brief." It becomes debrief material about delegation by default. |
 | **The model run errors mid-phase.** | Re-run just that phase. If it errors again, `/reset-round <N>` and re-run at `PACE=fast`. If that fails, paste `facilitator/demo-run/results.json` into `results.html` and run the discussion off it. |
-| **A brief arrives over the 2,400-character cap.** | Accept it. Note it. It becomes debrief material — a section that ignored the cap made a choice about what its agent needed. |
+| **A brief arrives over the 1,600-character cap.** | Accept it. Note it. It becomes debrief material — a section that ignored the cap made a choice about what its agent needed. |
 | **A section games the rubric explicitly.** | Let it. Do not correct it. Make it the **first** debrief question: "Section B optimized for the scoring function instead of the outcome. Is that what a real group does?" |
 | **An agent breaks its own red line.** | Do not fix it. ATLAS notes it. It is the single best debrief moment you will get — delegation failing in exactly the way delegation fails. |
 | **A section writes a brilliant brief and still loses.** | Do not soften it. "You played this better than anyone and it didn't save you. Why not?" That is A1 landing harder than any question could make it. |

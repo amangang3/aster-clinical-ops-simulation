@@ -27,9 +27,9 @@ it runs again.
 ## How it works
 
 Each section opens its own role page, which gives it public numbers and some private information the other
-sections cannot see. It writes its agent's brief in the browser — opening position, ranked priorities,
-evidence, red lines, authorized concessions, a stance on the shared platform, and a standing instruction —
-inside a 2,400-character cap that forces it to decide what the agent actually needs to know.
+sections cannot see. It writes its agent's brief in the browser — opening position, evidence, red lines,
+authorized concessions, and a stance on the shared platform — inside a 1,600-character cap that forces it to
+decide what the agent actually needs to know.
 
 The facilitator collects the three briefs and runs the negotiation locally in Claude Code. Four agents take
 part: one for each section, plus an orchestrator that runs a five-phase protocol, presses each group for a
