@@ -28,8 +28,8 @@ window.ASTER_SCENARIO =
 
   "situation": [
     "Aster Life Sciences runs clinical trials at global scale through its Global Clinical Operations Center. The Center is built from three operating groups, each with its own P&L, its own customers, its own planning rhythm, and its own technical maturity. A fourth unit, Enterprise Trial Infrastructure & Standards, provides the shared platforms, data standards, and governance that cut across all three.",
-    "The Chief Information & Digital Transformation Officer, Alexiel Rao, has just run a live agentic AI demonstration for the executive committee. Everyone in the room agreed the opportunity is real. Nobody agreed on who commits to what.",
-    "Rao has been given one negotiation to settle it. Three groups, one pool of capital, one pool of engineers, and one enterprise number that somebody has to carry."
+    "The Chief Information Officer, Alexiel Rao, has just run a live agentic AI demonstration for the Clinical Operations Leadership Council. Everyone in the room agreed the opportunity is real. Nobody agreed on who commits to what.",
+    "Rao has been given one negotiation. Three groups, one pool of capital, one pool of engineers, and a $250M enterprise ambition that Rao can argue for but cannot impose — because only a P&L owner can commit a number into a plan, and Rao owns no P&L."
   ],
 
   "table": {
@@ -50,12 +50,12 @@ window.ASTER_SCENARIO =
       "note": "Scarce senior agent engineers."
     },
     "target": {
-      "label": "Enterprise value target",
+      "label": "Enterprise value ambition",
       "value": 250,
       "unit": "$M",
       "period": "run-rate savings",
-      "nature": "burden",
-      "note": "Must be split. Whoever accepts it is accountable for it."
+      "nature": "ambition",
+      "note": "Rao's ask, not a mandate. Nobody can set this number for you — each group commits its own, because only a P&L owner can commit a number into a plan."
     },
     "infrastructure": {
       "label": "Shared infrastructure pledge",
@@ -67,7 +67,9 @@ window.ASTER_SCENARIO =
     }
   },
 
-  "wants": "Every group wants more capital, more engineers, a smaller share of the target, and someone else to fund the shared infrastructure.",
+  "wants": "Every group wants more capital, more engineers, a smaller number of its own to carry, and someone else to fund the shared infrastructure.",
+
+  "framing": "This is the model the class just chose: each group commits its own target, and the centre supplies platform capital and engineers. We are going to run it and see what it produces.",
 
   "groups": [
     {
@@ -79,7 +81,7 @@ window.ASTER_SCENARIO =
       "accent": "amber",
       "descriptor": "Largest group. Runs the site and hospital network that executes the trials.",
       "profile": "Largest group. Manages relationships with hundreds of clinical trial sites, hospitals, and research centers across multiple geographies. High revenue, margin sensitive. Highly competitive business.",
-      "objective": "Maximize Site Operations' realized value, net of the target burden you accept.",
+      "objective": "Maximize Site Operations' realized value, net of the target you commit to carrying.",
       "local_pool": 140,
       "capital_need": 26,
       "eng_need": 52
@@ -93,7 +95,7 @@ window.ASTER_SCENARIO =
       "accent": "cyan",
       "descriptor": "Deep technical group. Collects, validates, and analyses all trial data.",
       "profile": "Manages trial data collection, validation, and statistical analysis. Deep technical expertise, high investment intensity. Serves internal trial teams and regulatory bodies.",
-      "objective": "Maximize Clinical Data & Analytics' realized value, net of the target burden you accept.",
+      "objective": "Maximize Clinical Data & Analytics' realized value, net of the target you commit to carrying.",
       "local_pool": 95,
       "capital_need": 22,
       "eng_need": 40
@@ -107,7 +109,7 @@ window.ASTER_SCENARIO =
       "accent": "violet",
       "descriptor": "Smallest group. Finds, enrols, and retains the patients.",
       "profile": "Directs patient outreach, enrollment, and retention through diverse channels and vendor partnerships. Smallest of the three groups. Brand and channel driven.",
-      "objective": "Maximize Patient Engagement & Recruitment's realized value, net of the target burden you accept.",
+      "objective": "Maximize Patient Engagement & Recruitment's realized value, net of the target you commit to carrying.",
       "local_pool": 70,
       "capital_need": 12,
       "eng_need": 28
@@ -117,8 +119,9 @@ window.ASTER_SCENARIO =
   "orchestrator": {
     "agent": "ATLAS",
     "unit": "Enterprise Trial Infrastructure & Standards",
-    "acting_for": "the CIDO's chair",
-    "note": "ATLAS runs the negotiation protocol, presses each group for specific commitments, and applies the allocation rubric. It has one interest: the enterprise number. It has no P&L."
+    "lead": "Senior Director Daniel Okafor",
+    "acting_for": "Enterprise Trial Infrastructure & Standards, on the Leadership Council's behalf",
+    "note": "ATLAS runs the negotiation protocol, presses each group for specific commitments, allocates the centrally-held capital and engineers, and records the target each group commits to. It cannot set a target for anyone — only a P&L owner can commit a number. It has one interest: the enterprise number. It has no P&L."
   },
 
   "math": {
@@ -167,8 +170,8 @@ window.ASTER_SCENARIO =
       "name": "Target credibility",
       "weight": 0.15,
       "public": true,
-      "blurb": "Accepted a target proportional to its opportunity.",
-      "detail": "Ducking the target is penalised. So is accepting one you visibly cannot carry."
+      "blurb": "Committed a number proportional to its own opportunity.",
+      "detail": "You choose your own target, so this is where that choice is judged. Committing a number you can obviously beat is scored as ducking. So is committing one you visibly cannot carry."
     },
     {
       "id": "citizenship",
@@ -204,7 +207,7 @@ window.ASTER_SCENARIO =
       "n": 4,
       "name": "Infrastructure call",
       "topology": "ATLAS-directed",
-      "what": "ATLAS asks each agent, in turn, for a specific dollar pledge to shared infrastructure and a yes/no on data standards. No hedging accepted."
+      "what": "ATLAS asks each agent, in turn, for a specific dollar pledge to shared infrastructure, a yes/no on data standards, and the target number its group commits to. No hedging accepted."
     },
     {
       "n": 5,
@@ -234,7 +237,7 @@ window.ASTER_SCENARIO =
       "label": "Opening position",
       "type": "textarea",
       "cap": 400,
-      "help": "Capital, engineers, and target share you want your agent to open with. Be specific — numbers.",
+      "help": "Capital, engineers, and the target your group is prepared to commit to. Be specific — numbers. Nobody can set that target for you.",
       "heading": "Opening position"
     },
     {
@@ -308,7 +311,7 @@ window.ASTER_SCENARIO =
     "Look at your brief. What did you tell your agent to want — and what did you forget to tell it entirely?",
     "Your agent conceded something. Did you authorize that, or did it decide?",
     "Round 1 missed the enterprise target by a wide margin. Nobody in this room was irrational. What does that tell you about voluntary coordination on expensive shared infrastructure?",
-    "Dimension 5 was hidden. Would you have played differently if you had known? Should a CIDO publish that weight, or hold it?",
+    "Dimension 5 was hidden. Would you have played differently if you had known? Should a CIO publish that weight, or hold it?",
     "A single enterprise target forced the shared platform to get funded. What did it cost — in autonomy, in speed, in fit to each group's plan?",
     "You delegated a negotiation to an agent that argued on your behalf with information you chose to give it. What is the smallest change to your brief that would most have changed the outcome?"
   ],

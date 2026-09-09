@@ -16,7 +16,7 @@ reachable from what happens on screen — none of it requires you to assert it.
 > expensive shared infrastructure — not because people are selfish, but because no single P&L can justify
 > paying for something whose value lands mostly on someone else's.**
 
-That is the case decision in one sentence: it is *why* a CIDO pushes for a single enterprise target instead of
+That is the case decision in one sentence: it is *why* a CIO pushes for a single enterprise target instead of
 letting each group set its own.
 
 ### The three families
@@ -29,6 +29,7 @@ letting each group set its own.
 | **A2** | The largest value pools sit *across* boundaries. Local optimization captures the small pools and forfeits the large one. A group can win its negotiation and lose its outcome. | The $95M cross-boundary pool never opens. |
 | **A3** | A single enterprise target is a **coordination device, not a control device.** Its job is to make the shared platform fundable — not to centralize planning. | Round 2: same opportunity, roughly double the value. |
 | **A4** | That target has a real price: autonomy, speed, and fit to each group's own plan. It is a trade, not a free win. | Funding the platform visibly costs every group capability (`c` drops). |
+| **A5** | **Bottom-up targets do not add up to an enterprise ambition.** Left to choose, each P&L owner commits what it is safe to carry, and the sum lands short before any execution risk is priced in. | The commitment gap: ~$222M committed against a $250M ambition. |
 
 **B · Delegation** — the agentic AI layer, and the part students will remember longest.
 
@@ -86,6 +87,18 @@ behave like row 1, **the constants are wrong — fix `data/scenario.js`, not the
 | Platform funded but one group starved of engineers | $18M | FUNDED | **$232.5M** | miss by $17M |
 
 **Round 1 almost always lands in row 1. That failure is the lesson.** Do not try to prevent it.
+
+### The commitment gap — the second finding
+
+**Nobody sets the groups' targets.** Rao has asked the Council for $250M, but only a P&L owner can commit a
+number into a plan, so each group commits its own and ATLAS records it. Expect the three to sum to somewhere
+around **$200M–$230M** — short of the ambition **before any agent is built and before the platform gate even
+applies.**
+
+This is a separate finding from the gate, and it is the one that maps most directly onto the case. Watch for
+the group that commits the smallest share of its own stated pool; in the example run Site Operations commits
+$95M against a $140M pool (68%) and still finishes top of the board. That is the cleanest illustration of
+A5 you will get.
 
 The committed example run in `facilitator/demo-run/` lands at **$154.9M** — slightly worse than row 1, because
 Patient Engagement pledged $4M that nobody matched, which cost it capability and bought nothing. Its
@@ -199,7 +212,7 @@ skip it. The room should leave understanding that the enterprise target is a **t
 
 > "One section's brief was enough to hold the entire enterprise under. Was that section wrong?"
 
-Then: "What would the CIDO have to be able to do to stop that from being possible?" That goes straight to
+Then: "What would the CIO have to be able to do to stop that from being possible?" That goes straight to
 mandate versus persuasion, which is the case decision.
 
 **If round 2 massively overshoots** because everyone cooperated: "Now you've all pledged. Whose plan got
@@ -218,7 +231,7 @@ for. **Pick 6–8 total.** Do not run the whole bank.
 | "How much would the platform have had to cost before one group would fund it alone?" | Dawning recognition that there is no such number — the benefit lands elsewhere. |
 | "If we ran this ten more times with ten different rooms, how many times does it get funded voluntarily?" | Near zero. Push anyone who says "most" to say what would make it so. |
 | "The cross-boundary pool was $95M and belonged to nobody. Whose job was it?" | Nobody's — which is exactly the problem an enterprise target solves. |
-| "What is the smallest change to the **rules** — not to your briefs — that funds it?" | Mandate, central budget, matched pledges, changing who holds the money. This is the CIDO's actual toolkit. |
+| "What is the smallest change to the **rules** — not to your briefs — that funds it?" | Mandate, central budget, matched pledges, changing who holds the money. This is the CIO's actual toolkit. |
 | "Section A: you knew 40% of your pool needed that layer. Did you say so out loud? Why not?" | Strategic silence as individually rational, collectively costly. |
 
 #### B · Local versus enterprise optimization → A2, A3
@@ -240,6 +253,8 @@ for. **Pick 6–8 total.** Do not run the whole bank.
 | "You had 2,400 characters. How many did you spend on what you wanted versus what you'd concede?" | Most rooms spend almost nothing on concessions and are then surprised by what got conceded. |
 | "Did anyone write a standing instruction that actually got used? Did it help?" | Contingency planning is the thing people skip and then need. |
 | "One sentence added to your round-1 brief. What is it?" | This is `debrief.html` Q6 and the best closing question you have. |
+| "You chose your own target. Would you have scored better by promising less?" | **Yes — and they should feel it.** Then: "Is that how targets work in your company? What stops it?" This is A5 and it is the sharpest new question in the bank. |
+| "Who committed the smallest share of their own pool? Did they win?" | Usually Site Operations, and usually yes. |
 
 #### D · Information and coalitions → B4
 
@@ -257,7 +272,7 @@ Reveal dimension 5 first — the `results.html` rubric block does it for you.
 | Ask | Listening for |
 |---|---|
 | "20% of the weight, and you weren't told. Would you have played differently?" | Almost always yes — which is the point. |
-| "Should a CIDO publish that weight?" | Push both ways. *Publish* → you get compliance, gaming, box-ticking. *Hide* → you get resentment and it only works once. |
+| "Should a CIO publish that weight?" | Push both ways. *Publish* → you get compliance, gaming, box-ticking. *Hide* → you get resentment and it only works once. |
 | "You were told dimensions 1 through 4. Did you write your brief to the rubric, or to the outcome?" | The rubric. Every time. **C1** lands itself. |
 | "What would you have gamed if you'd known?" | Cheap pledges timed for credit rather than for effect. |
 
@@ -268,7 +283,7 @@ Close here. These are the questions that transfer.
 | Ask | Listening for |
 |---|---|
 | "A single enterprise target forced the platform to get funded. What did it cost — in autonomy, in speed, in fit?" | **A4.** Do not let the room leave thinking centralization is free. |
-| "Who should hold the platform budget — the CIDO, or the groups?" | The real trade-off. There is no clean answer and they should feel that. |
+| "Who should hold the platform budget — the CIO, or the groups?" | The real trade-off. There is no clean answer and they should feel that. |
 | "In your own organization: who is Section B? Who is Section C?" | Makes it concrete. Section C — small, dependent, no engineers — is usually the one nobody was defending. |
 | "You delegated a negotiation to an agent that argued with the information you chose to give it. What does that tell you about how you'd deploy agents for real?" | The bridge from the exercise to their actual jobs. |
 
@@ -283,6 +298,7 @@ Close here. These are the questions that transfer.
 | **"Cooperation is good, competition is bad."** | Far too clean, and not the lesson. | "Section C cooperated first and finished last. Was it wrong?" Then: "What would have had to be true for it to be right?" |
 | **"So the answer is centralize everything."** | The overshoot. | "What did the platform cost you in round 2? Look at your capability. Would you sign up to that in your own planning cycle?" |
 | **Everyone nods and agrees too fast.** | Agreement without cost is not learning. | "Everyone agrees. So why didn't you do it? You had 10 minutes and full information about your own group." |
+| **"The gap doesn't matter, we'd have caught up later."** | The gap is the commitment, not the outcome. Nobody was even *promising* enough. | "You fell short on the promise, before execution risk. What happens to that number in a real five-year plan?" |
 
 ### 5.6 Cold-call map
 
@@ -316,6 +332,7 @@ Short, quotable, and true to what is on the screen:
 If you have lost your time, run exactly this:
 
 1. **"Which section was wrong?"** → *(none)* → **A1**.
+1b. **"Add up what you committed to. Now look at the ambition."** → **A5**.
 2. **"What did your agent do that you never authorized?"** → *(read the line aloud)* → **B2**.
 3. Reveal dimension 5. **"Would you have played differently?"** → **C1**.
 4. **"A single target got the platform funded. What did it cost you?"** → **A4**.

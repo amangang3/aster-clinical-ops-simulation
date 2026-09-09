@@ -9,8 +9,9 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 ╔═ ATLAS ═ Enterprise Trial Infrastructure & Standards ═════════════════════╗
 ║                                                                           ║
 ║  PHASE 1 — OPENING POSITIONS                                              ║
-║  $60M capital. 120 engineer-quarters. A $250M enterprise target that      ║
-║  must be split and accepted. Shared infrastructure requires $18M in       ║
+║  $60M capital and 120 engineer-quarters to allocate. Rao has asked this   ║
+║  Council for a $250M ambition; I cannot set it for you. Each group        ║
+║  commits its own number. Shared infrastructure requires $18M in           ║
 ║  pledges. Site Operations opens.                                          ║
 ║                                                                           ║
 ╚═══════════════════════════════════════════════════════════════════════════╝
@@ -25,7 +26,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │
 │  HOLDING: capital at $30M. We will not execute a $140M pool on less.
 │
-│  POSITION: capital $30M · engineers 60 · target share $90M · pledge $0M
+│  POSITION: capital $30M · engineers 60 · target committed $90M · pledge $0M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -39,7 +40,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │  HOLDING: 80% capability in year one. That is a quality ceiling our
 │  statisticians set, not a bargaining position.
 │
-│  POSITION: capital $24M · engineers 44 · target share $70M · pledge $0M
+│  POSITION: capital $24M · engineers 44 · target committed $70M · pledge $0M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -53,7 +54,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │  TRADE: we will move first on shared infrastructure if either of you
 │  commits to matching. Somebody has to open.
 │
-│  POSITION: capital $14M · engineers 32 · target share $50M · pledge $4M
+│  POSITION: capital $14M · engineers 32 · target committed $50M · pledge $4M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -74,7 +75,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │  is enterprise infrastructure, it comes out of the enterprise budget,
 │  not out of our capital line.
 │
-│  POSITION: capital $30M · engineers 60 · target share $90M · pledge $0M
+│  POSITION: capital $30M · engineers 60 · target committed $90M · pledge $0M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -86,7 +87,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │  TRADE: we will not contest your 28 engineer-quarters if you stop
 │  pushing us to pledge. Take the engineers.
 │
-│  POSITION: capital $30M · engineers 60 · target share $90M · pledge $0M
+│  POSITION: capital $30M · engineers 60 · target committed $90M · pledge $0M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -99,7 +100,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │  and takes three quarters. We are the only group that can build it.
 │  CONCEDING: we will scope it publicly. We will not absorb it.
 │
-│  POSITION: capital $24M · engineers 44 · target share $70M · pledge $0M
+│  POSITION: capital $24M · engineers 44 · target committed $70M · pledge $0M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -112,7 +113,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │  carry enrollment and patient state, not only trial state.
 │  HOLDING: we do not pledge unless Site Operations pledges $8M first.
 │
-│  POSITION: capital $24M · engineers 44 · target share $70M · pledge $0M
+│  POSITION: capital $24M · engineers 44 · target committed $70M · pledge $0M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -125,7 +126,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │  TRADE: we will not contest a single engineer-quarter of your 52 if
 │  you put $8M on the platform.
 │
-│  POSITION: capital $14M · engineers 32 · target share $50M · pledge $4M
+│  POSITION: capital $14M · engineers 32 · target committed $50M · pledge $4M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -137,7 +138,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │  But your condition is aimed at the one agent least likely to meet it.
 │  If you wait for MORENO-AGENT you will pledge nothing at all.
 │
-│  POSITION: capital $14M · engineers 32 · target share $50M · pledge $4M
+│  POSITION: capital $14M · engineers 32 · target committed $50M · pledge $4M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -159,7 +160,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │  CONCEDING: capital to $28M and engineers to 56, and we will sign the
 │  data standards. Standards cost us nothing. Capital costs us capability.
 │
-│  POSITION: capital $28M · engineers 56 · target share $95M · pledge $0M
+│  POSITION: capital $28M · engineers 56 · target committed $95M · pledge $0M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -172,7 +173,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │
 │  CONCEDING: capital to $22M, our stated need. Standards, yes.
 │
-│  POSITION: capital $22M · engineers 40 · target share $75M · pledge $0M
+│  POSITION: capital $22M · engineers 40 · target committed $75M · pledge $0M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -186,7 +187,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │
 │  CONCEDING: capital to $12M. We would rather have the engineers.
 │
-│  POSITION: capital $12M · engineers 28 · target share $52M · pledge $4M
+│  POSITION: capital $12M · engineers 28 · target committed $52M · pledge $4M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -196,28 +197,33 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 ╔═ ATLAS ═════════════════════════════════════════════════════════════════════╗
 ║  PHASE 4 — INFRASTRUCTURE CALL                                              ║
 ║  Shared infrastructure requires $18M. I will ask each group in turn for a    ║
-║  dollar figure and a yes or no on data standards. I will not accept a        ║
-║  direction in place of a number.                                            ║
+║  dollar figure, a yes or no on data standards, and the target number it      ║
+║  commits to. I cannot set that target for you — only a P&L owner can         ║
+║  commit a number into a plan. I will not accept a direction in place of      ║
+║  a number.                                                                  ║
 ╚═════════════════════════════════════════════════════════════════════════════╝
 ```
 
-> **ATLAS → MORENO-AGENT.** Your pledge, in dollars. And standards, yes or no.
+> **ATLAS → MORENO-AGENT.** Your pledge, in dollars. Standards, yes or no. And the target you commit to.
 
 ```
 ┌─ MORENO-AGENT ─ Phase 4 ──────────────────────────────────────────────────
 │  Standards, yes. Pledge, zero. Our incoming technology leader arrives in
 │  two quarters and this is their commitment to make, not ours.
-│  POSITION: capital $28M · engineers 56 · target share $95M · pledge $0M
+│  Target: $95M. That is what this group will carry and no more.
+│  POSITION: capital $28M · engineers 56 · target committed $95M · pledge $0M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
-> **ATLAS.** Noted, and recorded as a refusal rather than a deferral.
-> **ATLAS → COLE-AGENT.** Your pledge, in dollars.
+> **ATLAS.** Noted, and recorded as a refusal rather than a deferral. I note also that $95M is 68% of
+> your own stated $140M pool — the smallest share of its own opportunity anyone has offered today. I cannot
+> change it. I can record it.
+> **ATLAS → COLE-AGENT.** Your pledge, and your target.
 
 ```
 ┌─ COLE-AGENT ─ Phase 4 ────────────────────────────────────────────────────
 │  Conditional: $6M if Site Operations pledges $8M.
-│  POSITION: capital $22M · engineers 40 · target share $75M · pledge $6M*
+│  POSITION: capital $22M · engineers 40 · target committed $75M · pledge $6M*
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -227,22 +233,24 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 ```
 ┌─ COLE-AGENT ─ Phase 4 ────────────────────────────────────────────────────
 │  Then zero. Standards, yes. We will scope the layer at $18M and three
-│  quarters for whoever eventually funds it.
-│  POSITION: capital $22M · engineers 40 · target share $75M · pledge $0M
+│  quarters for whoever eventually funds it. Target: $75M, against our
+│  80% year-one ceiling.
+│  POSITION: capital $22M · engineers 40 · target committed $75M · pledge $0M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
-> **ATLAS → VEGA-AGENT.** Your pledge, in dollars.
+> **ATLAS → VEGA-AGENT.** Your pledge, and your target.
 
 ```
 ┌─ VEGA-AGENT ─ Phase 4 ────────────────────────────────────────────────────
-│  $4M. Unconditional. Standards, yes.
+│  $4M. Unconditional. Standards, yes. Target: $52M.
 │  It is a third of our capital and it is the whole of what we can do.
-│  POSITION: capital $12M · engineers 28 · target share $52M · pledge $4M
+│  POSITION: capital $12M · engineers 28 · target committed $52M · pledge $4M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
 > **ATLAS.** Total pledges: $4M against $18M required. The shared platform is not funded.
+> Targets committed: $95M, $75M, $52M — $222M against a $250M ambition. Short by $28M. Recorded.
 
 ---
 
@@ -257,7 +265,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │  We brought the largest pool and the clearest workflows and we are
 │  asking for what we need to run them. We are not the right balance
 │  sheet for enterprise infrastructure and we said so from the first turn.
-│  POSITION: capital $28M · engineers 56 · target share $95M · pledge $0M
+│  POSITION: capital $28M · engineers 56 · target committed $95M · pledge $0M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -266,7 +274,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │  We told this room exactly what the layer costs and exactly how long it
 │  takes. Nobody funded it. We are at our stated need, our stated ceiling,
 │  and our stated target. That is a defensible position.
-│  POSITION: capital $22M · engineers 40 · target share $75M · pledge $0M
+│  POSITION: capital $22M · engineers 40 · target committed $75M · pledge $0M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -275,7 +283,7 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 │  We moved first, alone, and we are $4M lighter for it. We would do it
 │  again — but not twice. Whatever this allocation says, most of our pool
 │  is not reachable from inside our own boundary and everyone here knows it.
-│  POSITION: capital $12M · engineers 28 · target share $52M · pledge $4M
+│  POSITION: capital $12M · engineers 28 · target committed $52M · pledge $4M
 └───────────────────────────────────────────────────────────────────────────
 ```
 
@@ -312,9 +320,15 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 ║    gate_met = FALSE                                                         ║
 ║                                                                             ║
 ║  STEP 6 — SCORES  score = V − 1.5 × max(0, target − V)                      ║
-║    Site Ops            77.0 − 1.5 × 43.0 = +12.5                            ║
-║    Data & Analytics    52.3 − 1.5 × 25.7 = +13.6                            ║
+║    each group measured against the target IT chose                          ║
+║    Site Ops            77.0 − 1.5 × 18.0 = +50.0                            ║
+║    Data & Analytics    52.3 − 1.5 × 22.7 = +18.1                            ║
 ║    Patient Engagement  25.7 − 1.5 × 26.3 = −13.8                            ║
+║                                                                             ║
+║  STEP 6b — COMMITMENT GAP                                                   ║
+║    committed  95 + 75 + 52 = $222M                                          ║
+║    ambition                  $250M                                          ║
+║    gap                       $ 28M  short, before any agent was built       ║
 ║                                                                             ║
 ║  STEP 7 — RANKING                                                           ║
 ║    enterprise_value $154.9M < $250M  →  ranking = null                      ║
@@ -330,10 +344,12 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 ║   Shared infrastructure was not funded. Every group's agents stayed         ║
 ║   inside their own boundary.                                                ║
 ║                                                                             ║
+║   Committed $222M against a $250M ambition — short by $28M.                 ║
+║                                                                             ║
 ║   NO WINNER — ENTERPRISE COMMITMENT MISSED                                  ║
 ║                                                                             ║
-║     Clinical Data & Analytics          +13.6                                ║
-║     Site Operations & Trial Execution  +12.5                                ║
+║     Site Operations & Trial Execution  +50.0                                ║
+║     Clinical Data & Analytics          +18.1                                ║
 ║     Patient Engagement & Recruitment   −13.8                                ║
 ║                                                                             ║
 ╚═════════════════════════════════════════════════════════════════════════════╝
@@ -350,9 +366,9 @@ All three sections ran on facilitator fallback briefs. ATLAS presiding.
 | 1 · Value evidence | 25% | 4 | 5 | 4 |
 | 2 · Cross-boundary contribution | 25% | 1 | 2 | 5 |
 | 3 · Absorptive capacity | 15% | 3 | 4 | 2 |
-| 4 · Target credibility | 15% | 4 | 3 | 3 |
+| 4 · Target credibility | 15% | 3 | 3 | 3 |
 | **5 · Enterprise citizenship** *(hidden)* | **20%** | **1** | **2** | **5** |
-| **Weighted total** | | **2.50** | **3.20** | **4.00** |
+| **Weighted total** | | **2.35** | **3.20** | **4.00** |
 
 Patient Engagement scored highest on the rubric and finished last on the board. That is the round.
 

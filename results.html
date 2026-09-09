@@ -76,6 +76,30 @@
     ]);
   }
 
+  function commitmentGap(r) {
+    var t = r.totals;
+    var committed = t.target_committed, ambition = t.target_ambition, gap = t.commitment_gap;
+    var short = gap > 0;
+    var sec = el("section");
+    sec.appendChild(el("div", { class: short ? "counterfactual" : "callout ok" }, [
+      el("div", { class: "eyebrow", text: "What the groups committed to" }),
+      el("p", { class: "big" }, [
+        document.createTextNode("The three groups committed to "),
+        el("em", { text: "$" + A.money0(committed) + "M" }),
+        document.createTextNode(" between them, against a "),
+        el("em", { text: "$" + A.money0(ambition) + "M" }),
+        document.createTextNode(short ? " enterprise ambition — short by " : " enterprise ambition — over by "),
+        el("em", { text: "$" + A.money0(Math.abs(gap)) + "M" }),
+        document.createTextNode(" before a single agent was built.")
+      ]),
+      el("p", { class: "muted small mb0",
+        text: short
+          ? "Nobody set these numbers for them. Each group chose the target it was willing to carry, because only a P&L owner can commit a number into a plan."
+          : "Each group chose the target it was willing to carry. Collectively they went past what was asked of them." })
+    ]));
+    return sec;
+  }
+
   function leaderboard(r) {
     var met = !!r.totals.gate_met;
     var gs = r.groups.slice().sort(function (a, b) { return b.group_score - a.group_score; });
@@ -117,7 +141,8 @@
     var blocks = [
       { key: "capital", label: "Platform capital", total: r.totals.capital, fmt: function (v) { return "$" + v + "M"; }, burden: false },
       { key: "engineering", label: "Central engineering", total: r.totals.engineering, fmt: function (v) { return v + " eq"; }, burden: false },
-      { key: "target", label: "Enterprise target accepted", total: r.totals.target, fmt: function (v) { return "$" + v + "M"; }, burden: true }
+      { key: "target", label: "Target each group committed to", total: r.totals.target_committed,
+        fmt: function (v) { return "$" + v + "M"; }, burden: true }
     ];
 
     var wrap = el("div", { class: "alloc" });
@@ -304,6 +329,7 @@
       el("div", { class: "eyebrow", text: "Round " + r.round + (r.generated ? " · " + String(r.generated).slice(0, 10) : "") })
     ]));
     out.appendChild(gateBanner(r));
+    out.appendChild(commitmentGap(r));
     out.appendChild(leaderboard(r));
     out.appendChild(allocChart(r));
     out.appendChild(valueTable(r));

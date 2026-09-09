@@ -18,6 +18,10 @@
       <h1 id="title">Aster Life Sciences — Agentic Allocation Simulation</h1>
       <p class="disclaimer" id="disclaimer"></p>
       <div class="stack" id="situation"></div>
+      <div class="callout accent a-slate" style="margin-top:var(--gap)">
+        <div class="eyebrow">Why you are doing this</div>
+        <p class="mb0" id="framing" style="font-size:17.5px"></p>
+      </div>
     </section>
 
     <section>
@@ -75,6 +79,7 @@
     A.qs("#title").textContent = S.meta.title;
     A.qs("#disclaimer").textContent = S.meta.disclaimer;
     A.qs("#one-rule").textContent = S.one_rule;
+    A.qs("#framing").textContent = S.framing;
     A.qs("#steps-note").textContent = S.steps_note;
 
     var sit = A.qs("#situation");

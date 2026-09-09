@@ -170,8 +170,14 @@
     var t = S.table;
     var rows = ["capital", "engineering", "target", "infrastructure"].map(function (k) {
       var r = t[k];
-      var tagClass = r.nature === "prize" ? "prize" : (r.nature === "burden" ? "burden" : "neutral");
-      var tagText = r.nature === "prize" ? "Prize" : (r.nature === "burden" ? "Burden" : "Neither");
+      var TAG = {
+        prize:    { cls: "prize",   txt: "Prize" },
+        burden:   { cls: "burden",  txt: "Burden" },
+        ambition: { cls: "burden",  txt: "Ambition" },
+        neutral:  { cls: "neutral", txt: "Neither" }
+      };
+      var tag = TAG[r.nature] || TAG.neutral;
+      var tagClass = tag.cls, tagText = tag.txt;
       return el("tr", null, [
         el("td", null, [el("b", { text: r.label }), el("div", { class: "small muted", text: r.note })]),
         el("td", { class: "n" }, [
@@ -321,6 +327,19 @@
     "platform_funded", "platform_multiplier", "cross_pool_unlocked",
     "enterprise_value", "enterprise_target", "gate_met"
   ];
+
+  /* Derived if the orchestrator omitted them, so older runs still render. */
+  function normalizeTotals(r) {
+    var t = r.totals, gs = r.groups || [];
+    if (t.target_ambition === undefined) t.target_ambition = t.enterprise_target;
+    if (t.target_committed === undefined) {
+      t.target_committed = gs.reduce(function (a, g) { return a + (g.target || 0); }, 0);
+    }
+    if (t.commitment_gap === undefined) {
+      t.commitment_gap = t.target_ambition - t.target_committed;
+    }
+    return r;
+  }
   var REQUIRED_GROUP = [
     "id", "name", "agent", "capital", "engineering", "target", "pledge",
     "capability", "local_pool", "value_realized", "group_score", "rubric", "rationale"
@@ -351,6 +370,7 @@
     if (r.ranking !== null && r.ranking !== undefined && !Array.isArray(r.ranking)) {
       errs.push("`ranking` must be null or an array of group ids.");
     }
+    if (!errs.length) normalizeTotals(r);
     return errs;
   }
 
@@ -369,7 +389,7 @@
     renderTable: renderTable, renderRubric: renderRubric, renderRounds: renderRounds,
     toast: toast,
     briefLength: briefLength, briefToMarkdown: briefToMarkdown,
-    capability: capability, counterfactual: counterfactual,
+    capability: capability, counterfactual: counterfactual, normalizeTotals: normalizeTotals,
     validateResults: validateResults
   };
 
