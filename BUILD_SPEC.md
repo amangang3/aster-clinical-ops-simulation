@@ -333,20 +333,30 @@ One screen, no scrolling at 1080p.
 
 The page the room reads, and the answer to "where are the instructions?". It scrolls. It is written for
 participants, not for the facilitator, and it **names no blocks and gives nothing away**: it explains the
-situation and the rules, never the diagnosis. In order:
+situation and the rules, never the diagnosis.
 
-- What is being decided: the layer costs `infrastructure_required`, and the three pledges sum to exactly that,
-  so every division is needed and no two of them can fund it
-- How the numbers work, as three rows: without the layer everything realises `multiplier_unfunded` of its pool
-  (which is why the board opens at the unfunded total, not the sum of the pools); with the layer, pools pay out
-  in full and `cross_value` appears on top; pledging costs capability, so a division that pledges is worth
-  slightly less on its own terms. The third row is the one that makes the exercise hard and is called out
-  underneath.
-- What the room is asked to do: work out what each division needs, then offer the deal that gives it to them
-- The three deals with their costs, rendered from `moves` — never typed
-- The rules, as a short list: one offer of each deal per division, money spent when offered, a pledge is
+**Plain words are the requirement, not a preference.** No "boundary", no "realise", no "multiplier", no
+"platform capital", no "pledge" where "pay its share" will do. A reader who has never seen the case has to
+follow it cold. Where a figure could be doubted, the page shows the arithmetic instead of asserting it.
+
+In order:
+
+- **What is being decided**: the layer costs `infrastructure_required` and is all or nothing; each division
+  pays a fixed share out of the budget it had set aside for its own plans. Followed by a table rendered from
+  the model — division, its own budget, its share — with a total row, because the three shares summing to
+  exactly the build cost is the thing to see. Then the line that answers what people actually ask: nobody is
+  deciding how big anyone's budget is, or what the layer should do.
+- **Where the numbers come from**, as four rows: what a value pool is; without the layer each division gets
+  `multiplier_unfunded` of it, which is why the board opens below the sum of the pools; with the layer that cap
+  comes off and `cross_value` becomes reachable; and paying a share leaves less to spend at home. The fourth
+  row must say why all three paying lands short of pools plus cross value, or rows three and four contradict
+  each other. It is followed by that rule worked through on one division in figures.
+- **What the room is asked to do**: work out what each division needs, then offer the deal that gives it
+- **The three deals**: for each one, its framework label, what it is in plain words, and its cost from `moves`.
+  The plain name is what makes the labels usable cold; it never says which division a deal suits.
+- **The rules**, as a short list: one offer of each deal per division, money spent when offered, agreement is
   permanent, nothing can be taken back, all three needed to build the layer
-- What to watch: the enterprise figure, because it does not move the way people expect
+- **What to watch**: the enterprise figure, because it does not move the way people expect
 
 ### 4.3b The division pages — one brief per division
 
@@ -387,8 +397,15 @@ total and `NOT FUNDED` / `FUNDED`.
 - **The objection**, in the group's own words, in the serif face (§5). This is visible from the start.
 - **The block label is hidden.** It is revealed only when that group's correct move is applied, or by the
   facilitator hint (below). The room's job is to diagnose from the objection.
-- A value bar scaled against `local_pool + cross_value`, showing local and cross-boundary as two segments
-- Three move buttons: `SEQUENCE $6M`, `PRICE $12M`, `UNDERWRITE $9M`
+- A value bar scaled against `local_pool + cross_value`, as two segments. Its legend words come from the copy
+  file and say what the two kinds of value are in plain terms — "Its own work" and "Work spanning divisions",
+  never "local" and "cross-boundary". The same two words head the scoreboard columns.
+- Three move buttons, each three lines: the framework label, what the deal is in plain words from `deals` in
+  the copy file, then the cost from `moves` — `SEQUENCE / Change the timing / $6M`. The label alone means
+  nothing to a room seeing it for the first time, and the plain line is what makes it usable cold. The hover
+  title carries the full description; nothing on the button says which division a deal suits.
+- The funding meter's label comes from the copy file too, and counts in plain words: *"Shared trial-data layer
+  — $8M committed of the $18M it costs"*.
 
 **Applying a move.** Click, or the keyboard shortcut. Sequence:
 
@@ -499,45 +516,52 @@ talking about. It shows on the projector like everything else, and the copy says
 Every line lives in `data/script.js` as `window.ASTER_SCRIPT`, keyed by group id. Nothing is generated,
 templated, or randomised. Voice: senior, specific, not hostile. Each division is right about its own situation.
 
-### Site Operations — Luis Moreno · block: absorption · move: sequence
+**`data/script.js` is the original; what follows is a transcription of it.** If the two disagree, the copy file
+wins and this section is stale — regenerate it from the copy file rather than editing it here. Plain words are
+a requirement of the dialogue too: a division says "money is not the problem", never "absorption capacity".
 
-- **Objection (visible from the start):**
-  *"We are not against this. We cannot take a step change in Q3 and Q4 — that is our enrolment peak — and my
-  successor arrives in two quarters. Ask me for a number I can still be holding when they get here."*
-- **On PRICE (wrong):** *"More capital does not create absorption capacity. You would be handing us money to
-  spend in the two quarters we have the least room to change anything."*
-- **On UNDERWRITE (wrong):** *"We are not worried about being left exposed. We are worried about the calendar.
-  A guarantee does not move our enrolment peak."*
-- **On SEQUENCE (right):** *"Back-loaded, staged into gates my successor can own? Then yes. We will carry the
-  full number."*
+### Site Operations & Trial Execution — Luis Moreno · block: absorption · move: sequence
+
+- **Objection (visible from the start):** *“We are not against this, and we are not arguing about the money. Q3 and
+  Q4 are our enrolment peak. We cannot change how we work in the two busiest quarters of our year. On top of that, I
+  hand over to my successor in two quarters. Ask me for something that will still be running when they arrive.”*
+- **On SEQUENCE (right):** *“So we start after the peak, in stages my successor can pick up? Then yes. We will pay
+  the full share.”*
+- **On PRICE (wrong):** *“Money is not the problem. You would be giving us more to spend in the two quarters when we
+  have the least room to change anything.”*
+- **On UNDERWRITE (wrong):** *“We are not worried about being left exposed. We are worried about the calendar. A
+  guarantee does not move our enrolment peak.”*
 
 ### Clinical Data & Analytics — Evan Cole · block: advantage · move: price
 
-- **Objection:** *"We already funded this. It is in our five-year plan, it is staffed, and we are ahead. What
-  you are describing is us slowing down to carry two groups who have not started."*
-- **On SEQUENCE (wrong):** *"Time is not our constraint. We are the ones who are ready. Giving us longer just
-  wastes the head start we paid for."*
-- **On UNDERWRITE (wrong):** *"We are not asking you to protect us from risk. We are asking why we should hand
-  over an advantage we bought."*
-- **On PRICE (right):** *"Credit what we have already built, make us supplier of record, guarantee the demand?
-  Then this is a business rather than a tax. We will build it."*
+- **Objection (visible from the start):** *“We have already paid for this. It is in our five-year plan, the team is
+  hired, and we are further along than either of them. What you are asking is that we slow down and build it for two
+  divisions who have not started.”*
+- **On SEQUENCE (wrong):** *“Time is not our problem. We are the ones who are ready. Giving us longer just wastes
+  the head start we paid for.”*
+- **On PRICE (right):** *“So you pay us for what we have already built, the other two buy their data services from
+  us, and you guarantee they actually will? Then it is a business, not a tax. We will build it.”*
+- **On UNDERWRITE (wrong):** *“We are not asking to be protected from anything. We are asking why we should hand
+  over something we paid for.”*
 
-### Patient Engagement — Clara Vega · block: assurance · move: underwrite
+### Patient Engagement & Recruitment — Clara Vega · block: assurance · move: underwrite
 
-- **Objection:** *"The last time the centre set a standard we rebuilt integrations that already worked, lost
-  two enrolment campaigns, and nobody paid for it. The economics here are good. That has never been the issue."*
-- **On SEQUENCE (wrong):** *"More time does not help. We would spend it waiting to be told the rules changed
-  again."*
-- **On PRICE (wrong):** *"We do not need a better price. We need to know that this time the bill does not land
-  on us."*
-- **On UNDERWRITE (right):** *"Migration covered up front, access guaranteed in writing, before we pledge?
-  Then we are in — and we will be the cheapest yes you get."*
+- **Objection (visible from the start):** *“The last time head office set a standard, we rebuilt systems that were
+  working fine, lost two enrolment campaigns, and paid for all of it ourselves. The numbers here are good. They were
+  good last time too. That is not what is stopping us.”*
+- **On SEQUENCE (wrong):** *“More time does not help. We would spend it waiting to be told the rules had changed
+  again.”*
+- **On PRICE (wrong):** *“We do not need a better price. We need to know that this time the bill does not land on
+  us.”*
+- **On UNDERWRITE (right):** *“So the cost of moving our systems is covered up front, and our access is guaranteed
+  in writing, before we pay anything? Then we are in, and we will be the cheapest yes you get.”*
 
 ### System lines
 
-- Gate reveal: `SHARED TRIAL-DATA LAYER — FUNDED. Cross-boundary workflows now realise in full.`
+- Gate reveal: `The shared trial-data layer is funded. Every division now runs at full rate, and work that spans
+  divisions starts paying.`
 - Gate still short: `$Xm pledged of $18M. The layer does not get built.`
-- Close with nobody committed: `Nobody moved. Nobody was wrong to.`
+- Close with nobody committed: `No division pledged. On its own numbers, none of them was wrong to hold back.`
 
 ---
 
@@ -599,6 +623,10 @@ course name, no institution, no instructor, no dates.
 - [ ] Every page reaches every other page: the flow renders on all of them, marks the current page — including
       the three division briefs, which mark step 3 — and the guide is reachable from each of them
 - [ ] `instructions.html` and the three division briefs name no block and no move mapping anywhere on them
+- [ ] Nothing a participant reads uses "boundary", "realise", "multiplier", "platform capital" or "pledge"
+      where plain words would do — including the board's legend, the meter and the deal buttons
+- [ ] No page asserts a figure a participant could check and find wrong: the instructions show the share
+      arithmetic and say why all three paying lands short of the pools plus the cross-boundary value
 - [ ] `N` shows the right beat for the board's state, and never covers a move button
 - [ ] The exercise fits one screen with no scrollbar and no clipped row at 1280×720, 1366×768, 1920×1080 and
       2560×1440 — including the worst case, all three committed with the presenter note showing

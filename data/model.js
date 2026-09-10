@@ -97,6 +97,9 @@ window.ASTER_FMT = {
       ambition:  F.moneyInt(A.ambition),
       infra:     F.moneyInt(A.infrastructure_required),
       capital:   F.moneyInt(F.sum("capital_need")),
+      // The three value pools added up, at full rate. The copy needs this to explain
+      // why the board opens lower than the sum of the pools.
+      pools:     F.moneyInt(F.sum("local_pool")),
       cross:     F.moneyInt(F.sum("cross_value")),
       baseline:  F.money(none.enterprise),
       ceiling:   F.money(all.enterprise),

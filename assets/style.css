@@ -410,6 +410,9 @@ a.card--link:hover .card__cta { color: var(--accent); }
   transition: background-color 200ms var(--ease), color 200ms var(--ease), border-color 200ms var(--ease);
 }
 .move span { display: block; font-weight: 400; color: var(--dim); letter-spacing: 0; }
+/* The framework label means nothing cold, so the button says what the deal is. Smaller
+   and tighter than the label, because three lines still have to fit the one-screen board. */
+.move__plain { font-size: 0.86em; line-height: 1.2; color: var(--muted) !important; }
 .move:hover:not(:disabled) { background: #223050; border-color: var(--muted); }
 .move:disabled { cursor: default; }
 .move.is-spent { color: var(--dim); border-style: dashed; }
@@ -619,6 +622,40 @@ table.grid tr.is-current td:first-child { box-shadow: inset 3px 0 0 var(--mint);
   max-width: 76ch;
 }
 
+/* The pledge table's total row, and a coloured division name inside a table cell */
+table.grid tr.is-total td { border-bottom: none; color: var(--text); font-weight: 600; }
+table.grid tr.is-total td:first-child { color: var(--muted); font-weight: 400; }
+.swatch { display: inline-flex; align-items: baseline; gap: 0.5rem; white-space: nowrap; }
+
+/* A deal: its framework label, with the plain-words name underneath */
+.grid--deals .factor { white-space: nowrap; }
+.deal b { display: block; letter-spacing: 0.08em; color: var(--text); }
+.deal > span { display: block; font-weight: 400; color: var(--muted); }
+
+/* One rule worked through in figures, so the arithmetic is visible rather than asserted */
+.worked {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.3rem 1.35rem;
+  margin: 0 0 1.1rem;
+  padding: 0.9rem 1.22rem;
+  background: var(--surface);
+  border: var(--hair);
+  border-radius: var(--radius);
+  max-width: 72ch;
+}
+.worked dt { color: var(--muted); }
+.worked dd { margin: 0; color: var(--text); font-variant-numeric: tabular-nums; }
+.worked dt:last-of-type, .worked dt:last-of-type + dd { font-weight: 600; }
+
+/* The sentence a section turns on, set apart from the prose around it */
+.callout {
+  border-left: 3px solid var(--mint);
+  padding-left: 1.1rem;
+  margin-top: 1.1rem !important;
+}
+.callout p:last-child, p.callout { color: var(--text); }
+
 /* ---- facilitator guide ---- */
 
 .standfirst { font-size: 1.22rem; color: var(--muted); margin: 0.67rem 0 0; max-width: 80ch; }
@@ -692,6 +729,8 @@ a.flow__label:hover { color: var(--mint); }
   .row__meta { grid-column: 1 / -1; }
   .score__head { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .score__cols, .flow, .moments, .pair { grid-template-columns: minmax(0, 1fr); }
+  .worked { grid-template-columns: minmax(0, 1fr); gap: 0 1.35rem; }
+  .worked dd { margin-bottom: 0.5rem; }
 }
 
 @media (max-width: 900px), (max-height: 560px) {

@@ -20,16 +20,16 @@ window.ASTER_SCRIPT = {
       role: "Runs the network of sites and hospitals that carry out the trials. It is the biggest of the three divisions.",
       measured: "Enrolment against plan, how long a site takes to activate, and cost per patient enrolled.",
       position: [
-        "Site Operations has the biggest value pool in the Center at {local}. Six of the nine highest-value workflows run through it, but each of those six starts or finishes in another division.",
-        "Those workflows are where the {cross} of cross-boundary value comes from. Site Operations cannot get any of it without the shared layer, and it has no data engineering team to build one.",
+        "Site Operations has the biggest value pool of the three, at {local}. Six of the nine highest-value workflows run through it, and every one of those six either starts or finishes in another division.",
+        "Those six workflows are where its {cross} of extra value sits. Site Operations cannot earn any of it without the shared layer, and it has no data engineering team of its own to build one.",
         "Q3 and Q4 are its enrolment peak, and they are the two quarters when it can least afford to change how anything works. A new technology leader arrives in two quarters and will inherit whatever gets agreed now."
       ],
-      work_out: "Site Operations has not argued with the size of the target. Work out what would have to change about the shape of it.",
-      objection: "We are not against this. We cannot take a step change in Q3 and Q4 — that is our enrolment peak — and my successor arrives in two quarters. Ask me for a number I can still be holding when they get here.",
+      work_out: "Site Operations has not argued about the amount. Work out what else it needs changed before it will say yes.",
+      objection: "We are not against this, and we are not arguing about the money. Q3 and Q4 are our enrolment peak. We cannot change how we work in the two busiest quarters of our year. On top of that, I hand over to my successor in two quarters. Ask me for something that will still be running when they arrive.",
       responses: {
-        price:      "More capital does not create absorption capacity. You would be handing us money to spend in the two quarters we have the least room to change anything.",
+        price:      "Money is not the problem. You would be giving us more to spend in the two quarters when we have the least room to change anything.",
         underwrite: "We are not worried about being left exposed. We are worried about the calendar. A guarantee does not move our enrolment peak.",
-        sequence:   "Back-loaded, staged into gates my successor can own? Then yes. We will carry the full number."
+        sequence:   "So we start after the peak, in stages my successor can pick up? Then yes. We will pay the full share."
       }
     },
 
@@ -38,16 +38,16 @@ window.ASTER_SCRIPT = {
       role: "Collects, validates and analyses the trial data. It is the only division with the engineering depth to build the shared layer.",
       measured: "Data quality, how fast it can answer a question from the trial teams, and delivery against its own five-year platform plan.",
       position: [
-        "Data & Analytics has a {local} value pool. Only {cross} of its value sits on a boundary, the smallest cross-boundary stake of the three divisions, so it has the least riding on the layer and is the only division that can build it.",
+        "Data & Analytics has a {local} value pool. Only {cross} of its value depends on work that spans divisions — the smallest such stake of the three — so it has the least riding on the layer, and it is the only division that can build it.",
         "It has already funded platform work of its own. The plan is written, the team is hired, and it is further along than the other two divisions.",
         "Building the shared layer means building it for everyone. That slows its own roadmap and hands over work it has already paid for."
       ],
       work_out: "Data & Analytics is being asked to do the most and gets the least back for it. Work out what would make that a deal rather than a favour.",
-      objection: "We already funded this. It is in our five-year plan, it is staffed, and we are ahead. What you are describing is us slowing down to carry two divisions who have not started.",
+      objection: "We have already paid for this. It is in our five-year plan, the team is hired, and we are further along than either of them. What you are asking is that we slow down and build it for two divisions who have not started.",
       responses: {
-        sequence:   "Time is not our constraint. We are the ones who are ready. Giving us longer just wastes the head start we paid for.",
-        underwrite: "We are not asking you to protect us from risk. We are asking why we should hand over an advantage we bought.",
-        price:      "Credit what we have already built, make us supplier of record, guarantee the demand? Then this is a business rather than a tax. We will build it."
+        sequence:   "Time is not our problem. We are the ones who are ready. Giving us longer just wastes the head start we paid for.",
+        underwrite: "We are not asking to be protected from anything. We are asking why we should hand over something we paid for.",
+        price:      "So you pay us for what we have already built, the other two buy their data services from us, and you guarantee they actually will? Then it is a business, not a tax. We will build it."
       }
     },
 
@@ -56,23 +56,23 @@ window.ASTER_SCRIPT = {
       role: "Finds patients, enrols them, and keeps them in the trial. It is the smallest of the three divisions.",
       measured: "Enrolment yield per campaign, patient retention, and cost per enrolled patient.",
       position: [
-        "Patient Engagement is the smallest division, with a {local} value pool. Waiting on the layer is another {cross} of cross-boundary value — half its own pool again, the highest ratio in the room.",
-        "That makes it the best return per dollar in the room. It needs {capital} of platform capital, the least of the three, and it is being asked for the smallest pledge at {pledge}.",
-        "The last time the centre set a standard, this division rebuilt integrations that were already working, lost two enrolment campaigns, and paid for it out of its own budget. Nobody reimbursed it."
+        "Patient Engagement is the smallest division, with a {local} value pool. Waiting on the layer is another {cross} from work that spans divisions — half its own pool again, and the best deal of the three for the money.",
+        "Its own plans need {capital}, the least of the three, and it is being asked for the smallest share at {pledge}.",
+        "The last time head office set a standard, this division rebuilt systems that were already working, lost two enrolment campaigns, and paid for it out of its own budget. Nobody paid it back."
       ],
-      work_out: "Patient Engagement has the most to gain and the least standing to ask for anything. Work out what it needs to hear before it pledges.",
-      objection: "The last time the centre set a standard we rebuilt integrations that already worked, lost two enrolment campaigns, and nobody paid for it. The economics here are good. That has never been the issue.",
+      work_out: "Patient Engagement has the most to gain and the least standing to ask for anything. Work out what it needs to hear before it will pay.",
+      objection: "The last time head office set a standard, we rebuilt systems that were working fine, lost two enrolment campaigns, and paid for all of it ourselves. The numbers here are good. They were good last time too. That is not what is stopping us.",
       responses: {
-        sequence:   "More time does not help. We would spend it waiting to be told the rules changed again.",
+        sequence:   "More time does not help. We would spend it waiting to be told the rules had changed again.",
         price:      "We do not need a better price. We need to know that this time the bill does not land on us.",
-        underwrite: "Migration covered up front, access guaranteed in writing, before we pledge? Then we are in — and we will be the cheapest yes you get."
+        underwrite: "So the cost of moving our systems is covered up front, and our access is guaranteed in writing, before we pay anything? Then we are in, and we will be the cheapest yes you get."
       }
     }
   },
 
   /* ---- Lines the board itself uses ---- */
   system: {
-    gate_funded:  "The shared trial-data layer is funded. Every division now runs at full rate, and cross-boundary work pays out.",
+    gate_funded:  "The shared trial-data layer is funded. Every division now runs at full rate, and work that spans divisions starts paying.",
     gate_short:   "{pledged} pledged of {required}. The layer does not get built.",
     nobody_moved: "No division pledged. On its own numbers, none of them was wrong to hold back."
   },
@@ -101,78 +101,114 @@ window.ASTER_SCRIPT = {
       "The CIO can make the case but cannot commit the money. Only the person who owns a budget can put a number into a plan, so the three divisions have to agree between themselves. So far they have not."
     ],
     figures: [
-      { label: "The ambition",            note: "what the CIO wants the three divisions to reach" },
-      { label: "Shared trial-data layer", note: "cost to build it, all or nothing" },
-      { label: "Platform capital",        note: "what the three divisions need for their own plans" },
-      { label: "Cross-boundary value",    note: "value that only exists once the layer is built" }
+      { label: "The ambition",            note: "what the CIO wants the three divisions worth each year" },
+      { label: "Shared trial-data layer", note: "cost to build it — all or nothing" },
+      { label: "Their own tech budgets",  note: "what the three had set aside for their own plans" },
+      { label: "Work spanning divisions", note: "worth nothing today, and only pays once the layer exists" }
     ],
-    do_line: "You will read the three divisions, work out what each one needs before it will pledge, and pay for it. Three deals are on offer. Only one of them works on each division.",
+    pool_label: "value its agents could add each year",
+    do_line: "You will read the three divisions, work out what each one needs before it will pay its share, and offer it. There are three deals, and only one of them works on each division.",
     do_link: "How the session works",
     begin: "BEGIN",
     secondary: "Debrief"
   },
 
-  /* ---- Instructions, for the people in the room ---- */
+  /* ---- Instructions, for the people in the room ----
+     Written to be read cold by someone who has never seen the case. Plain words only:
+     no "boundary", no "realise", no "multiplier". It explains what a deal IS and never
+     which division it fits — the diagnosis is the exercise. ---- */
   instructions: {
     title: "How the session works",
-    standfirst: "About ten minutes on one screen. This page explains the numbers, what you are being asked to do, and the rules.",
+    standfirst: "Ten minutes on one screen. Read this first: what is being decided, where the numbers come from, and what you are being asked to do.",
 
     situation: {
       heading: "What is being decided",
       body: [
-        "The shared trial-data layer costs {infra}. Each division has been asked to pledge part of its own platform capital towards it.",
-        "The three pledges add up to exactly {infra}. Every division is needed. No two of them can fund it without the third, and there is no partial version of the layer."
-      ]
+        "Aster wants to build one shared trial-data layer: a single place where all three divisions keep their trial data, so that AI agents can follow a piece of work through the whole Center instead of stopping at the edge of one division.",
+        "It costs {infra} to build. It either gets built or it does not — there is no half version and no pilot.",
+        "Each division has been asked to pay a fixed share of that {infra}, out of the money it had already set aside for its own technology plans. The three shares add up to exactly {infra}, and no two of them are enough on their own."
+      ],
+      table_caption: "What each division is being asked for. The shares are fixed — you are not negotiating the amounts.",
+      note: "That is the entire decision. Nobody is deciding how big anyone's budget is, or what the layer should do. The only open question is whether all three divisions will pay their share."
     },
 
     numbers: {
-      heading: "How the numbers work",
-      caption: "Three rules produce every figure on the board. It is worth reading these before the exercise, because the first one surprises people.",
+      heading: "Where the numbers come from",
+      caption: "Four rules produce every figure you will see on the board. The second one is the one people find surprising.",
       rows: [
-        ["Without the layer, everything runs at {unfunded}",
-         "AI agents can only work inside the division that owns the data, so they never finish a workflow that crosses a boundary. Every division realises {unfunded} of its value pool. This is why the board opens at {baseline} rather than the sum of the three pools."],
-        ["With the layer, pools pay out in full",
-         "Agents work across boundaries. Each division realises its whole pool, and the {cross} of cross-boundary value appears on top of it."],
-        ["Pledging costs capability",
-         "A pledge is real money out of a division's own platform budget. It gives up some of its own capability to make it, so a division that pledges is worth slightly less on its own terms than one that does not."]
+        ["Each division has a value pool",
+         "This is what AI agents could add in that division each year, if they could reach every piece of data they needed. The three pools come to {pools} between them."],
+        ["Without the shared layer, each division gets {unfunded} of its pool",
+         "An agent can only reach data that its own division owns. Most of the work it would do needs something held by another division, so it stops halfway. This is why the board opens at {baseline} and not at {pools}."],
+        ["With the layer, that {unfunded} cap comes off — and another {cross} becomes reachable",
+         "Agents can follow a piece of work from one division into the next. Each division earns at full rate instead of {unfunded}, and work that spans two divisions starts paying for the first time."],
+        ["But paying for the layer leaves less to spend at home",
+         "A division's share comes out of the budget for its own plans, so it delivers a little less than its full pool. This is why all three paying lands at {ceiling} and not at {pools} plus {cross}. Worked through for Site Operations:"]
       ],
-      note: "That third rule is what makes this hard. A division that pledges pays immediately and gets nothing back unless the other two pledge as well."
+      note: "Put the second and fourth rules together and you have the problem. A division that pays its share is worse off straight away, and gets nothing back unless the other two pay as well."
     },
 
     job: {
       heading: "What you are asked to do",
       body: [
-        "Each division has said why it is holding back. None of them is arguing about whether the layer is worth building, and none of them disputes the numbers. All three agree the layer should exist.",
-        "Work out what each division actually needs, then offer the deal that gives it to them. Name the division and the deal, and it gets applied on screen."
+        "All three divisions agree the layer should be built, and none of them disputes the numbers. All three have still said no, each for its own reason, and each reason is a fair one.",
+        "Your job is to work out what each division needs in order to say yes, and then offer it. You have three deals. Each one works on exactly one of the three divisions."
       ]
     },
 
     moves: {
       heading: "The three deals",
-      caption: "One of these works on each division. On the other two it costs the same and changes nothing.",
-      note: "There is no partial credit. A deal that misses is money gone."
+      caption: "A deal changes the terms a division is being offered. It never changes the amount that division pays.",
+      note: "There is no partial credit and no refund. A deal offered to a division it does not suit costs the same and changes nothing."
     },
 
     rules: {
       heading: "The rules",
       items: [
         "Each deal can be offered to each division once.",
-        "The money is spent when you offer it, before anyone knows whether it worked.",
-        "A division that pledges stays in for the rest of the round.",
+        "The money is spent the moment you offer it, before you find out whether it worked.",
+        "Once a division agrees to pay, it stays in for the rest of the round.",
         "Nothing can be taken back.",
-        "The layer only gets built if all three divisions pledge."
+        "The layer only gets built if all three divisions agree."
       ]
     },
 
     watch: {
       heading: "What to watch",
       body: [
-        "Watch the enterprise value as divisions pledge. It does not move the way most people expect, and why it does is the whole point of the exercise.",
-        "If you have been assigned a division, watch its number as well as the total."
+        "Watch the enterprise value at the top of the board as divisions agree, one by one. It does not move the way most people expect, and working out why is the point of the exercise.",
+        "If you have been given a division to play, watch its own number as well as the total."
       ]
     },
 
     ready: "READ THE DIVISIONS"
+  },
+
+  /* ---- Labels the board and the scoreboard put on the two kinds of value ---- */
+  board: {
+    own:   "Its own work",
+    span:  "Work spanning divisions",
+    total: "Total",
+    meter: "Shared trial-data layer — {paid} committed of the {needed} it costs",
+    funded:     "Funded",
+    not_funded: "Not funded"
+  },
+
+  /* ---- The three deals in plain words. What each deal IS, never which division it
+     suits: that is what the room is there to work out. ---- */
+  deals: {
+    sequence: {
+      name: "Change the timing",
+      what: "They pay the same share, but later, and in stages rather than all at once. The amount does not change — only when it lands."
+    },
+    price: {
+      name: "Pay them for it",
+      what: "Credit the work they have already paid for, make them the one the other two buy from, and guarantee they actually will."
+    },
+    underwrite: {
+      name: "Cover their losses",
+      what: "A cap on what they can lose, agreed conditions for pulling out, and the cost of moving their systems paid up front."
+    }
   },
 
   /* ---- The divisions hub ---- */
@@ -189,12 +225,12 @@ window.ASTER_SCRIPT = {
       work_out: "What to work out",
       ask: "What it is being asked for"
     },
-    ask_line: "Pledge {pledge} of its {capital} platform capital towards the {infra} layer.",
+    ask_line: "Pay {pledge} towards the {infra} layer, out of the {capital} it had set aside for its own plans.",
     figures: [
-      { key: "local_pool",   label: "Value pool",           note: "what it earns inside its own boundary, at full rate" },
-      { key: "cross_value",  label: "Cross-boundary value", note: "on top of the pool, and only once the layer is built" },
-      { key: "capital_need", label: "Platform capital",     note: "what its own plan needs" },
-      { key: "pledge",       label: "Pledge asked",         note: "its share of the layer" }
+      { key: "local_pool",   label: "Value pool",             note: "what its agents could add each year, at full rate" },
+      { key: "cross_value",  label: "Work spanning divisions", note: "extra value, and only once the layer is built" },
+      { key: "capital_need", label: "Its own tech budget",    note: "what its own plans need" },
+      { key: "pledge",       label: "Share of the layer",     note: "what it is being asked to pay" }
     ],
     next: "Next division",
     back: "All three divisions"
@@ -223,7 +259,7 @@ window.ASTER_SCRIPT = {
       },
       funded: {
         title: "The layer is funded",
-        body: "Wait for the animation to finish. Then: nothing about these three divisions changed. The third pledge took the total past {infra}, so every division now runs at full rate and the cross-boundary value appears."
+        body: "Wait for the animation to finish. Then: nothing about these three divisions changed. The third share took the total to {infra}, so every division now runs at full rate and the work that spans them starts paying."
       },
       closed: {
         title: "Round closed",
@@ -239,8 +275,8 @@ window.ASTER_SCRIPT = {
       heading: "Forces incentivising collaboration",
       caption: "Why any division comes to the table.",
       rows: [
-        ["Dependency", "Value you cannot realise without an asset another division owns. The more of your value sits on a boundary, the more you need the deal — and if you are the one who owns that asset, your upside is their commitment, not your own roadmap."],
-        ["Threshold",  "The shared asset is lumpy. It exists only above a funding line no single division can reach on its own, so it gets built jointly or it does not get built."],
+        ["Dependency", "Value you cannot get without something another division owns. The more of your value depends on work that crosses into someone else, the more you need the deal — and if you are the one who owns the thing everybody needs, your upside is their commitment, not your own roadmap."],
+        ["Threshold",  "The shared asset is all or nothing. It exists only above a funding line no single division can reach on its own, so it gets built jointly or it does not get built."],
         ["Duplication","Left alone, divisions quietly build the same capability twice. Nobody can see it from inside their own plan, and the waste only surfaces once both have been funded."]
       ]
     },
@@ -260,8 +296,8 @@ window.ASTER_SCRIPT = {
     diagnosis: {
       heading: "The applied diagnosis",
       rows: {
-        "site-ops":           { pull: "Dependent", pull_note: "six of its nine top workflows cross a boundary, and it cannot build the layer they need" },
-        "data-analytics":     { pull: "Supplier",  pull_note: "the only division that can build the layer, the smallest cross-boundary stake, and the worst return on its own pledge" },
+        "site-ops":           { pull: "Dependent", pull_note: "six of its nine top workflows run into another division, and it cannot build the layer they need" },
+        "data-analytics":     { pull: "Supplier",  pull_note: "the only division that can build the layer, the least value depending on it, and the worst return on its own share" },
         "patient-engagement": { pull: "Dependent", pull_note: "best return per dollar in the room, and the layer is worth half its pool again" }
       }
     },
@@ -307,7 +343,7 @@ window.ASTER_SCRIPT = {
       caption: "Five pieces, in the order you use them.",
       items: [
         { label: "1 · The situation", href: "index.html",
-          body: "Put it up while the room settles. Four figures carry the set-up: {ambition} of ambition, an {infra} layer, {capital} of platform capital across the three divisions, and {cross} of value that only exists once the layer is built." },
+          body: "Put it up while the room settles. Four figures carry the set-up: {ambition} of ambition, an {infra} layer, {capital} of technology budget across the three divisions, and {cross} of value that only exists once the layer is built." },
         { label: "2 · How it works", href: "instructions.html",
           body: "Written for the room, not for you. Send it round beforehand, or spend a minute on it at the start. It explains the {unfunded} multiplier, which is the one thing people need before the board makes sense, and it does not name any of the blocks." },
         { label: "3 · The divisions", href: "divisions.html",
@@ -380,7 +416,7 @@ window.ASTER_SCRIPT = {
         ["Someone says the CIO should just mandate it",
          "Take it seriously, because it is the case question. Ask what a mandate is worth when the budget owner agrees in the meeting and then under-resources it for four quarters, and what you would have to believe about your own authority for a mandate to be the right call."],
         ["Someone says the multiplier is arbitrary",
-         "Agree. The size of the number is invented. The shape is not: value that sits on a boundary only appears above a threshold no single division can reach alone."],
+         "Agree. The size of the number is invented. The shape is not: value that depends on two divisions at once only appears above a threshold neither can reach alone."],
         ["Someone asks why the divisions do not just talk to each other",
          "They have, and they agree. Everyone thinks the layer should exist. That is the premise, and it changes nothing, which is the uncomfortable part."],
         ["The room gets all three right first time",

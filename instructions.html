@@ -19,13 +19,17 @@
   <section>
     <h2 id="situation-heading"></h2>
     <div class="prose" id="situation"></div>
+    <p class="caption" id="situation-table-caption"></p>
+    <table class="grid" id="pledges"></table>
+    <p class="prose callout" id="situation-note"></p>
   </section>
 
   <section>
     <h2 id="numbers-heading"></h2>
     <p class="caption" id="numbers-caption"></p>
     <table class="grid" id="numbers"></table>
-    <p class="prose" id="numbers-note"></p>
+    <dl class="worked" id="worked"></dl>
+    <p class="prose callout" id="numbers-note"></p>
   </section>
 
   <section>
@@ -36,7 +40,7 @@
   <section>
     <h2 id="moves-heading"></h2>
     <p class="caption" id="moves-caption"></p>
-    <table class="grid" id="moves"></table>
+    <table class="grid grid--deals" id="moves"></table>
     <p class="prose" id="moves-note"></p>
   </section>
 
@@ -66,7 +70,7 @@
   "use strict";
   var A = window.ASTER, S = window.ASTER_SCRIPT, FMT = window.ASTER_FMT;
   var I = S.instructions;
-  var fill = FMT.fill;
+  var fill = FMT.fill, money = FMT.moneyInt;
   var el = function (id) { return document.getElementById(id); };
 
   function paras(hostId, list) {
@@ -77,49 +81,103 @@
     });
   }
 
-  // Two-column table of label / explanation, used for the rules and the deals.
-  function rows(hostId, list) {
-    var host = el(hostId);
+  function tbody(host) {
     host.innerHTML = "<tbody></tbody>";
-    var body = host.querySelector("tbody");
-    list.forEach(function (row) {
-      var tr = document.createElement("tr");
-      tr.innerHTML = "<td class='factor'></td><td></td>";
-      tr.children[0].textContent = fill(row[0]);
-      tr.children[1].textContent = fill(row[1]);
-      body.appendChild(tr);
+    return host.querySelector("tbody");
+  }
+
+  function tr(body, cells) {
+    var row = document.createElement("tr");
+    cells.forEach(function (c) {
+      var td = document.createElement("td");
+      if (c.cls) td.className = c.cls;
+      if (c.node) td.appendChild(c.node); else td.textContent = fill(c.text);
+      row.appendChild(td);
     });
+    body.appendChild(row);
+    return row;
   }
 
   document.title = A.meta.org + " — " + I.title;
   el("title").textContent = I.title;
   el("standfirst").textContent = fill(I.standfirst);
 
+  /* What is being decided, and what each division is asked for */
   el("situation-heading").textContent = I.situation.heading;
   paras("situation", I.situation.body);
+  el("situation-table-caption").textContent = fill(I.situation.table_caption);
+  var pledges = tbody(el("pledges"));
+  A.groups.forEach(function (g) {
+    var name = document.createElement("span");
+    name.className = "swatch accent-" + g.accent;
+    name.innerHTML = '<span class="dot"></span>';
+    name.appendChild(document.createTextNode(g.short));
+    tr(pledges, [
+      { cls: "factor", node: name },
+      { cls: "num", text: money(g.capital_need) },
+      { cls: "num", text: money(g.pledge) }
+    ]);
+  });
+  // The total row is the point of the table: the three shares are exactly the build cost.
+  var total = tr(pledges, [
+    { cls: "factor", text: "All three together" },
+    { cls: "num", text: money(FMT.sum("capital_need")) },
+    { cls: "num", text: money(FMT.sum("pledge")) }
+  ]);
+  total.className = "is-total";
+  el("pledges").insertAdjacentHTML("afterbegin",
+    "<thead><tr><th>Division</th><th class='num'>Its own technology budget</th>" +
+    "<th class='num'>Share of the " + money(A.infrastructure_required) + " layer</th></tr></thead>");
+  el("situation-note").textContent = fill(I.situation.note);
 
+  /* Where the numbers come from */
   el("numbers-heading").textContent = I.numbers.heading;
   el("numbers-caption").textContent = fill(I.numbers.caption);
-  rows("numbers", I.numbers.rows);
+  var numbers = tbody(el("numbers"));
+  I.numbers.rows.forEach(function (row) {
+    tr(numbers, [{ cls: "factor", text: row[0] }, { text: row[1] }]);
+  });
+
+  /* The fourth rule, worked through on one division so the arithmetic is visible. */
+  var g = A.groups[0];
+  var left = g.capital_need - g.pledge;
+  var pct = Math.round(left / g.capital_need * 100) + "%";
+  [
+    ["Its own technology budget", money(g.capital_need)],
+    ["Its share of the layer", "− " + money(g.pledge)],
+    ["Left for its own plans", money(left) + ", which is " + pct + " of what it needed"],
+    ["So its value pool of " + money(g.local_pool) + " delivers", pct + " of what it could"]
+  ].forEach(function (pair) {
+    var dt = document.createElement("dt");
+    dt.textContent = pair[0];
+    var dd = document.createElement("dd");
+    dd.textContent = pair[1];
+    el("worked").appendChild(dt);
+    el("worked").appendChild(dd);
+  });
   el("numbers-note").textContent = fill(I.numbers.note);
 
   el("job-heading").textContent = I.job.heading;
   paras("job", I.job.body);
 
-  /* The three deals, priced out of the model rather than typed here. */
+  /* The three deals: framework label, what it is in plain words, and the price. */
   el("moves-heading").textContent = I.moves.heading;
-  el("moves-caption").textContent = I.moves.caption;
-  var moves = el("moves");
-  moves.innerHTML = "<tbody></tbody>";
+  el("moves-caption").textContent = fill(I.moves.caption);
+  var moves = tbody(el("moves"));
   A.moves.forEach(function (m) {
-    var tr = document.createElement("tr");
-    tr.innerHTML = "<td class='factor'></td><td class='num'></td><td></td>";
-    tr.children[0].textContent = m.label;
-    tr.children[1].textContent = FMT.moneyInt(m.cost);
-    tr.children[2].textContent = m.blurb;
-    moves.querySelector("tbody").appendChild(tr);
+    var d = S.deals[m.id];
+    var head = document.createElement("span");
+    head.className = "deal";
+    head.innerHTML = '<b></b><span></span>';
+    head.querySelector("b").textContent = m.label;
+    head.querySelector("span").textContent = d.name;
+    tr(moves, [
+      { cls: "factor", node: head },
+      { cls: "num", text: money(m.cost) },
+      { text: d.what }
+    ]);
   });
-  el("moves-note").textContent = I.moves.note;
+  el("moves-note").textContent = fill(I.moves.note);
 
   el("rules-heading").textContent = I.rules.heading;
   I.rules.items.forEach(function (item) {

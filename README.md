@@ -23,7 +23,7 @@ The class-facing pages are one path, and every page links to the next: **1 the s
 page.
 
 - `index.html` — the situation, the four figures, and the three divisions
-- `instructions.html` — written for the room: what is being decided, how the numbers work, the three
+- `instructions.html` — written for the room: what is being decided, where the numbers come from, the three
   deals, and the rules. Send it round beforehand or spend a minute on it at the start. It names no blocks.
 - `divisions.html` — the three divisions side by side, each linking to its own page
 - `site-ops.html`, `data-analytics.html`, `patient-engagement.html` — one brief per division: what it
@@ -101,7 +101,13 @@ worse lesson but a better use of the remaining minutes.
 ## Structure
 
 Every constant lives in `data/model.js` and every line of copy in `data/script.js`. No figure is typed into any
-page; all of them are computed at runtime from those two files. `test.html` is unlinked and enumerates all
+page; all of them are computed at runtime from those two files.
+
+Anything a participant reads is written in plain words: no "boundary", no "realise", no "multiplier", no
+"platform capital", and no "pledge" where "pay its share" will do. That applies to the board as well as the
+documents — the value bar says *its own work* and *work spanning divisions*, the deal buttons carry a plain
+line under the framework label, and the funding meter counts in words. Framework terms belong on
+`debrief.html`, `facilitate.html` and the deck, where there is someone to explain them. `test.html` is unlinked and enumerates all
 eight states against the expected table — open it after changing any constant.
 
 ```

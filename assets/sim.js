@@ -131,19 +131,34 @@
           '<div class="bar__seg bar__local"></div>' +
           '<div class="bar__seg bar__cross"></div>' +
         '</div>' +
-        '<div class="bar__legend">' +
-          '<span>Local <b class="v-local tabular"></b></span>' +
-          '<span>Cross-boundary <b class="v-cross tabular"></b></span>' +
-        '</div>' +
+        '<div class="bar__legend"></div>' +
         '<div class="moves"></div>';
+
+      // The two legend words come from the copy file, so they are built rather than
+      // written into the markup above.
+      var legend = meta.querySelector(".bar__legend");
+      [[S.board.own, "v-local"], [S.board.span, "v-cross"]].forEach(function (pair) {
+        var cell = document.createElement("span");
+        cell.appendChild(document.createTextNode(pair[0] + " "));
+        var v = document.createElement("b");
+        v.className = pair[1] + " tabular";
+        cell.appendChild(v);
+        legend.appendChild(cell);
+      });
 
       var moves = meta.querySelector(".moves");
       A.moves.forEach(function (m) {
         var b = document.createElement("button");
         b.className = "move";
         b.dataset.move = m.id;
-        b.title = m.blurb;
+        b.title = S.deals[m.id].what;
         b.appendChild(document.createTextNode(m.label));
+        // The label alone says nothing to a room seeing it for the first time, so the
+        // button carries what the deal actually is, then what it costs.
+        var plain = document.createElement("span");
+        plain.className = "move__plain";
+        plain.textContent = S.deals[m.id].name;
+        b.appendChild(plain);
         var s = document.createElement("span");
         s.textContent = moneyInt(m.cost);
         b.appendChild(s);
@@ -189,9 +204,10 @@
     var r = now();
     var meter = el("meter");
     meter.classList.toggle("is-funded", r.funded);
-    el("meter-label").textContent = "Shared trial-data layer — "
-      + moneyInt(r.pledged) + " pledged of " + moneyInt(A.infrastructure_required);
-    el("meter-status").textContent = r.funded ? "Funded" : "Not funded";
+    el("meter-label").textContent = S.board.meter
+      .replace("{paid}", moneyInt(r.pledged))
+      .replace("{needed}", moneyInt(A.infrastructure_required));
+    el("meter-status").textContent = r.funded ? S.board.funded : S.board.not_funded;
     var pct = Math.min(100, (r.pledged / A.infrastructure_required) * 100);
     if (!animate) el("meter-fill").style.transition = "none";
     el("meter-fill").style.width = pct + "%";
@@ -508,7 +524,8 @@
     var t = el("score-table");
     t.innerHTML =
       "<thead><tr><th>Division</th><th>State</th><th class='num'>Capability</th>" +
-      "<th class='num'>Local</th><th class='num'>Cross</th><th class='num'>Total</th></tr></thead><tbody></tbody>";
+      "<th class='num'>" + S.board.own + "</th><th class='num'>" + S.board.span +
+      "</th><th class='num'>" + S.board.total + "</th></tr></thead><tbody></tbody>";
     var tb = t.querySelector("tbody");
     A.groups.forEach(function (g) {
       var p = r.per.filter(function (x) { return x.id === g.id; })[0];

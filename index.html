@@ -90,7 +90,7 @@
       c.querySelector(".card__pool").insertBefore(
         document.createTextNode(FMT.moneyInt(g.local_pool)),
         c.querySelector(".card__pool span"));
-      c.querySelector(".card__pool span").textContent = "value inside its own boundary";
+      c.querySelector(".card__pool span").textContent = S.landing.pool_label;
       c.querySelector(".card__descriptor").textContent =
         FMT.fillFor(S.groups[g.id].descriptor, g);
       var cta = document.createElement("span");
