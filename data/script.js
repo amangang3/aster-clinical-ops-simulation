@@ -98,16 +98,16 @@ window.ASTER_SCRIPT = {
     paragraphs: [
       "Aster Life Sciences runs its clinical operations through three divisions. Each has its own budget, its own plan and its own targets, and each is measured on its own results.",
       "All three want the same thing: a shared trial-data layer that lets their AI agents work across division boundaries instead of stopping at them. It costs {infra} and it is all or nothing. Each division has been asked for a share, and the three shares only cover the bill together.",
-      "The CIO can make the case but cannot commit the money. Only the person who owns a budget can put a number into a plan, so the three divisions have to agree between themselves. So far they have not."
+      "You are {you}, {you_title}, and you can make the case but you cannot commit the money. Only the person who owns a budget can put a number into a plan, so the three divisions have to agree. So far they have not."
     ],
     figures: [
-      { label: "The ambition",            note: "what the CIO wants the three divisions worth each year" },
+      { label: "The ambition",            note: "what you are arguing the three divisions should be worth each year" },
       { label: "Shared trial-data layer", note: "cost to build it — all or nothing" },
       { label: "Their own tech budgets",  note: "what the three had set aside for their own plans" },
       { label: "Work spanning divisions", note: "worth nothing today, and only pays once the layer exists" }
     ],
     pool_label: "value its agents could add each year",
-    do_line: "You will read the three divisions, work out what each one needs before it will pay its share, and offer it. There are three deals, and only one of them works on each division.",
+    do_line: "You are {you}, and you cannot order any of this. You will read the three divisions, work out what each one needs before it will pay its share, and spend the centre\u2019s own budget to give it to them. There are three deals, and only one of them works on each division.",
     do_link: "How the session works",
     begin: "BEGIN",
     secondary: "Debrief"
@@ -120,6 +120,15 @@ window.ASTER_SCRIPT = {
   instructions: {
     title: "How the session works",
     standfirst: "Ten minutes on one screen. Read this first: what is being decided, where the numbers come from, and what you are being asked to do.",
+
+    you: {
+      heading: "Who you are in this exercise",
+      body: [
+        "You are the case protagonist: {you}, {you_title} of the {unit}. Everyone in the room plays the same person.",
+        "You sit on the {council} and can put a proposal on its agenda and argue for it. You own no profit and loss account, and by long-standing practice any number that enters a five-year plan has to be committed by the P&L owner who will carry it. The three people you are about to read own those plans. You do not, and you cannot set a target for any of them.",
+        "What you do control is the centre: the platform, the engineering group, and the budget that pays for both. That is what you are spending when you offer a deal, and it is why the deals on offer are things like covering somebody's migration cost or crediting work they have already paid for. None of them is \u201corder them to do it\u201d, because that is not available to you."
+      ]
+    },
 
     situation: {
       heading: "What is being decided",
@@ -162,7 +171,7 @@ window.ASTER_SCRIPT = {
       money_heading: "Two different pots of money",
       money: [
         ["The share", "The division's own money, out of its own technology budget, going into the {infra} layer. {shares}. These are fixed — you are not negotiating them, you are trying to get them agreed."],
-        ["The deal cost", "Your money, and what it costs you to get that agreement. It does not go into the layer and it does not add to the total. It shows on the board as money spent."]
+        ["The deal cost", "The centre\u2019s money — yours — and what it costs you to get that agreement. It comes out of the platform and engineering budget you control, not out of any division\u2019s plan. It does not go into the layer and it does not add to the total. It shows on the board as money spent."]
       ],
       note: "There is no partial credit and no refund. A deal offered to a division it does not suit costs you the same and changes nothing."
     },
@@ -346,7 +355,8 @@ window.ASTER_SCRIPT = {
         "Two divisions did the right thing and the number went down. What does that tell you about pilots?",
         "Patient Engagement has the best return per dollar in the room and the least standing to demand anything. Where is that division in your company?",
         "The layer cost {infra} against {gain} of value. Why does that deal not happen on its own?",
-        "What would have to be true for a mandate to be the right answer here rather than a lazy one?",
+        "You have just done this the hard way, one negotiation at a time, and it worked. Is that an argument for doing it this way, or an argument that the target should have been set at the top and held across all three? Answering \u201cboth\u201d is not available.",
+        "The layer had to be funded by all three or not at all. Does the fact that no single division could reach the line on its own make the case for an enterprise-level commitment, or only for better negotiation by the centre?",
         "An agent owned by one division takes an action inside another and gets it wrong. Which of these three divisions carries that, and which of the three deals buys it? Neither question has an answer on this board, and both have to be answered before anything ships."
       ]
     },
@@ -448,8 +458,8 @@ window.ASTER_SCRIPT = {
       rows: [
         ["The room stalls on the diagnosis",
          "Press H. The block labels appear and the exercise becomes matching instead of diagnosis. A weaker lesson, but a better use of the minutes you have left."],
-        ["Someone says the CIO should just mandate it",
-         "Take it seriously, because it is the case question. Ask what a mandate is worth when the budget owner agrees in the meeting and then under-resources it for four quarters, and what you would have to believe about your own authority for a mandate to be the right call."],
+        ["Someone says the centre should just mandate it",
+         "This is the case question, so do not close it down — and do not let the exercise be read as an argument against it either. Both halves are live. For it: no division could reach the funding line alone, the value pools that matter cut across all three, and voluntary adoption produced the pilot trap on screen. Against it: nobody here can mandate anything, a P&L owner can agree in the room and under-resource it for four quarters, and two of the three were right that the deal as first offered was bad for them. The exercise shows what the negotiation costs. It does not settle whether you should have had to run it."],
         ["Someone says the multiplier is arbitrary",
          "Agree about the size — {unfunded} is invented. Do not concede the shape. Software that covers half your data gives you half an answer, and half an answer is still worth having. An agent that can reach half a workflow does not finish it, so a crossing workflow is worth nothing at all until the layer exists. The cap is a property of automation, not a convenience of the model."],
         ["Someone asks why the divisions do not just talk to each other",
@@ -480,6 +490,11 @@ window.ASTER_SCRIPT = {
     },
 
     keys: { heading: "Facilitator keys", caption: "Keyboard only. None of this is on screen during the exercise unless you ask for it." },
+
+    handoff: {
+      heading: "Where this sits in the session",
+      body: "The room has already argued the case question: one enterprise-wide target held across all three divisions, or each division setting its own inside its own plan with the centre offering support. This exercise comes after that argument and before the practitioner conversation that follows it. Its job is not to settle the question — it is to make the room feel what the second option costs when the shared layer does not get built, and what informal influence costs when you have no authority to compel anyone. Both of those are what the practitioner will be asked about. Send the room into that conversation with the pilot trap and the price of three negotiations fresh, not with a conclusion."
+    },
 
     close: {
       heading: "Before you stand up",

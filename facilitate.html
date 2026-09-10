@@ -23,6 +23,11 @@
     <div class="flow" id="flow"></div>
   </section>
 
+  <section class="handoff">
+    <h2 id="handoff-heading"></h2>
+    <p class="prose" id="handoff-body"></p>
+  </section>
+
   <section>
     <h2 id="beats-heading"></h2>
     <p class="caption" id="beats-caption"></p>
@@ -122,6 +127,10 @@
     card.appendChild(body);
     el("flow").appendChild(card);
   });
+
+  /* Where this sits in the session */
+  el("handoff-heading").textContent = G.handoff.heading;
+  el("handoff-body").textContent = fill(G.handoff.body);
 
   /* Beat by beat */
   el("beats-heading").textContent = G.beats.heading;

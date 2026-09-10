@@ -18,6 +18,17 @@ No build step, no package manager, no server, no accounts, and no network access
 clone the repository and open the file, or serve it from GitHub Pages. It works offline, and it is meant to:
 it runs from a lectern on room wifi you should not trust.
 
+**The room plays the case protagonist** — the Chief Information Officer of Aster's Global Clinical Operations
+Center, named in `meta.you` in `data/model.js`. He can argue for a proposal at the Leadership Council, owns no
+P&L, and cannot set a target for any division: a number entering a five-year plan has to be committed by the
+P&L owner carrying it. What he controls is the centre — the platform, the engineering group, and the budget
+behind both — and that is what a deal spends. The three shares the divisions pay are their own money; the deal
+costs are his. `instructions.html` opens with this.
+
+The exercise sits after the class has argued the case question and before the practitioner conversation that
+follows, so it deliberately argues neither side of the mandate question. It shows what division-led adoption
+costs when the shared layer never gets built, and what influence costs without authority.
+
 The class-facing pages are one path, and every page links to the next: **1 the situation → 2 how it works
 → 3 the divisions → 4 the exercise → 5 the debrief**. The facilitator guide hangs off that path from every
 page.

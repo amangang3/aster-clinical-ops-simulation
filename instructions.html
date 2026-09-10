@@ -16,6 +16,11 @@
     <p class="standfirst" id="standfirst"></p>
   </header>
 
+  <section class="youare">
+    <h2 id="you-heading"></h2>
+    <div class="prose" id="you"></div>
+  </section>
+
   <section>
     <h2 id="situation-heading"></h2>
     <div class="prose" id="situation"></div>
@@ -110,6 +115,10 @@
   document.title = A.meta.org + " — " + I.title;
   el("title").textContent = I.title;
   el("standfirst").textContent = fill(I.standfirst);
+
+  /* Who the room is playing. First, because nothing else makes sense without it. */
+  el("you-heading").textContent = I.you.heading;
+  paras("you", I.you.body);
 
   /* What is being decided, and what each division is asked for */
   el("situation-heading").textContent = I.situation.heading;

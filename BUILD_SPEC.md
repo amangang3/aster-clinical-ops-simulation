@@ -50,9 +50,24 @@ Violating any of these is a build failure.
 
 ## 1. WHAT THIS TEACHES
 
-The class has already discussed a case in which a CIO must decide whether to push for a single enterprise-wide
-agentic AI target or let each division set its own. The class has then been shown a framework (§2). This
-simulation makes the framework land by letting the room try to use it and watch what happens.
+The class has already discussed a case in which the protagonist must decide whether to push for a single
+enterprise-wide agentic AI target held across all three divisions, or let each division set its own inside its
+own plan while the centre supplies platform capability and technical support. The class has then been shown a
+framework (§2). This simulation makes the framework land by letting the room try to use it and watch what
+happens.
+
+**The room plays the case protagonist**, and every page says so: `meta.you` in `data/model.js` names him, and
+`instructions.html` opens with who he is (§4.3a). He sits on the Leadership Council and can argue for a
+proposal, owns no P&L, and cannot set a target for any function — any number entering a five-year plan has to
+be committed by the P&L owner who will carry it. What he does control is the centre: the platform, the
+engineering group, and the budget behind both. **That is the money a deal spends.** Without this, the exercise
+contradicts the case: the protagonist cannot commit money, yet the room spends it.
+
+**Where this sits.** After the class has argued the case question, and before the practitioner conversation
+that follows. Its job is not to settle the question. It is to let the room feel what division-led adoption
+costs when the shared layer does not get built (the pilot trap, §1.1), and what influence costs when you
+cannot compel anyone. Both are what the practitioner is asked about, so the exercise must not hand the room a
+conclusion — the copy argues neither side, and §4.7's trouble table gives the facilitator both.
 
 Three teaching points, in priority order.
 
@@ -369,6 +384,10 @@ follow it cold. Where a figure could be doubted, the page shows the arithmetic i
 
 In order:
 
+- **Who you are in this exercise**, first, because nothing after it makes sense otherwise: the protagonist by
+  name and title from `meta.you`, that everyone in the room plays the same person, what he cannot do (set a
+  target, commit another P&L's money) and what he can (spend the centre's platform and engineering budget,
+  which is what a deal costs).
 - **What is being decided**: the layer costs `infrastructure_required` and is all or nothing; each division
   pays a fixed share out of the budget it had set aside for its own plans. Followed by a table rendered from
   the model — division, its own budget, its share — with a total row, because the three shares summing to
@@ -668,6 +687,10 @@ course name, no institution, no instructor, no dates.
       arithmetic and say why all three paying lands short of the pools plus the cross-boundary value
 - [ ] The instructions distinguish the two pots of money, and say what offering a deal does before it is
       offered — both were missing, and both were what the room asked about first
+- [ ] Every page that says "you" means the protagonist named in `meta.you`, and no page implies he can compel
+      a division or spend a division's budget
+- [ ] Nothing in the copy argues for or against the enterprise mandate — that is the class's debate, and the
+      exercise is evidence in it rather than a verdict on it
 - [ ] `N` shows the right beat for the board's state, and never covers a move button
 - [ ] The exercise fits one screen with no scrollbar and no clipped row at 1280×720, 1366×768, 1920×1080 and
       2560×1440 — including the worst case, all three committed with the presenter note showing

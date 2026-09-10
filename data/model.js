@@ -6,7 +6,10 @@ window.ASTER = {
     org: "Aster Life Sciences",
     unit: "Global Clinical Operations Center",
     setting: "Mid-2026",
-    disclaimer: "A fictional teaching simulation. Aster Life Sciences and all people, numbers and events in it are invented."
+    disclaimer: "A fictional teaching simulation. Aster Life Sciences and all people, numbers and events in it are invented.",
+    // The room plays the case protagonist. Named here so no page invents a different role.
+    you:     { name: "Alexiel Rao", title: "Chief Information Officer" },
+    council: "Clinical Operations Leadership Council"
   },
 
   ambition: 250,                 // $M run-rate — the CIO's ask, not a mandate
@@ -100,6 +103,10 @@ window.ASTER_FMT = {
       // The three value pools added up, at full rate. The copy needs this to explain
       // why the board opens lower than the sum of the pools.
       pools:     F.moneyInt(F.sum("local_pool")),
+      you:       window.ASTER.meta.you.name,
+      you_title: window.ASTER.meta.you.title,
+      unit:      window.ASTER.meta.unit,
+      council:   window.ASTER.meta.council,
       // "$8M, $6M and $4M" — the three shares in words, for copy that contrasts them
       // with what a deal costs the centre.
       shares:    window.ASTER.groups.map(function (g) { return F.moneyInt(g.pledge); })
