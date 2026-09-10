@@ -38,8 +38,13 @@ Violating any of these is a build failure.
   where `fetch()` of a local JSON file is blocked by CORS and a `<script>` tag is not. Never hardcode a number
   twice. Every displayed figure is computed from these constants at runtime — no figure is ever typed into HTML.
 - **Projector legibility is a functional requirement.** This is driven from a lectern and read from the back of
-  a room. Minimum body size 18px, minimum headline size 44px, and the three headline figures must be legible at
-  a glance from ~15 metres. Test at 1920×1080.
+  a room. The three headline figures must be legible at a glance from ~15 metres.
+- **Every size is relative; the root scale is fluid.** No layout may assume 1920×1080. Sizes are set in `rem`
+  and the root size is a `clamp()` on the viewport, so the same design fits a 1280×720 projector, a 1366×768
+  laptop and a 4K panel at identical proportions. At 1920×1080 the projected scale resolves to 18px, which is
+  where the body-text floor and the 104px hero figure come from. Two scales only: documents follow width, the
+  two full-screen pages follow whichever of width or height is tighter. Nothing may clip: where a layout
+  genuinely cannot fit, it stacks and the page scrolls.
 
 ---
 
@@ -256,8 +261,10 @@ nothing. Both figures are displayed at the close (§4.5).
 index.html          landing — context, the table, one button into the simulation
 sim.html            the simulation itself — this is the whole exercise
 debrief.html        the framework, the eight outcomes, the discussion questions
+facilitate.html     the facilitator guide (§4.7) — the answer key lives here, never project it
 assets/style.css    all styling, one file
 assets/sim.js       state machine, animation, rendering
+assets/nav.js       the flow between pages, rendered on every page
 data/model.js       constants + compute() — the only place numbers live
 data/script.js      every line of dialogue (§5)
 test.html           model check — enumerates §3.4, linked from nowhere
@@ -369,6 +376,7 @@ a complete and instructive outcome, not an error.
 | `1` `2` `3` | Select group row |
 | `Q` `W` `E` | Apply Sequence / Price / Underwrite to the selected row |
 | `H` | Toggle block labels visible — the hint, for when the room stalls |
+| `N` | Toggle the presenter note (§4.7) |
 | `C` | Close the round |
 | `R` | Reset |
 | `?` | Overlay listing these keys |
@@ -408,6 +416,29 @@ Reference material, read after the exercise. Scrolling is fine here.
 6. A closing note naming the fourth kind of block deliberately kept out of the model: concerns entirely real to
    one division and unpriceable by everyone else. No move fixes those. Name them and take them off the table
    early, or they contaminate everything after.
+
+### 4.7 The flow, and `facilitate.html`
+
+**The flow.** The three class-facing pages are one numbered path — *1 the situation · 2 the exercise ·
+3 the debrief* — rendered by `assets/nav.js` from `nav` in `data/script.js`, with the current page marked. It
+sits at the top of the documents and quietly in the exercise's footer, where it must not compete with the
+board. The facilitator guide hangs off that flow as an unnumbered aside on every page: it is never part of the
+class path, because it carries the answer key.
+
+**`facilitate.html`** is the guide a facilitator reads before standing up, and the only page written for them
+rather than for the room. It scrolls, it is never projected, and it says so on itself. It carries, in order:
+where each page and each deck slide fits; a beat-by-beat table of what to do and what to say across the eight
+to twelve minutes; the answer key, rendered from the model rather than typed, with the tell that gives each
+block away; the two moments that carry the session — the number falling and the gate reveal — and the
+instruction to stay quiet through both; what to do when it goes sideways; the six things the room pushes back
+with, answered; the facilitator keys, from the same list the `?` overlay uses; and a closing note to rehearse
+it once alone. Every figure in it is substituted from the model at runtime (§3.1).
+
+**The presenter note** (`N`) is the same material reduced to the one beat the board is currently on — opening,
+probing, first commitment, the pivot at two committed, funded, closed. The beat is derived from state, never
+stored, so it cannot disagree with the board. It is off by default and docks above the footer rather than
+floating over the board, because a panel over the rows would cover the move buttons of the division it is
+talking about. It shows on the projector like everything else, and the copy says so.
 
 ---
 
@@ -513,6 +544,11 @@ course name, no institution, no instructor, no dates.
 - [ ] Opening `index.html` from `file://` with wifi off works completely, including fonts
 - [ ] No network request is made by any page — verify with the browser network tab, filter cleared
 - [ ] Every facilitator key in §4.4 works, and `?` lists them
+- [ ] Every page reaches every other page: the flow renders on all four, marks the current page, and the guide
+      is reachable from each of them
+- [ ] `N` shows the right beat for the board's state, and never covers a move button
+- [ ] The exercise fits one screen with no scrollbar and no clipped row at 1280×720, 1366×768, 1920×1080 and
+      2560×1440 — including the worst case, all three committed with the presenter note showing
 - [ ] `R` from any state returns to a clean all-defending board with `spent` at zero
 - [ ] `CLOSE THE ROUND` works from all-defending, from partial, and from all-committed
 - [ ] Legible at 1920×1080 from the back of a room; headline figures readable at a glance

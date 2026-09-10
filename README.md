@@ -18,9 +18,14 @@ No build step, no package manager, no server, no accounts, and no network access
 clone the repository and open the file, or serve it from GitHub Pages. It works offline, and it is meant to:
 it runs from a lectern on room wifi you should not trust.
 
+The three class-facing pages are one path, and every page links to the next: **1 the situation → 2 the
+exercise → 3 the debrief**. The facilitator guide hangs off that path from every page.
+
 - `index.html` — the situation and the three divisions
 - `sim.html` — the exercise itself
 - `debrief.html` — the framework, all eight outcomes, and discussion questions
+- `facilitate.html` — the facilitator guide: what to do and say at each beat, the answer key, and the
+  questions the room will push back with. It has the answers on it, so do not project it.
 - `framework-deck.pptx` — four slides: the set-up, the exercise, the framework, and the framework applied
 
 ## What it teaches
@@ -64,13 +69,15 @@ Keyboard only, and never shown on screen during the exercise.
 | `1` `2` `3` | Select division |
 | `Q` `W` `E` | Apply Sequence / Price / Underwrite to the selected division |
 | `H` | Toggle the block labels — the hint, for when the room stalls |
+| `N` | Toggle the presenter note for whatever beat the board is on |
 | `C` | Close the round |
 | `R` | Reset |
 | `?` | Overlay listing these keys |
 
 ## Run of show
 
-Eight to twelve minutes at the lectern.
+Eight to twelve minutes at the lectern. `facilitate.html` is the long version of everything below, including
+what to say at each beat and what to do when it goes sideways.
 
 1. Open `sim.html`. Read the three objections aloud, or have three people read them.
 2. Ask the room: *what does each of them actually need?* Take suggestions. Apply them.
@@ -99,9 +106,14 @@ assets/style.css    all styling
 assets/sim.js       state machine, rendering, animation
 data/model.js       constants and the one compute() function
 data/script.js      all copy and dialogue
+facilitate.html     the facilitator guide
+assets/nav.js       the flow between the pages
 framework-deck.pptx the slides this sits between
 BUILD_SPEC.md       the full specification this was built from
 ```
+
+Every size is relative and the root scale is fluid, so the exercise fills one screen at 1280×720, 1366×768,
+1920×1080 or 4K without clipping, and stacks into a scrolling page on anything too small to hold it.
 
 Everything is deterministic. Identical inputs always produce identical output, there is no randomness
 anywhere, and nothing is carried between runs. `prefers-reduced-motion: reduce` is respected and reaches an

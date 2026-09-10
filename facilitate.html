@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aster Life Sciences — Facilitator guide</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="doc">
+
+  <nav id="nav"></nav>
+
+  <header class="doc__head">
+    <h1 id="title"></h1>
+    <p class="standfirst" id="standfirst"></p>
+    <p class="warning" id="warning"></p>
+  </header>
+
+  <section>
+    <h2 id="flow-heading"></h2>
+    <p class="caption" id="flow-caption"></p>
+    <div class="flow" id="flow"></div>
+  </section>
+
+  <section>
+    <h2 id="beats-heading"></h2>
+    <p class="caption" id="beats-caption"></p>
+    <table class="grid grid--beats" id="beats"></table>
+  </section>
+
+  <section>
+    <h2 id="key-heading"></h2>
+    <p class="caption" id="key-caption"></p>
+    <table class="grid" id="key"></table>
+  </section>
+
+  <section>
+    <h2 id="moments-heading"></h2>
+    <div class="moments" id="moments"></div>
+  </section>
+
+  <section>
+    <h2 id="trouble-heading"></h2>
+    <table class="grid" id="trouble"></table>
+  </section>
+
+  <section>
+    <h2 id="pushback-heading"></h2>
+    <div class="qa" id="pushback"></div>
+  </section>
+
+  <section>
+    <h2 id="keys-heading"></h2>
+    <p class="caption" id="keys-caption"></p>
+    <table class="grid grid--keys" id="keys"></table>
+  </section>
+
+  <section class="closing">
+    <h2 id="close-heading"></h2>
+    <p id="close-body"></p>
+  </section>
+
+  <footer class="doc__foot">
+    <a class="btn btn--primary" href="sim.html" id="to-sim"></a>
+    <a class="link-quiet" href="debrief.html" id="to-debrief"></a>
+    <a class="link-quiet" href="index.html" id="to-index"></a>
+  </footer>
+
+</div>
+
+<script src="data/model.js"></script>
+<script src="data/script.js"></script>
+<script src="assets/nav.js"></script>
+<script>
+(function () {
+  "use strict";
+  var A = window.ASTER, S = window.ASTER_SCRIPT, FMT = window.ASTER_FMT;
+  var G = S.facilitate;
+  var fill = FMT.fill;
+  var el = function (id) { return document.getElementById(id); };
+
+  function table(node, headers, rows, cls) {
+    node.innerHTML = "<thead><tr>" + headers.map(function () { return "<th></th>"; }).join("") +
+                     "</tr></thead><tbody></tbody>";
+    var ths = node.querySelectorAll("th");
+    headers.forEach(function (h, i) {
+      ths[i].textContent = h;
+      if (cls && cls[i]) ths[i].className = cls[i];
+    });
+    var tb = node.querySelector("tbody");
+    rows.forEach(function (cells) {
+      var tr = document.createElement("tr");
+      cells.forEach(function (c, i) {
+        var td = document.createElement("td");
+        if (cls && cls[i]) td.className = cls[i];
+        td.textContent = fill(c);
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+  }
+
+  document.title = A.meta.org + " — " + G.title;
+  el("title").textContent = G.title;
+  el("standfirst").textContent = fill(G.standfirst);
+  el("warning").textContent = G.warning;
+
+  /* Where each page fits */
+  el("flow-heading").textContent = G.flow.heading;
+  el("flow-caption").textContent = G.flow.caption;
+  G.flow.items.forEach(function (item) {
+    var card = document.createElement("div");
+    card.className = "flow__item";
+    var head = document.createElement(item.href ? "a" : "span");
+    head.className = "flow__label";
+    if (item.href) head.href = item.href;
+    head.textContent = item.label;
+    var body = document.createElement("p");
+    body.textContent = fill(item.body);
+    card.appendChild(head);
+    card.appendChild(body);
+    el("flow").appendChild(card);
+  });
+
+  /* Beat by beat */
+  el("beats-heading").textContent = G.beats.heading;
+  el("beats-caption").textContent = fill(G.beats.caption);
+  table(el("beats"), ["Beat", "What you do", "What to say, and what happens"], G.beats.rows,
+        ["beat", "", ""]);
+
+  /* The answer key — read out of the model, never typed */
+  el("key-heading").textContent = G.key.heading;
+  el("key-caption").textContent = G.key.caption;
+  table(el("key"),
+    ["Division", "Block", "The move that answers it", "Cost", G.key.tell_heading],
+    A.groups.map(function (g) {
+      return [
+        g.short,
+        g.block.charAt(0).toUpperCase() + g.block.slice(1),
+        FMT.move(g.move).label,
+        FMT.moneyInt(FMT.move(g.move).cost),
+        G.key.tells[g.id]
+      ];
+    }),
+    ["factor", "", "factor", "num", "tell"]);
+
+  /* The two moments */
+  el("moments-heading").textContent = G.moments.heading;
+  G.moments.items.forEach(function (m) {
+    var d = document.createElement("div");
+    d.className = "moment";
+    var h = document.createElement("h3");
+    h.textContent = m.title;
+    var p = document.createElement("p");
+    p.textContent = fill(m.body);
+    d.appendChild(h);
+    d.appendChild(p);
+    el("moments").appendChild(d);
+  });
+
+  /* If it goes sideways */
+  el("trouble-heading").textContent = G.trouble.heading;
+  table(el("trouble"), ["If", "Then"], G.trouble.rows, ["factor", ""]);
+
+  /* What the room pushes back with */
+  el("pushback-heading").textContent = G.pushback.heading;
+  G.pushback.items.forEach(function (item) {
+    var d = document.createElement("div");
+    d.className = "qa__item";
+    var q = document.createElement("h3");
+    q.textContent = item.q;
+    var a = document.createElement("p");
+    a.textContent = fill(item.a);
+    d.appendChild(q);
+    d.appendChild(a);
+    el("pushback").appendChild(d);
+  });
+
+  /* The keys, from the same list the ? overlay uses */
+  el("keys-heading").textContent = G.keys.heading;
+  el("keys-caption").textContent = G.keys.caption;
+  table(el("keys"), ["Key", "Action"], S.keys.rows, ["key", ""]);
+
+  /* Before you stand up */
+  el("close-heading").textContent = G.close.heading;
+  el("close-body").textContent = fill(G.close.body);
+
+  el("to-sim").textContent = "OPEN THE EXERCISE";
+  el("to-debrief").textContent = "Debrief";
+  el("to-index").textContent = "The situation";
+})();
+</script>
+</body>
+</html>

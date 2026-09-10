@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="fit">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,7 +35,17 @@
 
   <main class="board dimmable" id="board"></main>
 
+  <aside class="notes" id="notes" hidden>
+    <div class="notes__head">
+      <span class="micro" id="notes-heading"></span>
+      <span class="notes__beat" id="notes-beat"></span>
+    </div>
+    <p class="notes__body" id="notes-body"></p>
+    <p class="notes__hint" id="notes-hint"></p>
+  </aside>
+
   <footer class="sim__foot dimmable">
+    <nav id="nav" data-variant="compact"></nav>
     <span class="sim__note" id="sim-note"></span>
     <button class="btn" id="close-round"></button>
   </footer>
@@ -69,6 +79,7 @@
 
   <script src="data/model.js"></script>
   <script src="data/script.js"></script>
+  <script src="assets/nav.js"></script>
   <script src="assets/sim.js"></script>
 </body>
 </html>

@@ -24,7 +24,7 @@
      State — three booleans, an ordered move log, and a spend tally
      --------------------------------------------------------------- */
 
-  var state, selected, closed, busy, hinted, gateShown;
+  var state, selected, closed, busy, hinted, gateShown, notesOn = false;
   var epoch = 0;    // bumped by reset and close, to cancel anything still in flight
   var shown = {};   // last displayed figures, so count-ups know where to start
 
@@ -181,6 +181,8 @@
     el("f-spent-sub").textContent = closed && r.wasted > 0
       ? "Of which wasted " + moneyInt(r.wasted)
       : "";
+
+    renderNotes();
   }
 
   function renderMeter(animate) {
@@ -252,6 +254,31 @@
       // A move once spent on a group cannot be spent again, and a committed group is done.
       b.disabled = closed || busy || committed || !!mark;
     });
+  }
+
+  /* ---------------------------------------------------------------
+     Presenter note — off by default, toggled with N. The beat is derived
+     from the board, so it can never disagree with what is on screen.
+     --------------------------------------------------------------- */
+
+  function beatId() {
+    if (closed) return "closed";
+    if (now().funded) return "funded";
+    var committed = committedIds().length;
+    if (committed === 2) return "pivot";
+    if (committed === 1) return "first";
+    return state.applied.length ? "probing" : "opening";
+  }
+
+  function renderNotes() {
+    var panel = el("notes");
+    panel.hidden = !notesOn;
+    if (!notesOn) return;
+    var beat = S.notes.beats[beatId()];
+    el("notes-heading").textContent = S.notes.heading;
+    el("notes-beat").textContent = beat.title;
+    el("notes-body").textContent = FMT.fill(beat.body);
+    el("notes-hint").textContent = S.notes.hint;
   }
 
   function renderAll(animate) {
@@ -584,6 +611,7 @@
       ev.preventDefault(); return;
     }
     if (lower === "h") { hinted = !hinted; renderRows(false); ev.preventDefault(); return; }
+    if (lower === "n") { notesOn = !notesOn; renderNotes(); ev.preventDefault(); return; }
     if (lower === "c") { closeRound(); ev.preventDefault(); return; }
     if (lower === "r") { reset(); ev.preventDefault(); return; }
   }

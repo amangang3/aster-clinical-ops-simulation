@@ -9,6 +9,8 @@
 <body>
 <div class="debrief">
 
+  <nav id="nav"></nav>
+
   <header>
     <h1 id="title"></h1>
     <p class="caption" id="disclaimer"></p>
@@ -56,12 +58,14 @@
   <footer class="debrief__foot">
     <a class="btn" href="sim.html" id="back"></a>
     <a class="link-quiet" href="index.html" id="home"></a>
+    <a class="link-quiet" href="facilitate.html" id="guide"></a>
   </footer>
 
 </div>
 
 <script src="data/model.js"></script>
 <script src="data/script.js"></script>
+<script src="assets/nav.js"></script>
 <script>
 (function () {
   "use strict";
@@ -177,13 +181,9 @@
 
   /* 6. Discussion */
   el("q-heading").textContent = D.questions.heading;
-  var ceiling = FMT.outcomes()[FMT.outcomes().length - 1].result.enterprise;
-  var baseline = FMT.outcomes()[0].result.enterprise;
   D.questions.items.forEach(function (q) {
     var li = document.createElement("li");
-    li.textContent = q
-      .replace("{infra}", moneyInt(A.infrastructure_required))
-      .replace("{gain}", money(ceiling - baseline));
+    li.textContent = FMT.fill(q);
     el("q-list").appendChild(li);
   });
 
@@ -193,6 +193,8 @@
 
   el("back").textContent = "Back to the board";
   el("home").textContent = "Start over";
+  el("guide").textContent = S.nav.guide;
+  el("guide").title = S.nav.guide_note;
 })();
 </script>
 </body>

@@ -81,6 +81,45 @@ window.ASTER_FMT = {
   // $18M — whole-dollar figures that are exact by construction (costs, pledges, pools).
   moneyInt: n => "$" + Math.round(n) + "M",
   sum:     key => window.ASTER.groups.reduce((s, g) => s + g[key], 0),
+  /* Every figure any page might want to quote, computed once from the constants above.
+     Copy in data/script.js writes {tokens} and never a number; fill() substitutes them. */
+  figures: function () {
+    var A = window.ASTER, F = window.ASTER_FMT;
+    var none = F.outcomes()[0].result;
+    var all  = F.outcomes()[F.outcomes().length - 1].result;
+    var worst = F.outcomes().filter(function (o) { return o.members.length && !o.result.funded; })
+                            .reduce(function (a, b) {
+                              return a.result.enterprise <= b.result.enterprise ? a : b;
+                            });
+    var dealcost = A.moves.reduce(function (s, m) { return s + m.cost; }, 0);
+    var gain = all.enterprise - none.enterprise;
+    return {
+      ambition:  F.moneyInt(A.ambition),
+      infra:     F.moneyInt(A.infrastructure_required),
+      capital:   F.moneyInt(F.sum("capital_need")),
+      cross:     F.moneyInt(F.sum("cross_value")),
+      baseline:  F.money(none.enterprise),
+      ceiling:   F.money(all.enterprise),
+      ahead:     F.money(Math.abs(all.gap)),
+      shortfall: F.money(none.gap),
+      gain:      F.money(gain),
+      dealcost:  F.moneyInt(dealcost),
+      ret:       (gain / dealcost).toFixed(2) + "×",
+      worst:     F.money(worst.result.enterprise),
+      worstpair: worst.members.map(function (id) { return F.group(id).short; }).join(" + "),
+      unfunded:  Math.round(A.multiplier_unfunded * 100) + "%"
+    };
+  },
+
+  // Substitutes {tokens} in a copy string. Unknown tokens are left alone on purpose,
+  // so a typo shows up on screen rather than silently rendering as an empty gap.
+  fill: function (text) {
+    var f = window.ASTER_FMT.figures();
+    return String(text).replace(/\{(\w+)\}/g, function (whole, key) {
+      return Object.prototype.hasOwnProperty.call(f, key) ? f[key] : whole;
+    });
+  },
+
   // Enumerates all 8 committed-sets in the order of the outcome table in the spec.
   outcomes: function () {
     const ids = window.ASTER.groups.map(g => g.id);
