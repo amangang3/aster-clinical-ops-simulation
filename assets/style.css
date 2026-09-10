@@ -124,9 +124,9 @@ button {
 .nav__step.is-current .nav__n { color: var(--mint); }
 
 .nav__label { font-weight: 600; }
-/* the one-line description of each step only earns its space on the landing page */
-.nav__note { display: none; font-size: 0.85rem; color: var(--dim); font-weight: 400; }
-.landing .nav__note { display: inline; }
+/* Five steps and their descriptions do not fit on one line at any width worth having,
+   and the labels say enough on their own. */
+.nav__note { display: none; }
 
 .nav__guide {
   font-size: 0.9rem;
@@ -144,10 +144,6 @@ button {
 .nav--compact .nav__steps { gap: 1rem; }
 .nav--compact .nav__step { padding-bottom: 0; border-bottom: none; }
 .nav--compact .nav__step.is-current { color: var(--muted); }
-
-@media (max-width: 1240px) {
-  .landing .nav__note { display: none; }
-}
 
 /* ============================================================
    Landing — index.html · one screen, no scrolling
@@ -197,13 +193,35 @@ button {
 .card__lead { font-size: 1rem; color: var(--muted); }
 .card__pool { font-size: 1.67rem; font-weight: 600; color: var(--accent); }
 .card__pool span { font-size: 1rem; color: var(--dim); font-weight: 400; margin-left: 0.45rem; }
-.card__descriptor { font-size: 1rem; color: var(--muted); }
+.card__descriptor { font-size: 1rem; color: var(--muted); margin: 0; }
+
+a.card--link { text-decoration: none; color: inherit; transition: border-color 200ms var(--ease); }
+a.card--link:hover { border-color: var(--accent); }
+.card__cta {
+  margin-top: auto;
+  padding-top: 0.45rem;
+  font-size: 0.95rem;
+  color: var(--dim);
+}
+a.card--link:hover .card__cta { color: var(--accent); }
+
+/* The divisions hub: the same cards, wider, with the four figures on each */
+.cards--stacked { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+.card--division { padding: 1.35rem 1.55rem 1.45rem; }
+.card__figures { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-top: 0.45rem; }
+.card__figures b { display: block; font-size: 1.45rem; font-weight: 600; color: var(--accent); }
+.card__figures span { font-size: 0.95rem; color: var(--dim); }
+.card--division .card__cta { align-self: flex-start; }
 
 .dot {
   width: 0.72rem; height: 0.72rem; border-radius: 50%;
   background: var(--accent);
   flex: none;
 }
+
+/* One line saying what the room is about to be asked to do, and where the rest of it is. */
+.doer { display: flex; align-items: baseline; gap: 1.35rem; flex-wrap: wrap; }
+.doer__line { margin: 0; color: var(--muted); max-width: 96ch; }
 
 .landing__foot { margin-top: auto; display: flex; align-items: center; gap: 1.8rem; flex-wrap: wrap; }
 
@@ -576,6 +594,31 @@ table.grid tr.is-current td:first-child { box-shadow: inset 3px 0 0 var(--mint);
 
 .debrief__foot, .doc__foot { display: flex; gap: 1.55rem; align-items: center; flex-wrap: wrap; padding-top: 0.67rem; }
 
+/* ---- instructions and division pages ---- */
+
+.prose p { margin: 0 0 0.9rem; color: var(--muted); max-width: 88ch; }
+.prose p:last-child { margin-bottom: 0; }
+
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.55rem; align-items: start; }
+
+.rules { margin: 0; padding-left: 1.35rem; color: var(--muted); }
+.rules li { margin-bottom: 0.5rem; }
+
+.figures--four { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-bottom: 2.55rem; }
+
+.doc--division h1 { display: flex; align-items: center; gap: 0.9rem; }
+.division__lead { margin: 0.45rem 0 0; color: var(--muted); font-size: 1.11rem; }
+.division__attrib { margin: 0.45rem 0 0; color: var(--dim); font-size: 0.95rem; }
+
+.said blockquote {
+  margin: 0;
+  border-left: 3px solid var(--accent);
+  padding: 0.1rem 0 0.1rem 1.35rem;
+  font-size: 1.22rem;
+  line-height: 1.5;
+  max-width: 76ch;
+}
+
 /* ---- facilitator guide ---- */
 
 .standfirst { font-size: 1.22rem; color: var(--muted); margin: 0.67rem 0 0; max-width: 80ch; }
@@ -648,7 +691,7 @@ a.flow__label:hover { color: var(--mint); }
   .row { grid-template-columns: 14rem minmax(0, 1fr); }
   .row__meta { grid-column: 1 / -1; }
   .score__head { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .score__cols, .flow, .moments { grid-template-columns: minmax(0, 1fr); }
+  .score__cols, .flow, .moments, .pair { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 900px), (max-height: 560px) {
@@ -663,7 +706,8 @@ a.flow__label:hover { color: var(--mint); }
 @media (max-width: 760px) {
   .landing, .sim { padding: 1.35rem 1.1rem 1.55rem; }
   .debrief, .doc { padding: 1.35rem 1.1rem 3rem; }
-  .landing__body, .figures, .cards, .band, .score__head { grid-template-columns: minmax(0, 1fr); }
+  .landing__body, .figures, .cards, .band, .score__head,
+  .figures--four, .card__figures { grid-template-columns: minmax(0, 1fr); }
   .row { grid-template-columns: minmax(0, 1fr); gap: 0.9rem; }
   .notes { grid-template-columns: minmax(0, 1fr); }
   .notes__head { grid-row: auto; flex-direction: row; gap: 0.67rem; flex-wrap: wrap; align-items: baseline; }

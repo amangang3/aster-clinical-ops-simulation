@@ -18,14 +18,21 @@ No build step, no package manager, no server, no accounts, and no network access
 clone the repository and open the file, or serve it from GitHub Pages. It works offline, and it is meant to:
 it runs from a lectern on room wifi you should not trust.
 
-The three class-facing pages are one path, and every page links to the next: **1 the situation → 2 the
-exercise → 3 the debrief**. The facilitator guide hangs off that path from every page.
+The class-facing pages are one path, and every page links to the next: **1 the situation → 2 how it works
+→ 3 the divisions → 4 the exercise → 5 the debrief**. The facilitator guide hangs off that path from every
+page.
 
-- `index.html` — the situation and the three divisions
+- `index.html` — the situation, the four figures, and the three divisions
+- `instructions.html` — written for the room: what is being decided, how the numbers work, the three
+  deals, and the rules. Send it round beforehand or spend a minute on it at the start. It names no blocks.
+- `divisions.html` — the three divisions side by side, each linking to its own page
+- `site-ops.html`, `data-analytics.html`, `patient-engagement.html` — one brief per division: what it
+  does, what it is measured on, its four numbers, where it stands, and what it has said. This is the
+  material the room diagnoses from
 - `sim.html` — the exercise itself
 - `debrief.html` — the framework, all eight outcomes, and discussion questions
 - `facilitate.html` — the facilitator guide: what to do and say at each beat, the answer key, and the
-  questions the room will push back with. It has the answers on it, so do not project it.
+  questions the room tends to ask. It has the answers on it, so do not project it.
 - `framework-deck.pptx` — four slides: the set-up, the exercise, the framework, and the framework applied
 
 ## What it teaches
@@ -98,16 +105,22 @@ page; all of them are computed at runtime from those two files. `test.html` is u
 eight states against the expected table — open it after changing any constant.
 
 ```
-index.html          the situation
-sim.html            the exercise
-debrief.html        the framework and the outcomes
+index.html          1 · the situation
+instructions.html   2 · how the session works, for the room
+divisions.html      3 · the three divisions
+site-ops.html       3 · one brief per division, all three from the same shell
+data-analytics.html
+patient-engagement.html
+sim.html            4 · the exercise
+debrief.html        5 · the framework and the outcomes
+facilitate.html     the facilitator guide
 test.html           model check, not linked from anywhere
 assets/style.css    all styling
 assets/sim.js       state machine, rendering, animation
+assets/division.js  renders whichever division a page declares in data-group
+assets/nav.js       the flow between the pages
 data/model.js       constants and the one compute() function
 data/script.js      all copy and dialogue
-facilitate.html     the facilitator guide
-assets/nav.js       the flow between the pages
 framework-deck.pptx the slides this sits between
 BUILD_SPEC.md       the full specification this was built from
 ```

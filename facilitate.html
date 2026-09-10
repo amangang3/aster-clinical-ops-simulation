@@ -109,7 +109,7 @@
   /* Where each page fits */
   el("flow-heading").textContent = G.flow.heading;
   el("flow-caption").textContent = G.flow.caption;
-  G.flow.items.forEach(function (item) {
+  G.flow.items.concat([G.flow.deck]).forEach(function (item) {
     var card = document.createElement("div");
     card.className = "flow__item";
     var head = document.createElement(item.href ? "a" : "span");

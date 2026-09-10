@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aster Life Sciences — The three divisions</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="doc-body">
+<div class="doc">
+
+  <nav id="nav"></nav>
+
+  <header class="doc__head">
+    <h1 id="title"></h1>
+    <p class="standfirst" id="standfirst"></p>
+  </header>
+
+  <section class="cards cards--stacked" id="cards"></section>
+
+  <footer class="doc__foot">
+    <a class="btn btn--primary" href="sim.html" id="begin"></a>
+    <a class="link-quiet" href="instructions.html" id="back"></a>
+  </footer>
+
+</div>
+
+<script src="data/model.js"></script>
+<script src="data/script.js"></script>
+<script src="assets/nav.js"></script>
+<script>
+(function () {
+  "use strict";
+  var A = window.ASTER, S = window.ASTER_SCRIPT, FMT = window.ASTER_FMT;
+  var D = S.divisions;
+  var el = function (id) { return document.getElementById(id); };
+
+  document.title = A.meta.org + " — " + D.title;
+  el("title").textContent = D.title;
+  el("standfirst").textContent = FMT.fill(D.standfirst);
+
+  A.groups.forEach(function (g) {
+    var copy = S.groups[g.id];
+    var card = document.createElement("article");
+    card.className = "card card--division accent-" + g.accent;
+    card.innerHTML =
+      '<div class="card__name"><span class="dot"></span></div>' +
+      '<div class="card__lead"></div>' +
+      '<p class="card__descriptor"></p>' +
+      '<div class="card__figures"></div>' +
+      '<a class="link-quiet card__cta"></a>';
+    card.querySelector(".card__name").appendChild(document.createTextNode(g.short));
+    card.querySelector(".card__lead").textContent = g.lead;
+    card.querySelector(".card__descriptor").textContent = FMT.fillFor(copy.descriptor, g);
+
+    var figs = card.querySelector(".card__figures");
+    D.figures.forEach(function (f) {
+      var d = document.createElement("div");
+      d.innerHTML = '<b class="tabular"></b><span></span>';
+      d.querySelector("b").textContent = FMT.moneyInt(g[f.key]);
+      d.querySelector("span").textContent = f.label;
+      figs.appendChild(d);
+    });
+
+    var cta = card.querySelector(".card__cta");
+    cta.href = g.id + ".html";
+    cta.textContent = D.cta;
+    el("cards").appendChild(card);
+  });
+
+  el("begin").textContent = S.landing.begin;
+  el("back").textContent = S.nav.steps[1].label;
+})();
+</script>
+</body>
+</html>

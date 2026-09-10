@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aster Life Sciences — How the session works</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="doc-body">
+<div class="doc">
+
+  <nav id="nav"></nav>
+
+  <header class="doc__head">
+    <h1 id="title"></h1>
+    <p class="standfirst" id="standfirst"></p>
+  </header>
+
+  <section>
+    <h2 id="situation-heading"></h2>
+    <div class="prose" id="situation"></div>
+  </section>
+
+  <section>
+    <h2 id="numbers-heading"></h2>
+    <p class="caption" id="numbers-caption"></p>
+    <table class="grid" id="numbers"></table>
+    <p class="prose" id="numbers-note"></p>
+  </section>
+
+  <section>
+    <h2 id="job-heading"></h2>
+    <div class="prose" id="job"></div>
+  </section>
+
+  <section>
+    <h2 id="moves-heading"></h2>
+    <p class="caption" id="moves-caption"></p>
+    <table class="grid" id="moves"></table>
+    <p class="prose" id="moves-note"></p>
+  </section>
+
+  <section class="pair">
+    <div>
+      <h2 id="rules-heading"></h2>
+      <ul class="rules" id="rules"></ul>
+    </div>
+    <div>
+      <h2 id="watch-heading"></h2>
+      <div class="prose" id="watch"></div>
+    </div>
+  </section>
+
+  <footer class="doc__foot">
+    <a class="btn btn--primary" href="divisions.html" id="next"></a>
+    <a class="link-quiet" href="sim.html" id="skip"></a>
+  </footer>
+
+</div>
+
+<script src="data/model.js"></script>
+<script src="data/script.js"></script>
+<script src="assets/nav.js"></script>
+<script>
+(function () {
+  "use strict";
+  var A = window.ASTER, S = window.ASTER_SCRIPT, FMT = window.ASTER_FMT;
+  var I = S.instructions;
+  var fill = FMT.fill;
+  var el = function (id) { return document.getElementById(id); };
+
+  function paras(hostId, list) {
+    list.forEach(function (text) {
+      var p = document.createElement("p");
+      p.textContent = fill(text);
+      el(hostId).appendChild(p);
+    });
+  }
+
+  // Two-column table of label / explanation, used for the rules and the deals.
+  function rows(hostId, list) {
+    var host = el(hostId);
+    host.innerHTML = "<tbody></tbody>";
+    var body = host.querySelector("tbody");
+    list.forEach(function (row) {
+      var tr = document.createElement("tr");
+      tr.innerHTML = "<td class='factor'></td><td></td>";
+      tr.children[0].textContent = fill(row[0]);
+      tr.children[1].textContent = fill(row[1]);
+      body.appendChild(tr);
+    });
+  }
+
+  document.title = A.meta.org + " — " + I.title;
+  el("title").textContent = I.title;
+  el("standfirst").textContent = fill(I.standfirst);
+
+  el("situation-heading").textContent = I.situation.heading;
+  paras("situation", I.situation.body);
+
+  el("numbers-heading").textContent = I.numbers.heading;
+  el("numbers-caption").textContent = fill(I.numbers.caption);
+  rows("numbers", I.numbers.rows);
+  el("numbers-note").textContent = fill(I.numbers.note);
+
+  el("job-heading").textContent = I.job.heading;
+  paras("job", I.job.body);
+
+  /* The three deals, priced out of the model rather than typed here. */
+  el("moves-heading").textContent = I.moves.heading;
+  el("moves-caption").textContent = I.moves.caption;
+  var moves = el("moves");
+  moves.innerHTML = "<tbody></tbody>";
+  A.moves.forEach(function (m) {
+    var tr = document.createElement("tr");
+    tr.innerHTML = "<td class='factor'></td><td class='num'></td><td></td>";
+    tr.children[0].textContent = m.label;
+    tr.children[1].textContent = FMT.moneyInt(m.cost);
+    tr.children[2].textContent = m.blurb;
+    moves.querySelector("tbody").appendChild(tr);
+  });
+  el("moves-note").textContent = I.moves.note;
+
+  el("rules-heading").textContent = I.rules.heading;
+  I.rules.items.forEach(function (item) {
+    var li = document.createElement("li");
+    li.textContent = fill(item);
+    el("rules").appendChild(li);
+  });
+
+  el("watch-heading").textContent = I.watch.heading;
+  paras("watch", I.watch.body);
+
+  el("next").textContent = I.ready;
+  el("skip").textContent = S.nav.steps[3].label;
+})();
+</script>
+</body>
+</html>

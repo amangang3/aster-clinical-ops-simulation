@@ -258,12 +258,18 @@ nothing. Both figures are displayed at the close (§4.5).
 ### 4.1 Repo layout
 
 ```
-index.html          landing — context, the table, one button into the simulation
-sim.html            the simulation itself — this is the whole exercise
-debrief.html        the framework, the eight outcomes, the discussion questions
+index.html          1 · landing — context, the four figures, the three divisions
+instructions.html   2 · how the session works, written for the room (§4.3a)
+divisions.html      3 · the three divisions side by side, each linking to its own page
+site-ops.html       3 · one brief per division (§4.3b) — three shells, one renderer
+data-analytics.html
+patient-engagement.html
+sim.html            4 · the simulation itself — this is the whole exercise
+debrief.html        5 · the framework, the eight outcomes, the discussion questions
 facilitate.html     the facilitator guide (§4.7) — the answer key lives here, never project it
 assets/style.css    all styling, one file
 assets/sim.js       state machine, animation, rendering
+assets/division.js  renders whichever division a page names in its body data-group
 assets/nav.js       the flow between pages, rendered on every page
 data/model.js       constants + compute() — the only place numbers live
 data/script.js      every line of dialogue (§5)
@@ -280,6 +286,11 @@ LICENSE
 `facilitator/`, `role.html`, `brief.html`, `watch.html`, `results.html`, `data/private/`, `data/scenario.js`,
 `assets/app.js` — was deleted in its own commit before this build started, so no dead reference survives. It
 is recoverable from git history and must not come back.
+
+The per-division brief that `role.html` used to carry *is* back, as §4.3b, because the room needs something to
+diagnose from. It is not the old page: there are no private files, no per-role secrets and no separate
+facilitator copy. Each division page is a shell that names its division and reads every figure and every
+sentence from `data/model.js` and `data/script.js`, like every other page here.
 
 The deck carries the same constants as `data/model.js` and is written against this mechanic, not an earlier
 one. Slides 3 and 4 are §2.1–§2.4 verbatim. If a constant changes here, the deck changes with it.
@@ -311,9 +322,48 @@ One screen, no scrolling at 1080p.
   and cannot set one, because only a P&L owner commits a number into a plan.
 - Four figures rendered from constants: `$250M` ambition · `$18M` shared trial-data layer · `$60M` platform
   capital (sum of `capital_need`) · `$95M` cross-boundary value (sum of `cross_value`)
-- The three groups as cards: short name, lead, `local_pool`, and one line of descriptor
-- One primary button, **BEGIN**, to `sim.html`
+- The three divisions as cards: short name, lead, `local_pool`, and one line of descriptor. Each card is a
+  link into that division's own page (§4.3b)
+- One line saying what the room is about to be asked to do, with a link to `instructions.html`
+- One primary button, **BEGIN**, to `instructions.html` — the landing hands off to the next step in the flow,
+  not to the board, so nobody arrives at the exercise without having been told the rules
 - A quiet secondary link to `debrief.html`, styled so nobody clicks it by accident mid-class
+
+### 4.3a `instructions.html` — how the session works
+
+The page the room reads, and the answer to "where are the instructions?". It scrolls. It is written for
+participants, not for the facilitator, and it **names no blocks and gives nothing away**: it explains the
+situation and the rules, never the diagnosis. In order:
+
+- What is being decided: the layer costs `infrastructure_required`, and the three pledges sum to exactly that,
+  so every division is needed and no two of them can fund it
+- How the numbers work, as three rows: without the layer everything realises `multiplier_unfunded` of its pool
+  (which is why the board opens at the unfunded total, not the sum of the pools); with the layer, pools pay out
+  in full and `cross_value` appears on top; pledging costs capability, so a division that pledges is worth
+  slightly less on its own terms. The third row is the one that makes the exercise hard and is called out
+  underneath.
+- What the room is asked to do: work out what each division needs, then offer the deal that gives it to them
+- The three deals with their costs, rendered from `moves` — never typed
+- The rules, as a short list: one offer of each deal per division, money spent when offered, a pledge is
+  permanent, nothing can be taken back, all three needed to build the layer
+- What to watch: the enterprise figure, because it does not move the way people expect
+
+### 4.3b The division pages — one brief per division
+
+Three pages, one per division, built from a single shell plus `assets/division.js`. The body carries
+`data-group="<id>"`; everything else is read from the model and the copy file, so the three pages cannot drift
+apart and no figure is typed into any of them. `divisions.html` is the hub: the three side by side with their
+four figures each, linking into the briefs, and the briefs loop to one another so the room can walk all three
+and come back.
+
+Each brief carries, in order: the division's full name with its accent dot, its lead, one line on what it
+does; its four figures (`local_pool`, `cross_value`, `capital_need`, `pledge`); where it stands, in three
+paragraphs; what it has said, as the `objection` verbatim in the serif face, attributed to its lead; what it
+is measured on; what it is being asked to pledge; and one closing line telling the reader what to work out.
+
+Like §4.3a these pages **name no blocks**. They carry the evidence the diagnosis is made from — the calendar,
+the head start, the unreimbursed bill — and never the label for it. The nav marks these pages as step 3 via
+`data-current` on the nav host, since they belong to that step without being its URL.
 
 ### 4.4 `sim.html` — the simulation
 
@@ -419,8 +469,10 @@ Reference material, read after the exercise. Scrolling is fine here.
 
 ### 4.7 The flow, and `facilitate.html`
 
-**The flow.** The three class-facing pages are one numbered path — *1 the situation · 2 the exercise ·
-3 the debrief* — rendered by `assets/nav.js` from `nav` in `data/script.js`, with the current page marked. It
+**The flow.** The class-facing pages are one numbered path — *1 the situation · 2 how it works · 3 the
+divisions · 4 the exercise · 5 the debrief* — rendered by `assets/nav.js` from `nav` in `data/script.js`, with
+the current page marked. Five labels are as many as fit on one line, so the steps carry no descriptions; the
+guide has room for those and gives them. It
 sits at the top of the documents and quietly in the exercise's footer, where it must not compete with the
 board. The facilitator guide hangs off that flow as an unnumbered aside on every page: it is never part of the
 class path, because it carries the answer key.
@@ -544,8 +596,9 @@ course name, no institution, no instructor, no dates.
 - [ ] Opening `index.html` from `file://` with wifi off works completely, including fonts
 - [ ] No network request is made by any page — verify with the browser network tab, filter cleared
 - [ ] Every facilitator key in §4.4 works, and `?` lists them
-- [ ] Every page reaches every other page: the flow renders on all four, marks the current page, and the guide
-      is reachable from each of them
+- [ ] Every page reaches every other page: the flow renders on all of them, marks the current page — including
+      the three division briefs, which mark step 3 — and the guide is reachable from each of them
+- [ ] `instructions.html` and the three division briefs name no block and no move mapping anywhere on them
 - [ ] `N` shows the right beat for the board's state, and never covers a move button
 - [ ] The exercise fits one screen with no scrollbar and no clipped row at 1280×720, 1366×768, 1920×1080 and
       2560×1440 — including the worst case, all three committed with the presenter note showing

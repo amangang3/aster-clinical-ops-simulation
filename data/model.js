@@ -120,6 +120,16 @@ window.ASTER_FMT = {
     });
   },
 
+  // The same, plus the four figures that belong to one group, for the division pages.
+  fillFor: function (text, group) {
+    var F = window.ASTER_FMT;
+    return F.fill(String(text)
+      .replace(/\{local\}/g,   F.moneyInt(group.local_pool))
+      .replace(/\{cross\}/g,   F.moneyInt(group.cross_value))
+      .replace(/\{capital\}/g, F.moneyInt(group.capital_need))
+      .replace(/\{pledge\}/g,  F.moneyInt(group.pledge)));
+  },
+
   // Enumerates all 8 committed-sets in the order of the outcome table in the spec.
   outcomes: function () {
     const ids = window.ASTER.groups.map(g => g.id);

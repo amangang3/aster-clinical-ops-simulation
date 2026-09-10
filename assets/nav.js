@@ -1,5 +1,6 @@
-/* The flow between the pages: situation → exercise → debrief, with the facilitator
-   guide to one side. Rendered from data/script.js so the wording lives in one place.
+/* The flow between the pages: situation → how it works → the divisions → exercise →
+   debrief, with the facilitator guide to one side. Rendered from data/script.js so the
+   wording lives in one place.
 
    Any page that wants it carries <nav id="nav"></nav>; add data-variant="compact"
    to get the quiet single-line version the exercise uses in its footer. */
@@ -12,7 +13,9 @@
 
   var N = window.ASTER_SCRIPT.nav;
   var compact = host.dataset.variant === "compact";
-  var here = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
+  // A division page is part of step 3 without being step 3's own URL, so it says so.
+  var here = (host.dataset.current ||
+              window.location.pathname.split("/").pop() || "index.html").toLowerCase();
 
   host.className = "nav" + (compact ? " nav--compact" : "");
 
@@ -35,7 +38,7 @@
     label.textContent = s.label;
     node.appendChild(label);
 
-    if (!compact) {
+    if (!compact && s.note) {
       var note = document.createElement("span");
       note.className = "nav__note";
       note.textContent = s.note;
