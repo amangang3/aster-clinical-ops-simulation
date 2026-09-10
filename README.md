@@ -38,6 +38,12 @@ page.
 
 ## What it teaches
 
+0. Agents turn the org chart into the systems architecture. An agent's reach is set by permission and
+   accountability rather than integration effort, so what an enterprise can automate is bounded by the
+   agreements it can strike. Three things make this an agentic problem rather than the shared-services problem
+   of the last thirty years: agents remove partial credit (half a workflow is not half the value, it is none),
+   agents act inside divisions that answer for the consequences, and capability now arrives faster than the
+   agreements needed to use it. `debrief.html` states all three.
 1. Agentic value sits on the boundaries between divisions, so the binding constraint is not technology or
    capital — it is whether P&L owners will commit to something they do not control.
 2. The case for collaborating is never the problem. Every division agrees the shared asset should exist. What

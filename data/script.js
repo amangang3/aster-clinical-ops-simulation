@@ -139,7 +139,7 @@ window.ASTER_SCRIPT = {
         ["Each division has a value pool",
          "This is what AI agents could add in that division each year, if they could reach every piece of data they needed. The three pools come to {pools} between them."],
         ["Without the shared layer, each division gets {unfunded} of its pool",
-         "An agent can only reach data that its own division owns. Most of the work it would do needs something held by another division, so it stops halfway. This is why the board opens at {baseline} and not at {pools}."],
+         "An agent can only reach data its own division owns. Most of the work it would do needs something held by another division, so it stops halfway — and an agent that stops halfway has not done part of the job, it has done none of it. This is why the board opens at {baseline} and not at {pools}."],
         ["With the layer, that {unfunded} cap comes off — and another {cross} becomes reachable",
          "Agents can follow a piece of work from one division into the next. Each division earns at full rate instead of {unfunded}, and work that spans two divisions starts paying for the first time."],
         ["But paying for the layer leaves less to spend at home",
@@ -321,8 +321,24 @@ window.ASTER_SCRIPT = {
     },
     outcomes: {
       heading: "Every reachable outcome",
-      caption: "Eight states, and only one of them builds the layer. Look at the middle six: every partial coalition ends up below {baseline}, which is what the room produces when nobody pledges at all."
+      caption: "Eight states, and only one of them builds the layer. Look at the middle six: every partial coalition ends up below {baseline}, which is what the room produces when nobody pledges at all.",
+      pilot_heading: "This has a name, and you have seen it",
+      pilot: "Two divisions fund their own agent pilots. Both spend real budget, both build something that works inside their own walls, and neither can finish a workflow that crosses out of it. The enterprise is worse off than if nobody had started — {worstpair} together produce {worst} against {baseline} for doing nothing. This is the most common way an enterprise agent programme fails, and it does not look like failure from inside either division: both pilots hit their own success criteria."
     },
+    agentic: {
+      heading: "Why this is different with agents",
+      caption: "Everything above would be true of a shared warehouse or a single ERP. Three things are not, and they are why this exercise is in an agentic course.",
+      rows: [
+        ["Agents remove partial credit",
+         "Software that sees half your data gives you a worse answer, and a worse answer is still useful. An agent that can reach half a workflow does not complete it. Coverage used to scale the value of a system; with agents it gates it. That is why the shared layer is all or nothing rather than merely nice to have."],
+        ["Agents act, they do not report",
+         "A shared data layer is a read. An agent that reschedules a site visit, or contacts a patient, is taking an action inside a division that answers for the consequences. That produces an objection none of the three deals on this board can answer: not who pays, but who is accountable when it acts wrongly."],
+        ["The constraint has swapped ends",
+         "Agent capability arrives in weeks. The agreements in this room take quarters. For most of the history of enterprise technology the build was the bottleneck and the business waited for it. That has reversed, which is why nothing in this exercise was ever blocked by the model, the data or the money."]
+      ],
+      close: "Agents turn the org chart into the systems architecture. An agent's reach is set by permission and accountability rather than by integration effort, so the value an enterprise can capture is bounded by the agreements it can strike — which is a negotiation, not a build."
+    },
+
     questions: {
       heading: "Discussion",
       items: [
@@ -330,12 +346,13 @@ window.ASTER_SCRIPT = {
         "Two divisions did the right thing and the number went down. What does that tell you about pilots?",
         "Patient Engagement has the best return per dollar in the room and the least standing to demand anything. Where is that division in your company?",
         "The layer cost {infra} against {gain} of value. Why does that deal not happen on its own?",
-        "What would have to be true for a mandate to be the right answer here rather than a lazy one?"
+        "What would have to be true for a mandate to be the right answer here rather than a lazy one?",
+        "An agent owned by one division takes an action inside another and gets it wrong. Which of these three divisions carries that, and which of the three deals buys it? Neither question has an answer on this board, and both have to be answered before anything ships."
       ]
     },
     closing: {
       heading: "One kind of block this model leaves out",
-      body: "There is a fourth kind of objection the mechanic deliberately ignores: a concern that is entirely real to one division and cannot be priced by anyone else. A regulatory exposure only they carry. A commitment already made to someone outside the room. No deal fixes those, because there is nothing to trade. Name them early and take them off the table, or they will contaminate every negotiation that follows."
+      body: "There is a fourth kind of objection the mechanic ignores on purpose: a concern that is entirely real to one division and cannot be priced by anyone else. A regulatory exposure only they carry. A commitment already made to someone outside the room. Accountability for what an agent does in someone else's name. No deal fixes those, because there is nothing to trade. Name them early and take them off the table, or they will contaminate every negotiation that follows. In an agent programme the accountability one is not an edge case — it is usually the objection that actually stops the work."
     }
   },
 
@@ -369,7 +386,7 @@ window.ASTER_SCRIPT = {
         { label: "4 · The exercise", href: "sim.html",
           body: "The session itself. One screen, driven from the keyboard so you can keep facing the room. Nothing is stored and nothing is random, so the same choices always produce the same numbers." },
         { label: "5 · The debrief", href: "debrief.html",
-          body: "Afterwards. The two framework tables, the three moves, the applied diagnosis, all eight outcomes with your round marked, and five questions to open the discussion." }
+          body: "Afterwards. The two framework tables, the three moves, the applied diagnosis, all eight outcomes with your round marked, the pilot trap named under the table that proves it, why any of this is different with agents rather than with a shared warehouse, and six questions to open the discussion." }
       ],
       deck: { label: "The deck", body: "framework-deck.pptx holds four slides. Slide 1 sets up the case and slide 2 explains the exercise. Slides 3 and 4 are the framework, and they are the ones to use after the debrief." }
     },
@@ -401,7 +418,7 @@ window.ASTER_SCRIPT = {
          "Read the ledger out, wasted spend included. A clean round costs {dealcost} and returns {gain}, which is {ret}. Anything misdiagnosed cost full price and bought nothing."],
         ["10:00 · Hand off",
          "Go to the debrief, or to slides 3 and 4 of the deck.",
-         "Ask the transfer question before you show the framework: which of these three is your division, and which block are you actually arguing?"]
+         "Ask the transfer question before you show the framework: which of these three is your division, and which block are you actually arguing? If anyone asks why this is an agentic problem rather than the shared-services problem their company had in 1998, that is the right question — the debrief answers it in three lines, and it is worth reading out."]
       ]
     },
 
@@ -434,7 +451,7 @@ window.ASTER_SCRIPT = {
         ["Someone says the CIO should just mandate it",
          "Take it seriously, because it is the case question. Ask what a mandate is worth when the budget owner agrees in the meeting and then under-resources it for four quarters, and what you would have to believe about your own authority for a mandate to be the right call."],
         ["Someone says the multiplier is arbitrary",
-         "Agree. The size of the number is invented. The shape is not: value that depends on two divisions at once only appears above a threshold neither can reach alone."],
+         "Agree about the size — {unfunded} is invented. Do not concede the shape. Software that covers half your data gives you half an answer, and half an answer is still worth having. An agent that can reach half a workflow does not finish it, so a crossing workflow is worth nothing at all until the layer exists. The cap is a property of automation, not a convenience of the model."],
         ["Someone asks why the divisions do not just talk to each other",
          "They have, and they agree. Everyone thinks the layer should exist. That is the premise, and it changes nothing, which is the uncomfortable part."],
         ["The room gets all three right first time",

@@ -70,6 +70,34 @@ A fourth point emerges from the mechanic and should be left for the facilitator 
 screen: the smallest, most dependent group has the best economics in the room and the least standing to demand
 anything.
 
+### 1.1 Why this is an agentic problem and not the shared-services problem
+
+**The mechanic on its own does not earn its place in an agentic course, and the copy has to close that gap.**
+Substitute a shared data warehouse, a common CRM or a single ERP instance for the trial-data layer and nothing
+in §2, §3 or §3.4 changes — not the multiplier, not the threshold, not the three blocks, not the result that
+partial coordination is worse than none. Those are the economics of shared services, and a good student will
+say so. Three things are specific to agents, they are stated on `debrief.html`, and they are what the session
+is actually for:
+
+1. **Agents remove partial credit.** Software that covers half the data returns a worse answer, which is still
+   worth having. An agent that can reach half a workflow does not complete it. Coverage scaled the value of a
+   system; with agents it gates it. This is what makes `multiplier_unfunded` a property of automation rather
+   than a modelling convenience — the facilitator concedes the *size* of the number and never the shape.
+2. **Agents act; they do not report.** A shared data layer is a read. An agent that reschedules a site visit or
+   contacts a patient takes an action inside a division that answers for the consequences. That is an objection
+   none of the three moves can answer, and in a real agent programme it is usually the one that stops the work.
+   It stays out of the mechanic on purpose (§4.6, the closing block) and is named in the discussion.
+3. **The constraint has swapped ends.** Agent capability arrives in weeks; these agreements take quarters. For
+   most of the history of enterprise technology the build was the bottleneck and the business waited for it.
+   That reversal is what turns teaching point 1 from a platitude into a finding.
+
+The line that carries all three: **agents turn the org chart into the systems architecture**, because an
+agent's reach is set by permission and accountability rather than by integration effort.
+
+The counterintuitive result in §3.4 has a name in this world and the debrief uses it: **the pilot trap.** Two
+divisions fund their own agent pilots, both hit their own success criteria, neither can finish a crossing
+workflow, and the enterprise ends up behind where it started.
+
 ---
 
 ## 2. THE FRAMEWORK
@@ -480,6 +508,8 @@ Reference material, read after the exercise. Scrolling is fine here.
 1. The two framework tables from §2.1 and §2.2, rendered exactly as written
 2. The three moves from §2.3
 3. The applied diagnosis from §2.4
+3a. **The pilot trap**, named directly under the outcome table that proves it, and **why this is different
+   with agents** (§1.1) as three rows plus the closing line — the answer to "why is this in an agentic course?"
 4. **All eight outcomes** from §3.4 as a table, with the current session's outcome highlighted if the page was
    reached from a closed round (pass state in the URL hash; do not use storage)
 5. Discussion questions:

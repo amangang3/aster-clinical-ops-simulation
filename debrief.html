@@ -43,6 +43,15 @@
     <h2 id="o-heading"></h2>
     <p class="caption" id="o-caption"></p>
     <table class="grid" id="o-table"></table>
+    <h3 id="pilot-heading"></h3>
+    <p class="prose callout" id="pilot-body"></p>
+  </section>
+
+  <section>
+    <h2 id="a-heading"></h2>
+    <p class="caption" id="a-caption"></p>
+    <table class="grid" id="a-table"></table>
+    <p class="prose callout" id="a-close"></p>
   </section>
 
   <section>
@@ -179,6 +188,28 @@
      { label: "Enterprise value", num: true }, { label: "Vs ambition", num: true }],
     rows);
 
+  /* 5b. The pilot trap, named under the table that proves it */
+  el("pilot-heading").textContent = D.outcomes.pilot_heading;
+  el("pilot-body").textContent = FMT.fill(D.outcomes.pilot);
+
+  /* 5c. What makes this an agentic problem rather than a shared-services one */
+  el("a-heading").textContent = D.agentic.heading;
+  el("a-caption").textContent = FMT.fill(D.agentic.caption);
+  el("a-table").innerHTML = "<tbody></tbody>";
+  var abody = el("a-table").querySelector("tbody");
+  D.agentic.rows.forEach(function (r) {
+    var tr = document.createElement("tr");
+    var th = document.createElement("td");
+    th.className = "factor";
+    th.textContent = r[0];
+    var td = document.createElement("td");
+    td.textContent = FMT.fill(r[1]);
+    tr.appendChild(th);
+    tr.appendChild(td);
+    abody.appendChild(tr);
+  });
+  el("a-close").textContent = FMT.fill(D.agentic.close);
+
   /* 6. Discussion */
   el("q-heading").textContent = D.questions.heading;
   D.questions.items.forEach(function (q) {
@@ -189,7 +220,7 @@
 
   /* 7. The block the model leaves out */
   el("z-heading").textContent = D.closing.heading;
-  el("z-body").textContent = D.closing.body;
+  el("z-body").textContent = FMT.fill(D.closing.body);
 
   el("back").textContent = "Back to the board";
   el("home").textContent = "Start over";
