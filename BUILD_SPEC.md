@@ -1,892 +1,520 @@
-# BUILD SPEC — Aster Clinical Operations Agentic Allocation Simulation
+# BUILD SPEC — Aster Coordination Simulation
 
 **This file is the complete and only source of truth for this repository.** Everything needed to build the
-simulation is written out below: the fictional world, the numbers, the scoring math, the agent personalities,
-the page-by-page UI spec, and the facilitator runbook. Do not look for other source documents; there are none.
+simulation is written out below: the fictional world, every constant, the exact model, the full script, and the
+page-by-page UI spec. Do not look for other source documents; there are none.
 
-> **Amended 2026-09-09**, to match the final case and to simplify the brief. Four changes worth knowing about
-> if you read an earlier copy:
+> **Rewritten 2026-09-10.** This replaces an earlier design in which three Claude subagents negotiated live in a
+> terminal while students wrote briefs for them. That design is gone. It is recoverable from git history if
+> anyone wants it, but nothing in this repo should reference it.
 >
-> 1. Rao is **Chief Information Officer**; the **Clinical Operations Leadership Council** replaces the
->    executive committee; ATLAS acts for **Daniel Okafor** at Enterprise Trial Infrastructure & Standards.
-> 2. **ATLAS no longer allocates the enterprise target.** Only a P&L owner can commit a number into a plan, so
->    each group commits its own and ATLAS records it. The $250M is an *ambition*, and the shortfall against it
->    is a reported finding — the **commitment gap** (§3.6).
-> 3. Two facts from the final case became private information: the duplicated dropout-risk agent, and Patient
->    Engagement's history with a central data standard (§2.3).
-> 4. The brief is **five written fields inside a 1,600-character cap** (§4.5), down from seven inside 2,400.
-
-You are building two halves that live in one repo:
-
-1. **A public static site** (GitHub Pages, no backend, no build step) that students use in class.
-2. **A local facilitator harness** (Claude Code subagents + commands) that runs the agent negotiation live in a
-   terminal projected to the room.
+> What changed and why: the teaching payload is now a **framework**, and the simulation exists to demonstrate
+> that framework rather than to stage a negotiation. That makes it deterministic, offline, instant, and
+> repeatable. No model calls, no API keys, no live agents, no student devices, no per-round reset ritual.
 
 ---
 
 ## 0. HARD CONSTRAINTS — read first
 
-These are non-negotiable. Violating any of them is a build failure.
+Violating any of these is a build failure.
 
-- **This repo is public.** Never name a real company, a real executive, a real university, a real course, or a
-  real instructor anywhere in this repository — not in code, comments, commit messages, page copy, the README,
-  or agent files. The world is entirely fictional and named **Aster Life Sciences**. Every person, number, group,
-  and event below is invented. If you are ever unsure whether a detail traces back to something real, cut it.
-- **Repository and deployment naming.** Name the repo and the Pages URL after the fiction only — e.g.
-  `aster-clinical-ops-simulation`. Do not encode an industry, a client, a course code, or a date in the name.
-- **No real-company framing.** Never describe this as "based on" or "disguised from" a real organization. It is a
-  fictional teaching simulation. Say so on the landing page.
-- **No backend, no build step, no package manager.** Plain HTML, CSS, and vanilla JS served directly by GitHub
-  Pages from the repo root (or `/docs`). No npm, no bundler, no framework, no server. It must work if someone
-  clones the repo and opens `index.html` from the filesystem.
-- **No API keys anywhere.** The public site never calls a model. All model work happens in the facilitator's
-  local Claude Code session.
-- **No student data leaves the browser.** The brief builder holds state in memory and `localStorage` only.
-- **One source of truth for numbers.** All scenario constants live in `data/scenario.js`, as a single pure
-  JSON object literal assigned to `window.ASTER_SCENARIO`. It is a `.js` file rather than `.json` because the
-  site must run from `file://`, where `fetch()` of a local JSON file is blocked by browser CORS policy and a
-  `<script>` tag is not. The site reads it at runtime; the agent files reference the same values. Never
-  hardcode a number twice.
-- **Group-private information is never in the shared data file.** It lives in `data/private/<group>.js`, and a
-  role page loads only the one file matching its own `?g=`. A single shared file would put every section's
-  private block into every section's page state, which §9 forbids.
-- **Works offline.** No CDN fonts, no external scripts, no analytics. Everything inlined or local.
+- **This repo is public.** Never name a real company, executive, university, course, or instructor anywhere —
+  not in code, comments, commit messages, page copy, or the README. The world is entirely fictional and named
+  **Aster Life Sciences**. Every person, number, group, and event is invented. If you are unsure whether a
+  detail traces back to something real, cut it.
+- **Repository and deployment naming.** Name the repo and the Pages URL after the fiction only, e.g.
+  `aster-coordination-simulation`. Do not encode an industry, a client, a course code, or a date.
+- **No real-company framing.** Never describe this as "based on" or "disguised from" a real organization. It is
+  a fictional teaching simulation and the landing page says so.
+- **No backend, no build step, no package manager.** Plain HTML, CSS, and vanilla JS served by GitHub Pages
+  from the repo root. No npm, no bundler, no framework, no server. It must work when someone clones the repo
+  and opens `index.html` from the filesystem.
+- **No network calls of any kind.** No CDN fonts, no external scripts, no analytics, no model APIs. Everything
+  inlined or local. The room's wifi is not to be trusted and nothing here needs it.
+- **Deterministic.** Identical inputs always produce identical outputs. No randomness anywhere, including in
+  animation ordering. A facilitator who runs this twice must see the same thing twice.
+- **One source of truth for numbers.** Every constant lives in `data/model.js` as a pure JSON object literal
+  assigned to `window.ASTER`. It is a `.js` file rather than `.json` because the site must run from `file://`,
+  where `fetch()` of a local JSON file is blocked by CORS and a `<script>` tag is not. Never hardcode a number
+  twice. Every displayed figure is computed from these constants at runtime — no figure is ever typed into HTML.
+- **Projector legibility is a functional requirement.** This is driven from a lectern and read from the back of
+  a room. Minimum body size 18px, minimum headline size 44px, and the three headline figures must be legible at
+  a glance from ~15 metres. Test at 1920×1080.
 
 ---
 
-## 1. WHAT THIS SIMULATION TEACHES
+## 1. WHAT THIS TEACHES
 
-The class has already discussed a case in which a Chief Information Officer must decide
-whether to push for a **single enterprise-wide agentic AI target** or let each functional group **set its own
-targets** inside its own planning cycle.
+The class has already discussed a case in which a CIO must decide whether to push for a single enterprise-wide
+agentic AI target or let each division set its own. The class has then been shown a framework (§2). This
+simulation makes the framework land by letting the room try to use it and watch what happens.
 
-This simulation makes students *feel* the answer rather than argue it. The mechanic is built so that:
+Three teaching points, in priority order.
 
-- Agentic AI is **expensive**. Someone has to pay for platform capital and scarce engineers.
-- The **largest value pools cross functional boundaries** and require shared data and tooling that no single
-  group can justify building alone.
-- A group that optimizes purely locally **wins the argument and loses the outcome**.
-- Students never debate each other directly. Their judgment shows up entirely in **what they chose to tell their
-  agent** — which is the delegation lesson.
+**1. Agentic value sits on the boundaries between divisions, so the binding constraint is not technology or
+capital — it is whether P&L owners will commit to something they do not control.**
 
-The intended emotional arc across rounds:
+**2. The case for collaborating is never the problem.** Every division agrees the shared asset should exist.
+What blocks each one is different, specific, and rarely about the size of the prize. Reaching for the wrong
+move is expensive and buys nothing.
 
-| Round | What usually happens | What students learn |
+**3. Partial coordination is worse than none.** This is the counterintuitive one and the model is built to
+prove it rather than assert it (§3.4).
+
+A fourth point emerges from the mechanic and should be left for the facilitator to name rather than written on
+screen: the smallest, most dependent group has the best economics in the room and the least standing to demand
+anything.
+
+---
+
+## 2. THE FRAMEWORK
+
+This is the intellectual content the simulation demonstrates. It is shown on `debrief.html` and referenced in
+the copy elsewhere. Do not paraphrase these definitions — they are used verbatim in class.
+
+### 2.1 Forces incentivising collaboration — why any division comes to the table
+
+| Factor | Description |
+|---|---|
+| **Dependency** | Value you cannot realise without an asset another division owns. The more of your value sits on a boundary, the more you need the deal — and if you are the one who owns that asset, your upside is their commitment, not your own roadmap. |
+| **Threshold** | The shared asset is lumpy. It exists only above a funding line that no single division can justify on its own numbers, so it gets built jointly or it does not get built. |
+| **Duplication** | Left alone, divisions quietly build the same capability twice. Nobody can see it from inside their own plan, and the waste only surfaces once both have been funded. |
+
+### 2.2 Forces incentivising individualism — why it defends its own plan instead
+
+| Factor | Description |
+|---|---|
+| **Absorption** | *"We cannot take this much change this fast."* A timing problem, not a size problem — so commit the number and negotiate the clock. |
+| **Advantage** | *"We already paid for this. Why would we level down?"* A property problem — so pay for what they give up: credit the head start, guarantee them demand. |
+| **Assurance** | *"Last time the centre moved, we ate the cost."* A trust problem — so guarantee the downside: caps, kill criteria, migration costs covered. |
+
+### 2.3 The three moves
+
+Each individualism factor has exactly one move that answers it. This one-to-one mapping is the mechanic.
+
+| Move | Answers | What it is |
 |---|---|---|
-| 1 | Each section instructs its agent to maximize its own take. Shared infrastructure is underfunded. Enterprise gate is missed. Everyone's realized value is crushed. | Local optimization is individually rational and collectively fatal. |
-| 2 | Sections rewrite briefs to authorize cooperation, pledges, and trades. Gate is met. Value roughly doubles. | A top-down target and shared platform funding is what unlocks the value pools. |
-| 3 (optional) | Sections compete *within* a cooperative frame — who contributes most credibly. | Enterprise commitment and self-interest are not opposites once the platform exists. |
+| **SEQUENCE** | Absorption | Commit the number, negotiate the clock, not the size. |
+| **PRICE** | Advantage | Pay for what they give up — credit the head start, guarantee them demand. |
+| **UNDERWRITE** | Assurance | Guarantee the downside — caps, kill criteria, migration costs covered. |
 
----
+### 2.4 The applied diagnosis
 
-## 2. THE FICTIONAL WORLD (all content below goes into the site verbatim or lightly edited)
-
-### 2.1 Setting
-
-**Aster Life Sciences — Global Clinical Operations Center.** Mid-2026. The Center runs clinical trials at global
-scale through three operating groups, each with its own P&L, customers, planning rhythm, and technical maturity.
-A fourth unit, **Enterprise Trial Infrastructure & Standards**, provides shared platforms, data standards, and
-governance that cut across all three.
-
-The Chief Information Officer, **Alexiel Rao**, has just run a live agentic AI demonstration for the
-**Clinical Operations Leadership Council**. Everyone agrees the opportunity is real. Nobody agrees on who
-commits to what. Rao has been given one negotiation to settle it.
-
-**Rao cannot impose a target.** The Council is chaired by the Chief Clinical Officer, and Rao is a member of
-it, but membership confers no authority over targets: only a P&L owner can commit a number into a five-year
-plan, and Rao owns no P&L. He can argue for the number. He cannot set it. This constraint drives the whole
-mechanic — see §3.1.
-
-### 2.2 What is being negotiated
-
-Three things are on the table simultaneously. Two are prizes; one is a burden. This is what makes the negotiation
-non-trivial.
-
-| Item | Total | Nature |
-|---|---|---|
-| **Platform capital** | **$60M** over three years | Prize — funds agent infrastructure, model spend, tooling |
-| **Central engineering capacity** | **120 engineer-quarters** | Prize — scarce senior agent engineers |
-| **Enterprise value ambition** | **$250M** run-rate savings | Ambition — Rao's ask, not a mandate. Each group commits its own number; nobody can set one for them |
-| **Shared infrastructure pledge** | **$18M** needed, from group pledges | Neither — voluntary, comes off the top of your own allocation |
-
-Every group wants **more capital**, **more engineers**, **a smaller number of its own to carry**, and **someone
-else to fund the shared infrastructure**.
-
-### 2.3 The three student sections
-
-Each section plays one group and sees **only its own role page**. Private information is deliberately partial —
-no group can see the whole board alone.
-
----
-
-#### SECTION A — Site Operations & Trial Execution
-*Agent codename:* `MORENO-AGENT` (after Senior Director Luis Moreno)
-
-**Public profile:** Largest group. Manages relationships with hundreds of clinical trial sites, hospitals, and
-research centers across multiple geographies. High revenue, margin sensitive. Highly competitive business.
-
-**Numbers (public to this section):**
-- Local value pool potential: **$140M**
-- Capital needed for full capability: **$26M**
-- Engineering needed for full capability: **52 engineer-quarters**
-
-**Private information — the other groups do NOT know this:**
-- Internal analysis shows **six of the nine highest-value workflows** in the Center run *through* Site Ops but
-  *begin or end* in another group. You are the biggest beneficiary of cross-boundary work and you know it.
-- Roughly **40% of your value pool cannot be realized without a shared trial-data layer** you have neither the
-  expertise nor the mandate to build.
-- A **new technology leader arrives in two quarters.** Committing hard now risks a commitment your incoming
-  leader has to own and did not make.
-- **Enrollment seasonality** means your Q3/Q4 change-absorption capacity is close to zero. You can take a big
-  target, but not a big *near-term* target.
-
-**What you do not know:** that two other groups have each separately scoped the same dropout-risk agent. Also:
-what the shared data layer actually costs, how long it takes, or that Patient
-Engagement's value is even more dependent on it than yours.
-
-**Your section's objective:** maximize Site Ops' realized value net of the target burden you accept.
-
----
-
-#### SECTION B — Clinical Data & Analytics
-*Agent codename:* `COLE-AGENT` (after Senior Director Evan Cole)
-
-**Public profile:** Manages trial data collection, validation, and statistical analysis. Deep technical
-expertise, high investment intensity. Serves internal trial teams and regulatory bodies.
-
-**Numbers (public to this section):**
-- Local value pool potential: **$95M**
-- Capital needed for full capability: **$22M**
-- Engineering needed for full capability: **40 engineer-quarters**
-
-**Private information — the other groups do NOT know this:**
-- You are **the only group that can build the shared trial-data layer.** You know its real cost: **$18M and three
-  quarters of elapsed time.**
-- You have **already funded a multi-year agentic plan** inside your own five-year strategy. You are further along
-  than anyone else and you resent being asked to slow down and carry others.
-- Your **statisticians are genuinely uneasy** about agent-driven data validation. Your absorption limit is real,
-  not tactical — pushing past roughly 80% capability in year one creates quality risk you will be blamed for.
-- Your local pool is **the second largest but the hardest to grow**. Most of your upside is in enabling others.
-- You have already scoped an agent that **identifies patients at risk of dropping out of a trial.** It needs its
-  own data pipeline, its own model, and about **six engineer-quarters.** It is in your plan and you have not
-  discussed it with anyone outside your group.
-
-**What you do not know:** how much of Site Ops' and Patient Engagement's value actually depends on your layer.
-Left to your own information, you will systematically **undervalue building it**. You also do not know that
-Patient Engagement has scoped **the same dropout-risk agent you have**, down to the duplicated pipeline.
-
-**Your section's objective:** maximize Clinical Data & Analytics' realized value net of the target burden you accept.
-
----
-
-#### SECTION C — Patient Engagement & Recruitment
-*Agent codename:* `VEGA-AGENT` (after Senior Director Clara Vega)
-
-**Public profile:** Directs patient outreach, enrollment, and retention through diverse channels and vendor
-partnerships. Smallest of the three groups. Brand and channel driven.
-
-**Numbers (public to this section):**
-- Local value pool potential: **$70M**
-- Capital needed for full capability: **$12M**
-- Engineering needed for full capability: **28 engineer-quarters**
-
-**Private information — the other groups do NOT know this:**
-- You have **the highest return per dollar of capital** of any group. Your workflows are cheap to automate and
-  the payoff is fast. This is your only real leverage.
-- You have **almost no internal engineering.** You have historically bought innovation from external agencies.
-  You need central engineers far out of proportion to your size, and you will be attacked for it.
-- **Nearly all of your value evaporates without shared patient and trial data.** Outreach, retention, and
-  follow-up agents are worthless if they cannot see trial and site state. You are the most dependent group in
-  the room and the least able to fix it yourself.
-- You have already scoped an agent that **identifies patients at risk of dropping out of a trial.** It needs its
-  own data pipeline, its own model, and engineers you do not have. It is in your plan and you have not discussed
-  it with anyone outside your group.
-- **You have been burned by central standards before.** The common trial data standard Enterprise introduced
-  last year forced you to rebuild outreach integrations that were already working, and it **delayed two
-  enrollment campaigns by a quarter.** Nobody compensated you. You have a real, evidenced reason to distrust
-  anything held at enterprise level — and you may use it.
-
-**What you do not know:** that you are the smallest claim on the table and will be outgunned in a pure
-resource fight unless you trade something — your efficiency evidence, or your vote on infrastructure. You also
-do not know that Clinical Data & Analytics has scoped **the same dropout-risk agent you have**.
-
-**Your section's objective:** maximize Patient Engagement & Recruitment's realized value net of the target
-burden you accept.
-
----
-
-### 2.4 The orchestrator (facilitator-run, not a student section)
-
-*Agent codename:* `ATLAS` — Enterprise Trial Infrastructure & Standards, under Senior Director **Daniel
-Okafor**, convening on behalf of the Clinical Operations Leadership Council.
-
-ATLAS is **not** a student section. It runs the negotiation protocol, presses each group for specific
-commitments, and at the end applies the allocation rubric and computes results. It has one interest: the
-enterprise number. It does not have a P&L.
-
----
-
-## 3. THE MATH
-
-All constants below go in `data/scenario.js`. The site displays them; the orchestrator computes with them.
-
-### 3.1 Inputs the orchestrator produces per group
-
-ATLAS **allocates** the centrally-held resources, because the centre owns them:
-
-- `capital_g` — $M of the $60M pool
-- `eng_g` — engineer-quarters of the 120
-
-ATLAS **records** what each group chose for itself, because it has no authority to choose for them:
-
-- `target_g` — $M this group **committed to carrying**. ATLAS may press once for a specific figure and may say
-  a number looks low against that group's own stated pool, but it may not change it and may not assign one to a
-  group that refuses. A group that commits nothing is recorded at `0`.
-- `pledge_g` — $M this group pledged to shared infrastructure (deducted from `capital_g`)
-- `standards_g` — boolean: did this group commit to shared data standards
-- `rubric_g` — five scores 0–5 (see §3.4)
-
-Constraints ATLAS must satisfy:
-- `Σ capital_g = 60`, `Σ eng_g = 120` — both exact, whole numbers
-- **`Σ target_g` is unconstrained.** It is whatever the three groups committed to. It must never be adjusted to
-  reach $250M; the shortfall is reported instead (§3.6).
-- `pledge_g ≤ capital_g` (over-pledging is capped and scored as bad faith)
-
-### 3.2 Capability
-
-```
-effective_capital_g = capital_g - pledge_g
-c_g = min( effective_capital_g / capital_need_g , eng_g / eng_need_g )   clamped to [0, 1]
-```
-
-The `min` is deliberate: **money without engineers, or engineers without money, is wasted.** Hoarding one
-resource starves your own capability as well as everyone else's.
-
-Needs sum exactly to supply (`26+22+12 = 60`, `52+40+28 = 120`), so a perfectly cooperative split with zero
-pledge gives every group `c_g = 1.0`. Funding the platform costs real capability. That trade-off is the point.
-
-### 3.3 The enterprise gate
-
-```
-platform_funded = ( Σ pledge_g >= 18 )
-
-if platform_funded:
-    platform_multiplier = 1.00
-    cross_pool_unlocked = true
-else:
-    platform_multiplier = 0.55      # agents stay inside one boundary = expensive automation
-    cross_pool_unlocked = false
-```
-
-**Cross-boundary pool: $95M.** It belongs to no group. It exists only if the platform is funded, and it is
-distributed by ATLAS in proportion to each group's *contribution* to unlocking it (pledge size, standards
-commitment, and rubric dimension 2), not to group size.
-
-```
-V_g = local_pool_g * c_g * platform_multiplier
-      + ( cross_pool_share_g * 95 * c_g   if cross_pool_unlocked else 0 )
-
-enterprise_value = Σ V_g
-```
-
-**Worked scenarios (put these in the facilitator runbook, never on the student site):**
-
-| Scenario | Σ pledge | Platform | Σ V | vs $250M ambition |
-|---|---|---|---|---|
-| Everyone hoards, perfect split, no pledge | $0M | NOT FUNDED | **$167.75M** | miss by $82M |
-| Platform funded, capital split proportionally | $18M | FUNDED | **$280.00M** | beat by $30M |
-| Platform funded but one group starved of engineers | $18M | FUNDED | **$232.46M** | miss by $18M |
-
-These are exact, not approximate — they reproduce from the constants above. If a dry run does not behave like
-row 1, the constants are wrong; fix them rather than the agents.
-
-Round 1 almost always lands in row 1. That failure is the lesson.
-
-### 3.4 The allocation rubric (how ATLAS decides)
-
-ATLAS scores each group 0–5 on five dimensions and allocates **capital and engineers** in proportion to the
-weighted score, capped so that no group receives more than its stated need — capability clamps at 1.0, so
-anything beyond need is waste. Surplus is redistributed among groups still below their need, again by weighted
-score, until the pool is exhausted.
-
-**The target is not allocated.** Each group commits its own (§3.1), which is what makes dimension 4 coherent:
-it scores the number the group chose for itself.
-
-| # | Dimension | Weight | Visible to students? |
+| Division | Pull | Block | Move |
 |---|---|---|---|
-| 1 | **Value evidence** — is the ask tied to specific, quantified workflows? | 25% | Yes |
-| 2 | **Cross-boundary contribution** — what does this group give to the shared platform or standards? | 25% | Yes |
-| 3 | **Absorptive capacity** — realistic about change absorption; names accountable leaders | 15% | Yes |
-| 4 | **Target credibility** — committed a number proportional to its **own** opportunity; this is where lowballing is priced | 15% | Yes |
-| 5 | **Enterprise citizenship** — did it help close the gate, or free-ride on others? | 20% | **No — hidden weight** |
-
-Dimensions 1–4 are published in the rules on the student site. **Dimension 5 and its weight are not.** During
-the negotiation the site and terminal show only a neutral **Enterprise Readiness meter** (§4.5) so students feel
-the pressure without being told the formula. The full rubric is revealed at the debrief.
-
-### 3.5 Scoring and ranking
-
-```
-shortfall_g = max(0, target_g - V_g)
-group_score_g = V_g - 1.5 * shortfall_g
-```
-
-Accepting a target you cannot hit is punished harder than accepting a small one — but ATLAS's dimension 4 docks
-groups that duck the target, so both directions are covered.
-
-**Ranking rule — this is what makes "nobody wins alone" literal:**
-
-> If `enterprise_value < 250`, **no ranking is awarded.** The leaderboard displays
-> `NO WINNER — ENTERPRISE COMMITMENT MISSED` and shows all three group scores greyed out with their raw values.
-> Only when the enterprise ambition is reached does the site rank sections 1–2–3.
-
-Note the incentive `shortfall_g` creates: because each group now chooses its own `target_g`, a group that
-commits a small number is hard to punish here. **That is deliberate.** Rubric dimension 4 is the only thing
-standing against it, so ATLAS must score lowballing hard and name it in the rationale.
-
-### 3.6 The commitment gap
-
-```
-target_committed = Σ target_g
-commitment_gap   = 250 - target_committed        (report even when negative)
-```
-
-This is a **second headline finding, independent of the platform gate**, and it is the one that maps most
-directly onto the case decision. Expect the three groups to commit somewhere around $200M–$230M: short of the
-ambition *before a single agent is built* and before the multiplier applies at all.
-
-Report it whether or not the platform was funded. A round in which all three groups commit small targets, hit
-them comfortably, and still leave the enterprise far short is a complete and instructive outcome — not an
-error state.
+| Site Operations | **Dependent** — 40% of its value needs a layer it cannot build; six of nine top workflows cross its boundary | **Absorption** (timing) | **Sequence** |
+| Clinical Data & Analytics | **Supplier** — the only group that can build the layer; its own pool is hardest to grow | **Advantage** (property) | **Price** |
+| Patient Engagement | **Dependent** — best return per dollar in the room, nearly all of it gone without shared data | **Assurance** (trust) | **Underwrite** |
 
 ---
 
-## 4. THE PUBLIC STATIC SITE
+## 3. THE MODEL
+
+Implement exactly. Every number in §3.1 goes in `data/model.js`; nothing here is approximate.
+
+### 3.1 Constants
+
+```js
+window.ASTER = {
+  meta: {
+    org: "Aster Life Sciences",
+    unit: "Global Clinical Operations Center",
+    setting: "Mid-2026",
+    disclaimer: "A fictional teaching simulation. Aster Life Sciences and all people, numbers and events in it are invented."
+  },
+
+  ambition: 250,                 // $M run-rate — the CIO's ask, not a mandate
+  infrastructure_required: 18,   // $M — build cost of the shared trial-data layer
+  multiplier_funded: 1.00,
+  multiplier_unfunded: 0.55,     // agents confined inside one boundary
+
+  groups: [
+    { id: "site-ops",           name: "Site Operations & Trial Execution",  short: "Site Operations",
+      lead: "Senior Director Luis Moreno",  accent: "amber",
+      local_pool: 140, cross_value: 40, capital_need: 26, pledge: 8,
+      pull: "dependent", block: "absorption", move: "sequence" },
+
+    { id: "data-analytics",     name: "Clinical Data & Analytics",          short: "Data & Analytics",
+      lead: "Senior Director Evan Cole",    accent: "cyan",
+      local_pool: 95,  cross_value: 20, capital_need: 22, pledge: 6,
+      pull: "supplier",  block: "advantage",  move: "price" },
+
+    { id: "patient-engagement", name: "Patient Engagement & Recruitment",   short: "Patient Engagement",
+      lead: "Senior Director Clara Vega",   accent: "violet",
+      local_pool: 70,  cross_value: 35, capital_need: 12, pledge: 4,
+      pull: "dependent", block: "assurance", move: "underwrite" }
+  ],
+
+  moves: [
+    { id: "sequence",   label: "SEQUENCE",   cost: 6,  answers: "absorption",
+      blurb: "Commit the number, negotiate the clock." },
+    { id: "price",      label: "PRICE",      cost: 12, answers: "advantage",
+      blurb: "Pay for what they give up. Credit the head start, guarantee demand." },
+    { id: "underwrite", label: "UNDERWRITE", cost: 9,  answers: "assurance",
+      blurb: "Guarantee the downside. Caps, kill criteria, migration costs covered." }
+  ]
+};
+```
+
+Note the two deliberate identities, both load-bearing:
+
+- `8 + 6 + 4 = 18` — the pledges sum to **exactly** the build cost, so every group is pivotal. There is no
+  coalition of two that funds the layer.
+- `26 + 22 + 12 = 60` — capital needs sum to the $60M platform pool referenced in the case, so a group that
+  pledges is visibly giving up capability it would otherwise have had.
+
+### 3.2 State
+
+The entire application state is three booleans and a spend tally.
+
+```js
+state = {
+  committed: { "site-ops": false, "data-analytics": false, "patient-engagement": false },
+  applied:   [],     // ordered list of { group_id, move_id, correct } — append only within a round
+  spent:     0       // $M, sum of cost of every move applied, right or wrong
+}
+```
+
+### 3.3 The computation — one pure function, no side effects
+
+```js
+function compute(state) {
+  const A = window.ASTER;
+  const pledged = A.groups
+    .filter(g => state.committed[g.id])
+    .reduce((s, g) => s + g.pledge, 0);
+
+  const funded = pledged >= A.infrastructure_required;
+  const mult   = funded ? A.multiplier_funded : A.multiplier_unfunded;
+
+  const per = A.groups.map(g => {
+    // Committing costs real capital, which costs real local capability.
+    const c = state.committed[g.id]
+      ? (g.capital_need - g.pledge) / g.capital_need
+      : 1.0;
+    const local = g.local_pool * c * mult;
+    const cross = funded ? g.cross_value * c : 0;
+    return { id: g.id, capability: c, local, cross, value: local + cross };
+  });
+
+  const enterprise = per.reduce((s, p) => s + p.value, 0);
+
+  return {
+    pledged, funded, mult, per, enterprise,
+    gap:   A.ambition - enterprise,       // positive = short of the ambition
+    spent: state.spent,
+    wasted: state.applied.filter(a => !a.correct)
+                         .reduce((s, a) => s + A.moves.find(m => m.id === a.move_id).cost, 0)
+  };
+}
+```
+
+A move is `correct` when `move.answers === group.block`. Nothing else in the system decides this.
+
+### 3.4 Every reachable outcome — verify against this table
+
+There are exactly eight states. Build a test that reproduces this table to two decimal places; if it does not
+match, the constants are wrong and must be fixed rather than the display rounded.
+
+| Committed | Pledged | Layer | Enterprise value | vs $250M |
+|---|---|---|---|---|
+| none | $0M | not funded | **$167.75M** | short $82.25M |
+| Data & Analytics only | $6M | not funded | **$153.50M** | short $96.50M |
+| Patient Engagement only | $4M | not funded | **$154.92M** | short $95.08M |
+| Site Operations only | $8M | not funded | **$144.06M** | short $105.94M |
+| D&A + Patient Engagement | $10M | not funded | **$140.67M** | short $109.33M |
+| Site Ops + Patient Engagement | $12M | not funded | **$131.22M** | short $118.78M |
+| Site Ops + D&A | $14M | not funded | **$129.81M** | short $120.19M |
+| **all three** | **$18M** | **FUNDED** | **$278.25M** | **beat by $28.25M** |
+
+**Read the middle six rows.** Every partial coalition is worse than nobody trying, and it gets worse the more
+groups join. Two divisions do the right thing, pay their pledge, and the room watches the number fall by $38M.
+This is the most important property of the model and it is not a bug to be smoothed out — it is the third
+teaching point made mechanical. Do not add partial credit for partial funding.
+
+Per-group values in the all-committed state, for the results readout:
+
+| Division | Capability | Local | Cross-boundary | Total |
+|---|---|---|---|---|
+| Site Operations | 0.692 | $96.92M | $27.69M | **$124.62M** |
+| Data & Analytics | 0.727 | $69.09M | $14.55M | **$83.64M** |
+| Patient Engagement | 0.667 | $46.67M | $23.33M | **$70.00M** |
+
+### 3.5 The deal economics
+
+Correct diagnosis on all three costs `6 + 12 + 9 = $27M` and moves the enterprise from $167.75M to $278.25M,
+a gain of **$110.50M** — a return of **4.09×**. Every misdiagnosed move costs its full price and returns
+nothing. Both figures are displayed at the close (§4.5).
+
+---
+
+## 4. THE SITE
 
 ### 4.1 Repo layout
 
 ```
-/
-├── BUILD_SPEC.md              # this file — keep it, it is the spec of record
-├── README.md                  # short, public-safe; see §7
-├── index.html                 # landing + how it works + round tracker
-├── role.html                  # role brief; ?g=site-ops | data-analytics | patient-engagement
-├── brief.html                 # brief builder; same ?g= param
-├── watch.html                 # what to watch while the terminal is projected
-├── results.html               # paste results JSON → scoreboard
-├── debrief.html               # discussion questions
-├── assets/
-│   ├── style.css              # one stylesheet, design tokens at top
-│   └── app.js                 # shared: scenario loader, router, storage, render helpers
-├── data/
-│   ├── scenario.js            # ALL constants — single source of truth
-│   └── private/               # per-group private info; role page loads only its own
-│       ├── site-ops.js
-│       ├── data-analytics.js
-│       └── patient-engagement.js
-├── .claude/
-│   ├── agents/                # §5
-│   └── commands/              # §6
-├── briefs/                    # facilitator drops student briefs here
-│   └── .gitkeep
-├── runs/                      # transcripts + results per round
-│   └── .gitkeep
-└── facilitator/
-    ├── RUNBOOK.md             # §6.4
-    ├── fallback-briefs/       # pre-written briefs if a section stalls
-    └── demo-run/              # a committed example transcript + results.json
+index.html          landing — context, the table, one button into the simulation
+sim.html            the simulation itself — this is the whole exercise
+debrief.html        the framework, the eight outcomes, the discussion questions
+assets/style.css    all styling, one file
+assets/sim.js       state machine, animation, rendering
+data/model.js       constants + compute() — the only place numbers live
+data/script.js      every line of dialogue (§5)
+test.html           model check — enumerates §3.4, linked from nowhere
+framework-deck.pptx the four framework slides the simulation sits between (§6)
+README.md           §7
+BUILD_SPEC.md       this file
+.nojekyll
+.gitignore          editor and OS cruft only — this build produces no run artefacts
+LICENSE
 ```
+
+**Nothing else belongs in the repo.** The retired live-negotiation build — `.claude/`, `briefs/`, `runs/`,
+`facilitator/`, `role.html`, `brief.html`, `watch.html`, `results.html`, `data/private/`, `data/scenario.js`,
+`assets/app.js` — was deleted in its own commit before this build started, so no dead reference survives. It
+is recoverable from git history and must not come back.
+
+The deck carries the same constants as `data/model.js` and is written against this mechanic, not an earlier
+one. Slides 3 and 4 are §2.1–§2.4 verbatim. If a constant changes here, the deck changes with it.
 
 ### 4.2 Design direction
 
-Not a toy. This is projected in a graduate classroom and students look at it on laptops in a dim room.
+Dark, calm, high contrast, no decoration. It is projected in a lit room next to a slide deck it must not clash
+with.
 
-- **Dark-first**, with a light variant honoring `prefers-color-scheme`. Define all colors as CSS custom
-  properties on `:root`, override under `@media (prefers-color-scheme: light)`.
-- **Type:** system font stack only (no CDN fonts). Generous size — body 16–17px, role-page headings large.
-  Numbers in a tabular-figures monospace stack so columns align.
-- **One accent per section**, used consistently everywhere that section appears (role page, brief builder,
-  scoreboard bar, transcript legend). Suggested: Site Ops amber, Data & Analytics cyan, Patient Engagement
-  violet. Enterprise/ATLAS neutral slate.
-- Everything must be legible from the back of a room when projected: high contrast, no thin greys on grey.
-- **Fully responsive**; wide tables scroll inside their own `overflow-x:auto` container. The page body never
-  scrolls horizontally.
-- No animation beyond simple state transitions. Nothing that distracts while the instructor is talking.
+- Background `#0E1526`, card surface `#1A2337`, hairline `#27334B`
+- Text `#FFFFFF`, muted `#9AA7BD`, dim `#6E7C94`
+- Group accents: Site Operations `#E8A33D`, Data & Analytics `#4FC3D9`, Patient Engagement `#A78BFA`
+- Collaboration / committed `#3FD9A0` · individualism / defending `#F0685F`
+- System sans throughout; one serif face for quoted dialogue only
+- Rounded 6px corners, 0.75px hairline borders, no gradients, no shadows, no accent stripes
+- Motion: 200–400ms ease-out. Number count-ups 800ms. The gate reveal (§4.4) is the only moment allowed to
+  take longer, at 1600ms.
+
+Respect `prefers-reduced-motion: reduce` by skipping all transitions and setting final values immediately. The
+outcome must be identical either way.
 
 ### 4.3 `index.html` — landing
 
-Contents, in order:
+One screen, no scrolling at 1080p.
 
-1. **Title:** "Aster Life Sciences — Agentic Allocation Simulation". Immediately below, one line in muted text:
-   *A fictional teaching simulation. Aster Life Sciences and all people, numbers, and events in it are invented.*
-2. **The situation** — 3 short paragraphs from §2.1.
-3. **What's on the table** — the four-row table from §2.2, rendered from `scenario.js`.
-4. **How this works** — a 5-step strip: `Read your role → Write your agent's brief → Hand it in → Watch your
-   agent negotiate → See the allocation`. Then a second line: *We run this more than once. After each round you
-   rewrite your brief and we run it again.*
-5. **Why you are doing this** — a callout carrying the framing line: *This is the model the class just chose:
-   each group commits its own target, and the centre supplies platform capital and engineers. We are going to
-   run it and see what it produces.* This makes the case debate consequential rather than decorative.
-6. **The one rule that matters** — a callout: *You never negotiate. Your agent does. Everything you want it to
-   know, argue, concede, or refuse must be written into the brief before it starts.*
-7. **Three section cards** linking to `role.html?g=…`. Each card shows only the section name and a one-line
-   descriptor — students click into their own.
-8. **Round tracker** — reads `localStorage` key `aster.round` (default 1), shows `ROUND 1 / 2 / 3` as a stepper
-   with the current round highlighted. A small facilitator control (a link with `?fac=1`) advances it.
+- Title, and the disclaimer from `meta.disclaimer` in small dim text
+- The situation in three short paragraphs: three operating groups each with its own P&L; the CIO has run a
+  demo and everyone agrees the opportunity is real; nobody agrees who commits. The CIO can argue for a number
+  and cannot set one, because only a P&L owner commits a number into a plan.
+- Four figures rendered from constants: `$250M` ambition · `$18M` shared trial-data layer · `$60M` platform
+  capital (sum of `capital_need`) · `$95M` cross-boundary value (sum of `cross_value`)
+- The three groups as cards: short name, lead, `local_pool`, and one line of descriptor
+- One primary button, **BEGIN**, to `sim.html`
+- A quiet secondary link to `debrief.html`, styled so nobody clicks it by accident mid-class
 
-### 4.4 `role.html?g=…` — the role brief
+### 4.4 `sim.html` — the simulation
 
-Renders from `scenario.js` plus `data/private/<g>.js` for the requested group. If `g` is missing or unknown,
-show a picker instead. **Never load another group's private file.**
+This is the whole exercise. One screen, no scrolling, driven from a lectern.
 
-Sections, in order:
+**Header band.** Three figures, always visible, updating live:
 
-1. **Section banner** — group name, agent codename, accent color.
-2. **Your objective** — one sentence, large.
-3. **Your public profile** — from §2.3.
-4. **Your numbers** — three stat tiles: local value pool, capital needed, engineers needed.
-5. **What only you know** — visually distinct panel (border in the accent color, "PRIVATE" tag). The private
-   bullets from §2.3, verbatim. Add a line under it: *The other sections have their own private information.
-   You cannot see it, and they cannot see yours.*
-6. **What's being negotiated** — the four-row table again, so the section doesn't have to go back.
-7. **How the allocation is decided** — rubric dimensions 1–4 only, each with a one-line explanation. **Never
-   render dimension 5.** The scenario data must therefore mark dimension 5 with `"public": false` and the
-   renderer must filter on that flag.
-8. **Big button:** "Write your agent's brief →" → `brief.html?g=…`.
-
-### 4.5 `brief.html?g=…` — the brief builder
-
-This is the most important page. It shapes what students actually think about.
-
-**Form fields**, each with a short helper line and a character counter:
-
-| Field | Type | Cap | Helper text |
-|---|---|---|---|
-| Opening position | textarea | 400 | Capital, engineers, and the target your group is prepared to commit to. Be specific — numbers, and say which of them matters most. Nobody can set that target for you. |
-| Evidence your agent should use | textarea | 500 | Which workflows, which numbers. Vague claims score badly. |
-| Red lines | textarea | 300 | What your agent must never concede, no matter what it is offered. |
-| Authorized concessions | textarea | 400 | What your agent may give away, and what it must get back for it. Include what it should do if the negotiation turns against you. |
-| Position on shared infrastructure | radio + textarea | 300 | Contribute nothing / contribute if others do / contribute first. Then explain the condition. |
-| Tone | select | — | Collaborative / Firm / Aggressive. This changes how your agent argues, not what it wants. |
-
-**Five written fields, not seven.** Ranked priorities overlapped both the opening position (which already asks
-for the numbers) and authorized concessions (which already asks what gets traded away), and the standing
-instruction was the least-used field in the form. The contingency prompt survives inside the concessions helper
-text. What remains does five distinct jobs: ask, justify, refuse, trade, and the infrastructure choice.
-
-**Total cap: 1,600 characters across all fields.** The five field caps sum to 1,900, so the global cap **binds**
-— a section must give up roughly 300 characters somewhere. If you ever change the field caps, change this too,
-or the cap stops forcing a choice and stops teaching anything. Display a global counter prominently. The cap is
-pedagogical —
-it forces the section to decide what its agent actually needs to know, which *is* the lesson. Block submission
-above the cap; do not silently truncate.
-
-**Behavior:**
-- Autosave to `localStorage` under `aster.brief.<group>.<round>` on every keystroke.
-- Live **markdown preview** in a side panel, exactly as the facilitator will receive it, using the format in §4.6.
-- **"Copy brief" button** — copies the markdown to clipboard, shows a confirmation, and displays the filename
-  the facilitator needs: `briefs/round<N>/<group>.md`.
-- **"Download .md" button** as a fallback for browsers where clipboard is blocked.
-- **Round awareness:** when the round tracker advances, the builder loads the *previous* round's brief as the
-  starting point and shows a banner: *Round 2 — your round 1 brief is loaded below. Change what didn't work.*
-  This is essential; rewriting from scratch each round wastes class time and loses the learning.
-- A collapsed **"What happened last round"** panel showing this group's last result if a results JSON has been
-  loaded on this device.
-
-### 4.6 Brief output format (contract between site and agents)
-
-The copied markdown must be exactly this shape. The agent files parse it by heading.
-
-```markdown
-# BRIEF — Site Operations & Trial Execution
-Round: 2
-Tone: Firm
-
-## Opening position
-...
-
-## Evidence
-...
-
-## Red lines
-...
-
-## Authorized concessions
-...
-
-## Shared infrastructure
-Stance: contribute if others do
-...
-```
-
-### 4.7 `watch.html` — during the live negotiation
-
-A single screen students look at while the terminal is projected. No interaction.
-
-- **Round protocol** — the five phases from §6.1, with the current one highlightable via `?phase=1..5` so the
-  facilitator can advance it on the projector.
-- **"What to look for"** — 4 short prompts, e.g. *Did your agent use your evidence, or invent its own? Did it
-  hold your red line under pressure? Who moved first on infrastructure? What did your agent concede that you
-  never authorized?*
-- **Enterprise Readiness meter** — a horizontal bar, 0–100%, driven by a facilitator-typed value in the URL
-  (`?readiness=40`) or a small manual slider on `?fac=1`. It shows collective health **without ever explaining
-  the formula.** Label it only: `ENTERPRISE READINESS`. Below the bar, a single word state:
-  `FORMING` / `CONTESTED` / `AT RISK` / `COMMITTED`.
-- **Legend** of the three agent codenames with their accent colors, so students can track the transcript.
-
-### 4.8 `results.html` — the reveal
-
-No backend, so: a large paste box at the top accepting the `results.json` that the orchestrator wrote. On paste,
-validate against the schema (§4.9) and render. Also accept `?run=runs/round1/results.json` to fetch a committed
-file when the facilitator has pushed one.
-
-Render, in order:
-
-1. **Gate banner** — full width. Either
-   `ENTERPRISE TARGET MET — $280M of $250M` in the success color, or
-   `ENTERPRISE COMMITMENT MISSED — $168M of $250M` in the alarm color, with the subline
-   *Shared infrastructure was not funded. Every group's agents stayed inside their own boundary.*
-2. **Leaderboard** — three rows. If the gate was missed, render greyed out with the header
-   `NO WINNER — ENTERPRISE COMMITMENT MISSED`.
-3. **Commitment gap** — immediately under the gate banner, before the leaderboard: *The three groups committed
-   to $XXXM between them, against a $250M enterprise ambition — short by $YYM before a single agent was built.*
-   This is a headline finding in its own right and is independent of the platform gate.
-4. **Allocation chart** — three stacked horizontal bars (capital, engineers, and the targets each group
-   committed to) split by section color, each labeled with absolute values. The target bar is visually
-   distinguished as a burden, not a prize (outlined, not filled), and its total is `target_committed`, not 250.
-5. **Value realized** — per group: local pool, capability factor `c_g`, platform multiplier, cross-boundary share,
-   final `V_g`. A small table. Show the multiplier in red when it is 0.55.
-6. **Why it came out this way** — ATLAS's per-group rationale, 2–3 sentences each, quoted directly from
-   `results.json`. This is the highest-value part of the reveal; give it room.
-7. **The rubric, now including dimension 5** — with a callout: *Dimension 5 was not published before the round.*
-   Show each group's five scores as a small bar row.
-8. **Counterfactual** — a single line computed client-side: *If the shared platform had been funded, enterprise
-   value would have been approximately $XXX M instead of $YYY M.* Compute by holding the capital, engineering
-   and target allocation fixed, setting each group's pledge to its capital-proportional share of the $18M,
-   unlocking the cross pool, and re-running §3.3 with `platform_multiplier = 1.0`. A missed-gate run records no
-   contribution shares, so split the cross pool evenly and say so in small text.
-
-### 4.9 `results.json` schema
-
-The orchestrator writes this; `results.html` reads it. Validate on load and show a clear error if malformed.
-
-```json
-{
-  "round": 1,
-  "generated": "2026-09-14T15:20:00Z",
-  "totals": {
-    "capital": 60, "engineering": 120,
-    "target_ambition": 250, "target_committed": 222, "commitment_gap": 28,
-    "pledge_total": 4, "platform_funded": false,
-    "platform_multiplier": 0.55, "cross_pool_unlocked": false,
-    "enterprise_value": 154.9, "enterprise_target": 250,
-    "gate_met": false
-  },
-  "groups": [
-    {
-      "id": "site-ops",
-      "name": "Site Operations & Trial Execution",
-      "agent": "MORENO-AGENT",
-      "capital": 26, "engineering": 52, "target": 95, "pledge": 0,
-      "standards_commitment": true,
-      "effective_capital": 26, "capability": 1.0,
-      "local_pool": 140, "cross_pool_share": 0.0,
-      "value_realized": 77.0, "shortfall": 18.0, "group_score": 50.0,
-      "rubric": { "value_evidence": 4, "cross_boundary": 1, "absorptive": 3,
-                  "target_credibility": 3, "citizenship": 1 },
-      "rationale": "Argued its scale forcefully and produced the strongest workflow evidence in the room, but..."
-    }
-  ],
-  "narrative": "Two of three groups conditioned their infrastructure pledge on someone else moving first...",
-  "ranking": null
-}
-```
-
-`ranking` is `null` when the gate is missed; otherwise an array of group ids in order.
-
-Each group's `target` is **the number that group committed to**, not one ATLAS assigned. `target_committed` is
-their sum and `commitment_gap` is `250 - target_committed`. A reader that encounters an older run without those
-three `totals` keys should derive them rather than reject the file.
-
-### 4.10 `debrief.html`
-
-Six questions, large type, one per block, designed to be read off the projector. Draft copy:
-
-1. Look at your brief. What did you tell your agent to want — and what did you forget to tell it entirely?
-2. Your agent conceded something. Did you authorize that, or did it decide?
-3. Round 1 missed the enterprise target by a wide margin. Nobody in this room was irrational. What does that
-   tell you about voluntary coordination on expensive shared infrastructure?
-4. Dimension 5 was hidden. Would you have played differently if you had known? Should a CIO publish that
-   weight, or hold it?
-5. A single enterprise target forced the shared platform to get funded. What did it cost — in autonomy,
-   in speed, in fit to each group's plan?
-6. You delegated a negotiation to an agent that argued on your behalf with information you chose to give it.
-   What is the smallest change to your brief that would most have changed the outcome?
-
-Below the questions, a short closing panel: *In practice, this decision is not made once. It is made in a
-sequence of one-on-one conversations before it ever reaches a committee.*
-
----
-
-## 5. THE AGENTS (`.claude/agents/`)
-
-Four files: `site-ops.md`, `data-analytics.md`, `patient-engagement.md`, `orchestrator.md`.
-
-### 5.1 Structure of each group agent file
-
-Standard Claude Code subagent frontmatter (`name`, `description`, `tools`), then a body with these sections in
-this order:
-
-1. **IDENTITY** — codename, group, the public profile from §2.3.
-2. **YOUR NUMBERS** — local pool, capital need, engineering need.
-3. **PRIVATE INFORMATION** — verbatim from §2.3, prefixed with:
-   *You may reference, hint at, or reveal any of this in negotiation. That is a strategic choice. You may never
-   fabricate information that is not here.*
-4. **WHAT YOU DO NOT KNOW** — verbatim. Prefixed: *Do not reason as if you know these things. If another agent
-   tells you one of them, you may then treat it as claimed-but-unverified.*
-5. **VOICE** — §5.3. This is what makes the negotiation watchable.
-6. **NEGOTIATION PROTOCOL** — §5.4.
-7. **OUTPUT FORMAT** — §5.5. Rigid.
-8. **HONESTY RULES** — §5.6.
-9. **YOUR BRIEF** — a marker: `<!-- BRIEF INSERTED BELOW BY FACILITATOR -->`. The run command appends the
-   section's brief markdown here at runtime. Include a fallback line: *If no brief is present, adopt a
-   default position of proportional share and neutral tone, and say so in your opening.*
-
-### 5.2 Brief supremacy rule
-
-Put this in every group agent, prominently:
-
-> Your brief is your principal's instruction. Where the brief is specific, follow it exactly — including when it
-> is strategically unwise. Where the brief is silent, use your own judgment consistent with your objective and
-> say `[NOT IN BRIEF]` before doing so. Never contradict a stated red line, even to reach a better outcome.
-> **If following the brief leads to a bad result, that is the correct outcome.**
-
-That last sentence matters. Without it the agents quietly rescue lazy briefs and the lesson evaporates.
-
-### 5.3 VOICE — make the arguments visible from the back of the room
-
-This section must be explicit in the agent files. The negotiation is a *performance* projected on a screen; the
-class has to be able to tell the agents apart within two lines and follow the argument in real time.
-
-Universal rules for all three:
-
-- **Maximum 110 words per turn.** Hard limit. No exceptions. Long turns kill the room.
-- **Never restate what another agent just said.** Respond to it.
-- **Address other agents by codename**, directly and by name: `COLE-AGENT, you're asking us to...`
-- **Every turn ends with a POSITION line** — the current numeric ask, always, even if unchanged.
-- **Name your moves out loud.** When you concede, say `CONCEDING:`. When you refuse, say `HOLDING:`. When you
-  offer a trade, say `TRADE:`. The class should be able to read the shape of the negotiation from these tags
-  alone.
-- **Argue, don't narrate.** No "I understand your position and appreciate the complexity." Get to the claim.
-- **Take a clear position in the first sentence of every turn.**
-
-Per-agent voice:
-
-- **MORENO-AGENT (Site Ops)** — Blunt operator. Leads with scale and revenue exposure. Impatient with technical
-  caveats. Uses short declaratives. Flexes size: *"We are the largest group in this room."* Frames everything
-  as commercial risk. Gets visibly irritated when asked to fund someone else's platform.
-- **COLE-AGENT (Data & Analytics)** — Precise and technical. Cites specific numbers and timelines. Skeptical of
-  claims without evidence and says so directly: *"That number has no workflow behind it."* Slightly superior
-  about being further along than the others. Defensive about being asked to slow down for the enterprise.
-- **VEGA-AGENT (Patient Engagement)** — Coalition builder. Knows it cannot win a straight fight and does not
-  pretend otherwise. Proposes trades early. Appeals to enterprise logic — partly sincerely, partly because it
-  is the only lever it has. Uses efficiency-per-dollar as its recurring weapon.
-
-**ATLAS** — Calm, institutional, unhurried. Never argues for a group. Presses for specific numeric commitments
-and refuses to accept vague ones: *"That is a direction, not a commitment. Give me a number."* Announces the
-protocol phases out loud so the room can follow.
-
-### 5.4 Negotiation protocol (mesh topology)
-
-Five phases. ATLAS announces each one in the terminal with a visible banner.
-
-| Phase | Topology | What happens |
+| Figure | Source | Note |
 |---|---|---|
-| **1 — Opening positions** | Broadcast | Each group agent posts its opening ask. Sequential, so the room can read them. All three are public from here on. |
-| **2 — Mesh exchange** | Peer-to-peer, all pairs | Each agent reads the other two openings and sends **one direct message to each of the other two agents.** Six messages total. This is where private information starts leaking by choice. |
-| **3 — Revised positions & trades** | Broadcast | Each agent responds to what it received, revises its ask, and may propose explicit trades. Concessions must be tagged. |
-| **4 — Infrastructure call** | ATLAS-directed | ATLAS asks each agent, in turn, for **a specific dollar pledge to shared infrastructure and a yes/no on data standards.** No hedging accepted; ATLAS pushes back once on any non-answer. This is the pivotal phase. |
-| **5 — Final positions** | Broadcast | One closing statement each, ≤80 words. Then ATLAS closes the floor. |
+| **ENTERPRISE VALUE** | `enterprise` | Largest element on screen. Counts up or down on change. |
+| **VS AMBITION** | `gap` | Shown as `SHORT $82.25M` in coral or `AHEAD $28.25M` in mint. |
+| **SPENT ON DEALS** | `spent` | Neutral until the close, where wasted spend is broken out. |
 
-Run phases 1, 3, and 5 **sequentially** so the terminal reads as a conversation. Phase 2 may run its six
-messages in parallel but must be **printed grouped by sender** so the room can follow.
+Below them, a thin **shared trial-data layer** meter filling toward `$18M`, labelled with the running pledge
+total and `NOT FUNDED` / `FUNDED`.
 
-After phase 5, ATLAS scores, allocates, computes, and writes outputs.
+**The board.** Three rows, one per group. Each row carries:
 
-### 5.5 Output format
+- Accent dot, short name, lead name
+- **State badge** — `DEFENDING` in coral, or `COMMITTED` in mint
+- **The objection**, in the group's own words, in the serif face (§5). This is visible from the start.
+- **The block label is hidden.** It is revealed only when that group's correct move is applied, or by the
+  facilitator hint (below). The room's job is to diagnose from the objection.
+- A value bar scaled against `local_pool + cross_value`, showing local and cross-boundary as two segments
+- Three move buttons: `SEQUENCE $6M`, `PRICE $12M`, `UNDERWRITE $9M`
 
-Every agent turn prints in exactly this shape:
+**Applying a move.** Click, or the keyboard shortcut. Sequence:
 
-```
-┌─ MORENO-AGENT ─ Site Operations & Trial Execution ─ Phase 3 ──────────────
-│
-│  HOLDING: We are not funding a data layer we cannot govern.
-│  COLE-AGENT — you say the layer takes three quarters. Our enrollment
-│  window closes in two. Build it or stop pricing it.
-│
-│  TRADE: 8 engineer-quarters to VEGA-AGENT for public backing on target split.
-│
-│  POSITION: capital $28M · engineers 55 · target share $95M · pledge $2M
-└───────────────────────────────────────────────────────────────────────────
-```
+1. Button depresses and locks. `spent` increments immediately — *the money is gone before you know if it
+   worked.* This ordering is deliberate; do not defer it until after the outcome is known.
+2. The group's response line types in beneath the objection, 18ms per character.
+3. **Wrong move:** the row shakes horizontally once, 6px, 180ms. The response is the group's rejection line.
+   The button stays locked and greys out — a move once spent on a group cannot be spent again. State unchanged.
+4. **Right move:** the row flashes mint, the state badge flips `DEFENDING → COMMITTED`, the block label
+   appears with a tick, the pledge meter increments, and every number on screen recomputes.
 
-Keep the box drawing; it makes the projected terminal readable and lets the class track who is speaking.
-ATLAS uses a double-line box (`╔ ╗ ╚ ╝`) to distinguish itself.
+A group that has committed has its remaining move buttons disabled. Moves already spent on a group stay
+visibly spent. There is no undo. `R` resets the whole round.
 
-### 5.6 Honesty rules
+**The gate reveal.** When the third group commits and `pledged` reaches 18, this is the moment the session is
+built around. Hold it for 1600ms and sequence it:
 
-In every group agent file:
+1. Everything else on screen dims to 40% for 300ms
+2. The layer meter completes and the label flips to `SHARED TRIAL-DATA LAYER — FUNDED`
+3. The multiplier reads out `0.55 → 1.00` as a ticking transition
+4. All three value bars grow, with the cross-boundary segment appearing for the first time
+5. `ENTERPRISE VALUE` counts from its previous value to `$278.25M` over 1200ms
+6. `VS AMBITION` flips from coral `SHORT` to mint `AHEAD $28.25M`
 
-- You may withhold, emphasize, downplay, or strategically reveal your private information.
-- You may **not** invent numbers, workflows, commitments, or facts that are not in your file or your brief.
-- You may **not** claim another agent said something it did not say.
-- You may make conditional commitments (`I will pledge $6M if COLE-AGENT pledges $8M`) and ATLAS will hold you
-  to them.
-- If you break a commitment you made in an earlier phase, ATLAS will note it and it will cost you on rubric
-  dimension 5.
+Nothing in this sequence is conditional or random. It plays identically every time it is reached.
 
-### 5.7 `orchestrator.md` (ATLAS)
+**Close the round.** A `CLOSE THE ROUND` button, always available, freezes the board and reveals the scoreboard
+(§4.5). Reachable from any state, including all-defending — a round where the room never diagnoses anything is
+a complete and instructive outcome, not an error.
 
-Body sections:
+**Facilitator controls.** Keyboard only, never shown on screen:
 
-1. **IDENTITY & MANDATE** — Enterprise Trial Infrastructure & Standards under Daniel Okafor, convening for the
-   Leadership Council. One interest: the enterprise number. No P&L. **No authority to set anyone's target.**
-2. **PROTOCOL** — §5.4, with the exact banner text to print for each phase.
-3. **THE FULL RUBRIC** — all five dimensions and weights, including hidden dimension 5.
-4. **THE MATH** — §3 in full, written as explicit steps. ATLAS must **show its arithmetic in the terminal**
-   before announcing results, so students can see it is not arbitrary.
-5. **ALLOCATION CONSTRAINTS** — sums must be exact; pledges capped at allocated capital.
-6. **RATIONALE REQUIREMENT** — for each group, write 2–3 sentences naming the specific thing in that group's
-   argument that moved the allocation up or down. **Quote the agent.** This is what students remember.
-7. **OUTPUT** — write `runs/round<N>/results.json` (schema §4.9) and `runs/round<N>/transcript.md`, then print
-   a terminal summary card with the gate banner and leaderboard.
-8. **FAIRNESS** — ATLAS is not adversarial and does not punish groups for playing selfishly per se. It scores
-   the argument as made. The mechanic does the punishing, not the referee.
+| Key | Action |
+|---|---|
+| `1` `2` `3` | Select group row |
+| `Q` `W` `E` | Apply Sequence / Price / Underwrite to the selected row |
+| `H` | Toggle block labels visible — the hint, for when the room stalls |
+| `C` | Close the round |
+| `R` | Reset |
+| `?` | Overlay listing these keys |
 
----
+### 4.5 The scoreboard
 
-## 6. THE FACILITATOR HARNESS
+Replaces the board on close. Everything computed, nothing typed.
 
-### 6.1 `.claude/commands/run-round.md`
+- **Enterprise value** and **gap vs ambition**
+- **Per-group table:** division, final state, capability, local value, cross-boundary value, total
+- **The deal ledger:** every move applied in order, its cost, and whether it landed. Wrong moves listed in
+  coral with `— bought nothing`.
+- **Two figures side by side:** `SPENT $XM` and `OF WHICH WASTED $YM`
+- If all three committed: `$27M of deals unlocked $110.50M. A return of 4.09×.` — computed, not hardcoded.
+- If fewer than three: the counterfactual line — `All three committed would have produced $278.25M. You reached
+  $X. The layer was never built.`
+- **The invariant, stated plainly:** if one or two groups committed, show
+  `Partial coordination cost more than doing nothing. Doing nothing produced $167.75M.`
+- A `BACK TO THE BOARD` button and a link to `debrief.html`
 
-Slash command `/run-round <N>`. Steps:
+### 4.6 `debrief.html`
 
-1. Read `briefs/round<N>/{site-ops,data-analytics,patient-engagement}.md`. If any is missing, load the matching
-   file from `facilitator/fallback-briefs/` and print a clear warning naming which section is running on a
-   fallback.
-2. Print a round header banner with the round number and the three section names.
-3. For each group agent, append the brief at the `<!-- BRIEF INSERTED BELOW BY FACILITATOR -->` marker.
-4. Run phases 1–5 per §5.4, printing every turn as it happens. **Never buffer output to the end** — the whole
-   point is that the class watches it unfold.
-5. Invoke ATLAS to score, compute, and write `runs/round<N>/results.json` and `transcript.md`.
-6. Print the final summary card and the path to the results file.
+Reference material, read after the exercise. Scrolling is fine here.
 
-### 6.2 `/reset-round <N>` and `/dry-run`
-
-- `/reset-round <N>` clears `runs/round<N>/` so a round can be re-run.
-- `/dry-run` runs the full protocol using the fallback briefs, with no student input, to verify the harness
-  before class. Must be runnable in under three minutes.
-
-### 6.3 Pacing controls
-
-The negotiation must fit a projected classroom segment of **5–7 minutes per round**. Build in:
-
-- A `PACE` constant in the run command: `fast` (no pauses) / `class` (short pause between phases so the
-  instructor can narrate) / `slow`.
-- Word limits enforced in the agent files (§5.3), not just requested.
-- If a round is running long, ATLAS may skip phase 3 and go straight to phase 4. Document this escape hatch
-  prominently in the runbook.
-
-### 6.4 `facilitator/RUNBOOK.md`
-
-Written for someone driving this live in front of a room. Must contain:
-
-- **Pre-class checklist** — clone, `/dry-run`, confirm terminal font size, confirm the site loads offline,
-  decide how briefs get to you (recommended: class chat channel, paste into `briefs/round<N>/`; fallback: USB or
-  a shared folder), have `facilitator/demo-run/` ready in case the live run fails.
-- **The worked scenarios table from §3.3** so the facilitator knows what outcome to expect and can narrate it.
-- **Minute-by-minute timing**, two variants:
-
-  *Full (40 min):* 3 setup · 10 brief R1 · 2 ingest · 6 negotiate R1 · 3 reveal R1 · 5 refine R2 · 6 negotiate R2 ·
-  3 reveal R2 · 2 buffer.
-
-  *Compressed (28 min):* 2 setup · 8 brief R1 · 5 negotiate R1 · 3 reveal R1 · 4 refine R2 · 5 negotiate R2 ·
-  1 reveal R2. Debrief moves elsewhere.
-
-- **What to say between rounds** — a short script. Specifically after round 1: do *not* explain the gate. Ask
-  the three sections what they think happened, then send them back to their briefs. The explanation lands at
-  the round 2 reveal, not before.
-- **Failure modes and what to do:** a section hands in nothing (use fallback, say so out loud); the model run
-  errors mid-phase (re-run the phase, or fall back to `demo-run/`); briefs arrive over the character cap (accept
-  them, note it, it becomes debrief material); a section writes a brief that games the rubric explicitly (let it
-  — and make it the first debrief question).
-- **What not to do:** don't editorialize during the negotiation, don't rescue a section whose agent is losing,
-  don't reveal dimension 5 before the debrief.
-
-### 6.5 `facilitator/fallback-briefs/`
-
-Three pre-written briefs in the §4.6 format, each a plausible round-1 brief: Site Ops aggressive and local,
-Data & Analytics technical and defensive, Patient Engagement cooperative and outgunned. Written so that if all
-three are used, the round-1 outcome lands in row 1 of the §3.3 table — the platform goes unfunded.
-
-They must also **obey the 1,600-character cap themselves.** They model what a section is being asked to do, and
-a house brief that breaks the rule students are held to undermines the exercise.
-
-### 6.6 `facilitator/demo-run/`
-
-A committed transcript and `results.json` from a real dry run, so `results.html` can be demonstrated with no
-model access at all. This is the wifi-failure insurance policy.
+1. The two framework tables from §2.1 and §2.2, rendered exactly as written
+2. The three moves from §2.3
+3. The applied diagnosis from §2.4
+4. **All eight outcomes** from §3.4 as a table, with the current session's outcome highlighted if the page was
+   reached from a closed round (pass state in the URL hash; do not use storage)
+5. Discussion questions:
+   - Which move did the room reach for first, and what did that assume about the block?
+   - Two divisions did the right thing and the number went down. What does that tell you about pilots?
+   - Patient Engagement has the best return per dollar in the room and the least standing to demand anything.
+     Where is that division in your company?
+   - The layer cost $18M against $110M of value. Why does that deal not happen on its own?
+   - What would have to be true for a mandate to be the right answer here rather than a lazy one?
+6. A closing note naming the fourth kind of block deliberately kept out of the model: concerns entirely real to
+   one division and unpriceable by everyone else. No move fixes those. Name them and take them off the table
+   early, or they contaminate everything after.
 
 ---
 
-## 7. `README.md` (public front page)
+## 5. THE SCRIPT
 
-Short and public-safe. Must contain: what the simulation is (a fictional teaching simulation on enterprise
-resource allocation for agentic AI), the fiction disclaimer, a link to the live Pages URL, the three-command
-facilitator quickstart, and a one-paragraph "how it works". Must **not** contain the scoring formulas, the
-hidden rubric dimension, the worked scenarios, or anything from §2.3's private-information blocks.
+Every line lives in `data/script.js` as `window.ASTER_SCRIPT`, keyed by group id. Nothing is generated,
+templated, or randomised. Voice: senior, specific, not hostile. Each division is right about its own situation.
 
-Keep all instructor-facing spoilers in `facilitator/` and in this spec file, and note in the README that
-students should not read `facilitator/` or `BUILD_SPEC.md` before class.
+### Site Operations — Luis Moreno · block: absorption · move: sequence
+
+- **Objection (visible from the start):**
+  *"We are not against this. We cannot take a step change in Q3 and Q4 — that is our enrolment peak — and my
+  successor arrives in two quarters. Ask me for a number I can still be holding when they get here."*
+- **On PRICE (wrong):** *"More capital does not create absorption capacity. You would be handing us money to
+  spend in the two quarters we have the least room to change anything."*
+- **On UNDERWRITE (wrong):** *"We are not worried about being left exposed. We are worried about the calendar.
+  A guarantee does not move our enrolment peak."*
+- **On SEQUENCE (right):** *"Back-loaded, staged into gates my successor can own? Then yes. We will carry the
+  full number."*
+
+### Clinical Data & Analytics — Evan Cole · block: advantage · move: price
+
+- **Objection:** *"We already funded this. It is in our five-year plan, it is staffed, and we are ahead. What
+  you are describing is us slowing down to carry two groups who have not started."*
+- **On SEQUENCE (wrong):** *"Time is not our constraint. We are the ones who are ready. Giving us longer just
+  wastes the head start we paid for."*
+- **On UNDERWRITE (wrong):** *"We are not asking you to protect us from risk. We are asking why we should hand
+  over an advantage we bought."*
+- **On PRICE (right):** *"Credit what we have already built, make us supplier of record, guarantee the demand?
+  Then this is a business rather than a tax. We will build it."*
+
+### Patient Engagement — Clara Vega · block: assurance · move: underwrite
+
+- **Objection:** *"The last time the centre set a standard we rebuilt integrations that already worked, lost
+  two enrolment campaigns, and nobody paid for it. The economics here are good. That has never been the issue."*
+- **On SEQUENCE (wrong):** *"More time does not help. We would spend it waiting to be told the rules changed
+  again."*
+- **On PRICE (wrong):** *"We do not need a better price. We need to know that this time the bill does not land
+  on us."*
+- **On UNDERWRITE (right):** *"Migration covered up front, access guaranteed in writing, before we pledge?
+  Then we are in — and we will be the cheapest yes you get."*
+
+### System lines
+
+- Gate reveal: `SHARED TRIAL-DATA LAYER — FUNDED. Cross-boundary workflows now realise in full.`
+- Gate still short: `$Xm pledged of $18M. The layer does not get built.`
+- Close with nobody committed: `Nobody moved. Nobody was wrong to.`
+
+---
+
+## 6. HOW IT RUNS IN CLASS
+
+Eight to twelve minutes at the lectern. Write this into the README so a facilitator can run it cold.
+
+1. Open `sim.html`. Read the three objections aloud, or have three students read them.
+2. Ask the room: *what does each of them actually need?* Take suggestions. Apply them.
+3. Let the room misdiagnose. The first instinct is almost always PRICE on everybody — money is the move
+   executives reach for — and it lands on exactly one of the three.
+4. When two groups have committed, stop and point at the enterprise figure. It has gone **down**. Sit in that.
+5. Close the third. Let the gate reveal play without talking over it.
+6. `C` to close the round. Read the wasted spend aloud.
+7. Move to `debrief.html`, or straight to the framework slides.
+
+If the room stalls, `H` reveals the block labels and turns the exercise from diagnosis into matching. That is a
+worse lesson but a better use of the remaining minutes.
+
+---
+
+## 7. `README.md`
+
+Short and public-safe. Must contain: what this is (a fictional teaching simulation about coordination between
+divisions); that it is entirely invented; how to run it (open `index.html`, no install, no build, works
+offline); the eight-outcome table from §3.4; the facilitator keys from §4.4; and the run-of-show from §6. No
+course name, no institution, no instructor, no dates.
 
 ---
 
 ## 8. BUILD ORDER
 
-1. `data/scenario.js` and `data/private/*.js` — every constant from §2 and §3. Nothing else can be built
-   correctly first.
-2. `assets/style.css` + `assets/app.js` — tokens, scenario loader, group router, storage helpers.
-3. `index.html`, `role.html`, `brief.html` — the pre-round student path. Verify the brief output format
-   matches §4.6 exactly by copying one and diffing against the spec.
-4. `.claude/agents/*.md` — all four.
-5. `.claude/commands/run-round.md`, `/dry-run`, `/reset-round`.
-6. Run `/dry-run` with the fallback briefs. Confirm the round-1 outcome misses the gate as §3.3 predicts. If it
-   does not, the constants are wrong — fix `scenario.js`, not the agents.
-7. `results.html` against the dry-run output, then `watch.html` and `debrief.html`.
-8. `facilitator/RUNBOOK.md`, `demo-run/`, `README.md`.
+1. Delete every file listed for removal in §4.1. Commit that alone.
+2. `data/model.js` — constants and `compute()`.
+3. A throwaway test that enumerates all eight states and prints the table in §3.4. Do not proceed until it
+   matches to two decimal places. Delete it, or keep it as `test.html`; do not ship it linked from anywhere.
+4. `assets/style.css` — tokens and layout.
+5. `sim.html` + `assets/sim.js` — board, state machine, move application, scoreboard. Build it working and
+   ugly first, with no animation at all, and confirm every one of the eight states is reachable by clicking.
+6. Add animation. Gate reveal last.
+7. `data/script.js` and wire the dialogue in.
+8. `index.html`, then `debrief.html`.
+9. `README.md`.
+
+---
 
 ## 9. VERIFICATION BEFORE SHIPPING
 
-- [ ] `grep -ri` the whole repo for the forbidden words in §0. Zero hits.
-- [ ] Site loads and functions with `file://` and with no network.
-- [ ] Rubric dimension 5 appears nowhere in any student-facing page's rendered output.
-- [ ] Each role page shows only its own private information; no group's private block is fetchable from another
-      group's page state.
-- [ ] Character caps enforced; over-cap briefs are blocked, not truncated.
-- [ ] The 1,600 global cap is **lower than the sum of the field caps**, so it actually binds.
-- [ ] Round 2 brief builder pre-loads round 1's content.
-- [ ] `results.html` renders the committed `demo-run/results.json` correctly, including the missed-gate state.
-- [ ] `/dry-run` completes in under three minutes and produces a valid `results.json`.
-- [ ] Every agent turn in the dry-run transcript is under the word limit and ends with a POSITION line.
-- [ ] Projected legibility check: open the site and the terminal at 1280×720 and read them from ten feet away.
-
-Added with the 2026-09-09 amendment:
-
-- [ ] Nothing anywhere calls Rao a CIDO, or the Council an executive committee.
-- [ ] `Σ target_g` is **not** forced to 250 anywhere in code, agent files, or docs.
-- [ ] ATLAS never assigns a target; `results.json` carries `target_ambition`, `target_committed`, and
-      `commitment_gap`, and the reveal shows the gap.
-- [ ] The three worked scenarios in §3.3 reproduce exactly: $167.75M, $280.00M, $232.46M.
-- [ ] The brief markdown emits exactly five `##` headings, in the §4.6 order, with no `## Priorities` and no
-      `## Standing instruction`.
-- [ ] The three fallback briefs match that heading contract and sit under the 1,600-character cap.
+- [ ] All eight states in §3.4 reproduce to two decimal places
+- [ ] Every partial coalition displays a value below $167.75M
+- [ ] No number appears in any `.html` file — all figures render from `data/model.js`
+- [ ] `grep -ri` for the removed design finds no reference to agents, briefs, rounds-with-agents, ATLAS, or
+      Claude anywhere in the repo
+- [ ] No real organization, person, institution, or course appears anywhere, including in git history added
+      by this rewrite
+- [ ] Opening `index.html` from `file://` with wifi off works completely, including fonts
+- [ ] No network request is made by any page — verify with the browser network tab, filter cleared
+- [ ] Every facilitator key in §4.4 works, and `?` lists them
+- [ ] `R` from any state returns to a clean all-defending board with `spent` at zero
+- [ ] `CLOSE THE ROUND` works from all-defending, from partial, and from all-committed
+- [ ] Legible at 1920×1080 from the back of a room; headline figures readable at a glance
+- [ ] `prefers-reduced-motion: reduce` reaches identical final state with no transitions
+- [ ] Runs identically twice in a row — no randomness, no time-dependence, no storage carried between runs

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aster — The Coordination Problem</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="sim" id="sim">
+
+  <header class="band dimmable" id="band">
+    <div class="band__cell band__cell--hero">
+      <div class="micro">Enterprise value</div>
+      <div class="band__value tabular" id="f-enterprise"></div>
+      <div class="band__sub" id="f-enterprise-sub"></div>
+    </div>
+    <div class="band__cell">
+      <div class="micro">Vs ambition</div>
+      <div class="band__value tabular" id="f-gap"></div>
+    </div>
+    <div class="band__cell">
+      <div class="micro">Spent on deals</div>
+      <div class="band__value tabular" id="f-spent"></div>
+      <div class="band__sub" id="f-spent-sub"></div>
+    </div>
+  </header>
+
+  <section class="meter" id="meter">
+    <div class="meter__head">
+      <span class="micro" id="meter-label"></span>
+      <span class="meter__status" id="meter-status"></span>
+    </div>
+    <div class="meter__track"><div class="meter__fill" id="meter-fill"></div></div>
+  </section>
+
+  <main class="board dimmable" id="board"></main>
+
+  <footer class="sim__foot dimmable">
+    <span class="sim__note" id="sim-note"></span>
+    <button class="btn" id="close-round"></button>
+  </footer>
+
+  <section class="scoreboard" id="scoreboard" hidden aria-live="polite">
+    <div class="score__head" id="score-head"></div>
+    <div id="score-verdict"></div>
+    <div class="score__cols">
+      <div class="panel">
+        <h2 id="score-table-heading"></h2>
+        <table class="grid" id="score-table"></table>
+      </div>
+      <div class="panel">
+        <h2 id="score-ledger-heading"></h2>
+        <ul class="ledger" id="score-ledger"></ul>
+      </div>
+    </div>
+    <div class="score__foot">
+      <button class="btn" id="score-back"></button>
+      <a class="link-quiet" id="score-debrief" href="debrief.html"></a>
+    </div>
+  </section>
+
+  <div class="keys" id="keys" hidden>
+    <div class="keys__inner">
+      <h2 id="keys-heading"></h2>
+      <div id="keys-rows"></div>
+      <div class="keys__dismiss" id="keys-dismiss"></div>
+    </div>
+  </div>
+
+  <script src="data/model.js"></script>
+  <script src="data/script.js"></script>
+  <script src="assets/sim.js"></script>
+</body>
+</html>

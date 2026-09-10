@@ -1,94 +1,112 @@
-# Aster Clinical Operations — Agentic Allocation Simulation
+# Aster Coordination Simulation
 
-A fictional teaching simulation about enterprise resource allocation for agentic AI.
+A fictional teaching simulation about coordination between divisions of a single company.
 
-**Aster Life Sciences is invented.** Every person, group, number, and event in this repository is fictional and
-exists only to make the exercise work. Nothing here describes, is drawn from, or is intended to resemble any
-real organization.
+Aster Life Sciences runs its Global Clinical Operations Center as three operating groups, each with its own
+P&L. There is a shared trial-data layer that all three need and none of them can justify alone. Everyone
+agrees the opportunity is real. Nobody agrees who commits. The exercise is to work out what each division
+actually needs in order to say yes — and to watch what the enterprise number does while you get it wrong.
 
-**▶ Live site: https://amangang3.github.io/aster-clinical-ops-simulation/**
+**Aster Life Sciences and every person, number, division and event in this repository are invented.** Nothing
+here describes, is based on, or is disguised from any real organisation.
 
----
+## Running it
 
-## What it is
+Open `index.html`. That is the whole install.
 
-Three groups inside a fictional clinical operations center have to divide one pool of platform capital, one
-pool of scarce engineers, and one enterprise value target that somebody has to accept and be accountable for.
-There is also a shared data platform that no single group can justify funding alone — and that most of the
-value turns out to depend on.
+No build step, no package manager, no server, no accounts, and no network access of any kind —
+clone the repository and open the file, or serve it from GitHub Pages. It works offline, and it is meant to:
+it runs from a lectern on room wifi you should not trust.
 
-Students do not negotiate. **They write a brief, and an AI agent negotiates on their behalf.** Everything they
-want their agent to argue, concede, or refuse has to be written down before it starts. Then they watch it
-happen and find out what they forgot to say.
+- `index.html` — the situation and the three divisions
+- `sim.html` — the exercise itself
+- `debrief.html` — the framework, all eight outcomes, and discussion questions
+- `framework-deck.pptx` — four slides: the set-up, the exercise, the framework, and the framework applied
 
-It runs in about 30–40 minutes, over two or three rounds. After each round students rewrite their brief and
-it runs again.
+## What it teaches
 
-## How it works
+1. Agentic value sits on the boundaries between divisions, so the binding constraint is not technology or
+   capital — it is whether P&L owners will commit to something they do not control.
+2. The case for collaborating is never the problem. Every division agrees the shared asset should exist. What
+   blocks each one is different, specific, and rarely about the size of the prize.
+3. Partial coordination is worse than none. The model is built to prove this rather than assert it.
 
-Each section opens its own role page, which gives it public numbers and some private information the other
-sections cannot see. It writes its agent's brief in the browser — opening position, evidence, red lines,
-authorized concessions, and a stance on the shared platform — inside a 1,600-character cap that forces it to
-decide what the agent actually needs to know.
+Three divisions defend their own plans for three different reasons — a timing problem, a property problem, and
+a trust problem. Each has exactly one move that answers it: **Sequence**, **Price**, **Underwrite**. Reaching
+for the wrong one costs its full price and buys nothing.
 
-The facilitator collects the three briefs and runs the negotiation locally in Claude Code. Four agents take
-part: one for each section, plus an orchestrator that runs a five-phase protocol, presses each group for a
-specific commitment, applies an allocation rubric, and computes the result. The whole thing is projected so
-the class watches its own agents argue. Then the allocation is revealed and everyone finds out what their
-brief actually bought them.
+## Every reachable outcome
 
-## Facilitator quickstart
+The three pledges sum to exactly the build cost of the shared layer, so every division is pivotal and no
+coalition of two can fund it. That produces eight states and only one of them builds anything.
 
-```bash
-git clone https://github.com/amangang3/aster-clinical-ops-simulation.git
-cd aster-clinical-ops-simulation
-claude          # then, inside Claude Code:
-```
+| Committed | Pledged | Layer | Enterprise value | Vs $250M ambition |
+|---|---|---|---|---|
+| Nobody | $0M | not funded | **$167.75M** | short $82.25M |
+| Patient Engagement | $4M | not funded | **$154.92M** | short $95.08M |
+| Data & Analytics | $6M | not funded | **$153.50M** | short $96.50M |
+| Site Operations | $8M | not funded | **$144.06M** | short $105.94M |
+| Data & Analytics + Patient Engagement | $10M | not funded | **$140.67M** | short $109.33M |
+| Site Operations + Patient Engagement | $12M | not funded | **$131.22M** | short $118.78M |
+| Site Operations + Data & Analytics | $14M | not funded | **$129.81M** | short $120.19M |
+| **All three** | **$18M** | **FUNDED** | **$278.25M** | **ahead $28.25M** |
 
-| Command | What it does |
+Read the middle six rows. Every partial coalition is worse than nobody trying, and it gets worse the more
+divisions join. Two divisions do the right thing, pay their pledge, and the number falls. That is not a bug in
+the model; it is the third teaching point made mechanical.
+
+## Facilitator keys
+
+Keyboard only, and never shown on screen during the exercise.
+
+| Key | Action |
 |---|---|
-| `/dry-run` | Rehearse the whole protocol on the built-in briefs. Under three minutes. Do this before class. |
-| `/run-round 1` | Run a live round from the briefs in `briefs/round1/`. |
-| `/reset-round 1` | Clear a round's output so it can be re-run. |
+| `1` `2` `3` | Select division |
+| `Q` `W` `E` | Apply Sequence / Price / Underwrite to the selected division |
+| `H` | Toggle the block labels — the hint, for when the room stalls |
+| `C` | Close the round |
+| `R` | Reset |
+| `?` | Overlay listing these keys |
 
-Full instructions, timings, and failure modes are in [`facilitator/RUNBOOK.md`](facilitator/RUNBOOK.md).
+## Run of show
 
-## Running the site
+Eight to twelve minutes at the lectern.
 
-There is no build step, no package manager, no backend, and no API key. It is plain HTML, CSS, and vanilla JS.
+1. Open `sim.html`. Read the three objections aloud, or have three people read them.
+2. Ask the room: *what does each of them actually need?* Take suggestions. Apply them.
+3. Let the room misdiagnose. The first instinct is almost always **Price** on everybody — money is the move
+   executives reach for — and it lands on exactly one of the three.
+4. When two divisions have committed, stop and point at the enterprise figure. It has gone **down**. Sit in that.
+5. Close the third. Let the gate reveal play without talking over it.
+6. `C` to close the round. Read the wasted spend aloud.
+7. Move to `debrief.html`, or straight to slides 3 and 4 of `framework-deck.pptx`.
 
-- **Hosted:** GitHub Pages serves it from the repository root.
-- **Locally:** open `index.html` directly. It works from `file://` with no network.
-- **Locally, served** (only needed if you want `results.html?run=…` to fetch a committed run):
-  `python3 -m http.server` then open `http://localhost:8000`.
+If the room stalls, `H` reveals the block labels and turns the exercise from diagnosis into matching. That is a
+worse lesson but a better use of the remaining minutes.
 
-The public site never calls a model. All model work happens in the facilitator's local Claude Code session.
-Nothing students type leaves their browser — briefs are held in memory and `localStorage`, and are handed in
-by copy and paste.
+## Structure
 
-## Layout
+Every constant lives in `data/model.js` and every line of copy in `data/script.js`. No figure is typed into any
+page; all of them are computed at runtime from those two files. `test.html` is unlinked and enumerates all
+eight states against the expected table — open it after changing any constant.
 
 ```
-index.html          landing, what's on the table, round tracker
-role.html?g=…       role brief — public profile, numbers, private information
-brief.html?g=…      the brief builder
-watch.html          what to watch while the negotiation is projected
-results.html        paste results.json → the reveal
-debrief.html        discussion questions
-assets/             one stylesheet, one script
-data/scenario.js    every constant — single source of truth
-data/private/       per-group private information, loaded only by that group's role page
-.claude/agents/     the four negotiating agents
-.claude/commands/   /run-round, /dry-run, /reset-round
-facilitator/        runbook, fallback briefs, and a committed example run
+index.html          the situation
+sim.html            the exercise
+debrief.html        the framework and the outcomes
+test.html           model check, not linked from anywhere
+assets/style.css    all styling
+assets/sim.js       state machine, rendering, animation
+data/model.js       constants and the one compute() function
+data/script.js      all copy and dialogue
+framework-deck.pptx the slides this sits between
+BUILD_SPEC.md       the full specification this was built from
 ```
 
-## A note to students
+Everything is deterministic. Identical inputs always produce identical output, there is no randomness
+anywhere, and nothing is carried between runs. `prefers-reduced-motion: reduce` is respected and reaches an
+identical final state with no transitions.
 
-Please don't read `facilitator/` or `BUILD_SPEC.md` before class. They contain the scoring formulas, the
-expected outcomes, and one thing you are deliberately not told. Reading them first doesn't help you win — the
-mechanic isn't the point — but it does spoil the part of the session that's worth being surprised by.
+## Licence
 
-## License
-
-ISC.
+MIT. See `LICENSE`.
