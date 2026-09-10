@@ -42,6 +42,15 @@
     <p class="caption" id="moves-caption"></p>
     <table class="grid grid--deals" id="moves"></table>
     <p class="prose" id="moves-note"></p>
+
+    <h3 id="money-heading"></h3>
+    <table class="grid" id="money"></table>
+  </section>
+
+  <section>
+    <h2 id="applying-heading"></h2>
+    <p class="caption" id="applying-lead"></p>
+    <table class="grid" id="applying"></table>
   </section>
 
   <section class="pair">
@@ -164,6 +173,9 @@
   el("moves-heading").textContent = I.moves.heading;
   el("moves-caption").textContent = fill(I.moves.caption);
   var moves = tbody(el("moves"));
+  el("moves").insertAdjacentHTML("afterbegin",
+    "<thead><tr><th>The deal</th><th class='num'>What it costs you</th>" +
+    "<th>What you are offering them</th></tr></thead>");
   A.moves.forEach(function (m) {
     var d = S.deals[m.id];
     var head = document.createElement("span");
@@ -178,6 +190,21 @@
     ]);
   });
   el("moves-note").textContent = fill(I.moves.note);
+
+  /* The two pots of money. Confusing these two is the single easiest mistake to make. */
+  el("money-heading").textContent = I.moves.money_heading;
+  var money = tbody(el("money"));
+  I.moves.money.forEach(function (row) {
+    tr(money, [{ cls: "factor", text: row[0] }, { text: row[1] }]);
+  });
+
+  /* What offering a deal actually does. */
+  el("applying-heading").textContent = I.applying.heading;
+  el("applying-lead").textContent = fill(I.applying.lead);
+  var applying = tbody(el("applying"));
+  I.applying.rows.forEach(function (row) {
+    tr(applying, [{ cls: "factor", text: row[0] }, { text: row[1] }]);
+  });
 
   el("rules-heading").textContent = I.rules.heading;
   I.rules.items.forEach(function (item) {

@@ -100,6 +100,12 @@ window.ASTER_FMT = {
       // The three value pools added up, at full rate. The copy needs this to explain
       // why the board opens lower than the sum of the pools.
       pools:     F.moneyInt(F.sum("local_pool")),
+      // "$8M, $6M and $4M" — the three shares in words, for copy that contrasts them
+      // with what a deal costs the centre.
+      shares:    window.ASTER.groups.map(function (g) { return F.moneyInt(g.pledge); })
+                   .reduce(function (acc, v, i, all) {
+                     return i === 0 ? v : (i === all.length - 1 ? acc + " and " + v : acc + ", " + v);
+                   }, ""),
       cross:     F.moneyInt(F.sum("cross_value")),
       baseline:  F.money(none.enterprise),
       ceiling:   F.money(all.enterprise),

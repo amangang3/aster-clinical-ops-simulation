@@ -352,8 +352,17 @@ In order:
   row must say why all three paying lands short of pools plus cross value, or rows three and four contradict
   each other. It is followed by that rule worked through on one division in figures.
 - **What the room is asked to do**: work out what each division needs, then offer the deal that gives it
-- **The three deals**: for each one, its framework label, what it is in plain words, and its cost from `moves`.
-  The plain name is what makes the labels usable cold; it never says which division a deal suits.
+- **The three deals**: for each one, its framework label, what it is in plain words, and its cost from `moves`,
+  under a header that says whose money that is — *what it costs you*. The plain name is what makes the labels
+  usable cold; it never says which division a deal suits.
+- **Two different pots of money**, as its own table, because confusing them is the easiest mistake on the page
+  and the amounts invite it — `SEQUENCE` costs $6M and Data & Analytics' share is also $6M. The *share* is the
+  division's own money going into the layer, and is fixed. The *deal cost* is the centre's money, spent to get
+  the agreement; it never enters the layer and never enters the enterprise total, which `compute()` confirms —
+  `spent` is returned alongside `enterprise`, never subtracted from it.
+- **What happens when you offer a deal**, in three rows: the cost leaves before anyone knows whether it worked;
+  a deal that misses draws a refusal and moves nothing; a deal that lands has the division agree to its share,
+  the funding bar rise, and its own number fall slightly. Then what happens once all three have agreed.
 - **The rules**, as a short list: one offer of each deal per division, money spent when offered, agreement is
   permanent, nothing can be taken back, all three needed to build the layer
 - **What to watch**: the enterprise figure, because it does not move the way people expect
@@ -627,6 +636,8 @@ course name, no institution, no instructor, no dates.
       where plain words would do — including the board's legend, the meter and the deal buttons
 - [ ] No page asserts a figure a participant could check and find wrong: the instructions show the share
       arithmetic and say why all three paying lands short of the pools plus the cross-boundary value
+- [ ] The instructions distinguish the two pots of money, and say what offering a deal does before it is
+      offered — both were missing, and both were what the room asked about first
 - [ ] `N` shows the right beat for the board's state, and never covers a move button
 - [ ] The exercise fits one screen with no scrollbar and no clipped row at 1280×720, 1366×768, 1920×1080 and
       2560×1440 — including the worst case, all three committed with the presenter note showing

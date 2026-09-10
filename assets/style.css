@@ -648,6 +648,9 @@ table.grid tr.is-total td:first-child { color: var(--muted); font-weight: 400; }
 .worked dd { margin: 0; color: var(--text); font-variant-numeric: tabular-nums; }
 .worked dt:last-of-type, .worked dt:last-of-type + dd { font-weight: 600; }
 
+/* A sub-heading inside a section, for the two-pots table under the deals */
+.doc h3 { font-size: 1.22rem; margin: 1.55rem 0 0.55rem; }
+
 /* The sentence a section turns on, set apart from the prose around it */
 .callout {
   border-left: 3px solid var(--mint);

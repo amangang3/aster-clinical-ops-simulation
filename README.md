@@ -24,7 +24,8 @@ page.
 
 - `index.html` — the situation, the four figures, and the three divisions
 - `instructions.html` — written for the room: what is being decided, where the numbers come from, the three
-  deals, and the rules. Send it round beforehand or spend a minute on it at the start. It names no blocks.
+  deals, which of the two pots of money each amount comes out of, what offering a deal does, and the rules.
+  Send it round beforehand or spend a minute on it at the start. It names no blocks.
 - `divisions.html` — the three divisions side by side, each linking to its own page
 - `site-ops.html`, `data-analytics.html`, `patient-engagement.html` — one brief per division: what it
   does, what it is measured on, its four numbers, where it stands, and what it has said. This is the

@@ -158,8 +158,26 @@ window.ASTER_SCRIPT = {
 
     moves: {
       heading: "The three deals",
-      caption: "A deal changes the terms a division is being offered. It never changes the amount that division pays.",
-      note: "There is no partial credit and no refund. A deal offered to a division it does not suit costs the same and changes nothing."
+      caption: "A deal changes the terms a division is offered. It never changes the amount that division pays.",
+      money_heading: "Two different pots of money",
+      money: [
+        ["The share", "The division's own money, out of its own technology budget, going into the {infra} layer. {shares}. These are fixed — you are not negotiating them, you are trying to get them agreed."],
+        ["The deal cost", "Your money, and what it costs you to get that agreement. It does not go into the layer and it does not add to the total. It shows on the board as money spent."]
+      ],
+      note: "There is no partial credit and no refund. A deal offered to a division it does not suit costs you the same and changes nothing."
+    },
+
+    applying: {
+      heading: "What happens when you offer a deal",
+      lead: "Name a division and a deal. The cost leaves your budget straight away, before anyone knows whether it worked, and that deal is then used up for that division.",
+      rows: [
+        ["If it is not what that division needed",
+         "It says no, in its own words, and nothing else on the board moves. Your money is gone and you have learned something."],
+        ["If it is what they needed",
+         "They agree to pay their share. The funding bar rises by that share, and their own number drops slightly, because they have just spent part of their own budget."],
+        ["Once all three have agreed",
+         "The shares reach {infra}, the layer gets built, the {unfunded} cap comes off all three divisions, and the total jumps to {ceiling}."]
+      ]
     },
 
     rules: {
