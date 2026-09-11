@@ -103,7 +103,7 @@ window.ASTER_SCRIPT = {
   /* ---- Landing page ---- */
   landing: {
     title: "The Coordination Problem",
-    subtitle: "Three divisions, one shared trial-data layer, and nobody who can order it built.",
+    subtitle: "Three divisions, one shared trial-data layer, and nobody convinced they should fund it.",
     /* The situation, in reading order. Each label becomes the heading of its own
        section on the page, so the room knows what it is reading before it reads it. */
     story: [
