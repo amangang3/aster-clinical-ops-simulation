@@ -15,11 +15,12 @@
     <p class="landing__subtitle" id="subtitle"></p>
   </header>
 
-  <p class="landing__disclaimer" id="disclaimer"></p>
+  <section class="story" id="story"></section>
 
-  <section class="landing__body" id="body"></section>
-
-  <section class="cards" id="cards"></section>
+  <section class="landing__divisions">
+    <p class="eyebrow" id="cards-label"></p>
+    <div class="cards" id="cards"></div>
+  </section>
 
   <section class="doer">
     <p class="doer__line" id="do-line"></p>
@@ -27,8 +28,11 @@
   </section>
 
   <footer class="landing__foot">
-    <a class="btn btn--primary" id="begin" href="instructions.html"></a>
-    <a class="link-quiet" id="guide" href="facilitate.html"></a>
+    <div class="landing__actions">
+      <a class="btn btn--primary" id="begin" href="instructions.html"></a>
+      <a class="link-quiet" id="guide" href="facilitate.html"></a>
+    </div>
+    <p class="landing__disclaimer" id="disclaimer"></p>
   </footer>
 
   <script src="data/model.js"></script>
@@ -47,11 +51,21 @@
     el("disclaimer").textContent = A.meta.disclaimer +
       " " + A.meta.unit + ", " + A.meta.setting + ".";
 
-    L.paragraphs.forEach(function (text) {
+    // The first block is the lead — set larger, so the eye has one place to start.
+    L.story.forEach(function (item, i) {
+      var d = document.createElement("div");
+      d.className = "story__item" + (i === 0 ? " story__item--lead" : "");
+      var label = document.createElement("p");
+      label.className = "eyebrow";
+      label.textContent = item.label;
       var p = document.createElement("p");
-      p.textContent = FMT.fill(text);
-      el("body").appendChild(p);
+      p.textContent = FMT.fill(item.body);
+      d.appendChild(label);
+      d.appendChild(p);
+      el("story").appendChild(d);
     });
+
+    el("cards-label").textContent = L.cards_label;
 
     A.groups.forEach(function (g) {
       // Each card is the way into that division's own page.

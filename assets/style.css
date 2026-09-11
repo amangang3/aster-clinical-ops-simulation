@@ -161,14 +161,35 @@ button {
   padding: 1.9rem 3.2rem 2rem;
 }
 
-.landing__head { display: flex; align-items: baseline; gap: 1.35rem; flex-wrap: wrap; }
+/* One type scale for the whole page, so size means rank and nothing else:
+   eyebrow 0.85 · body 1 · lead 1.15 · deck 1.3 · title 2.9. The order the room
+   should read in is top to bottom, and the lead block is the biggest body text
+   on the page so there is one obvious place to start. */
+
+/* Title first, its one-line deck directly under it — not alongside it, which
+   gave the page two competing entry points. */
+.landing__head { display: flex; flex-direction: column; gap: 0.4rem; }
 .landing__title { font-size: 2.9rem; line-height: 1.05; }
-.landing__subtitle { font-size: 1.22rem; color: var(--muted); }
+.landing__subtitle { font-size: 1.3rem; color: var(--muted); margin: 0; max-width: 92ch; }
 
-.landing__disclaimer { font-size: 1rem; color: var(--dim); max-width: 78ch; margin: 0; }
+/* Small caps label above each block, so every block says what it is before it is read. */
+.eyebrow {
+  margin: 0 0 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
 
-.landing__body { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.7rem; }
-.landing__body p { margin: 0; font-size: 1.06rem; color: var(--muted); }
+/* The situation, in three labelled blocks read left to right. */
+.story { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.7rem; }
+.story__item p { margin: 0; font-size: 1rem; color: var(--muted); }
+.story__item--lead p { font-size: 1.15rem; color: var(--text); }
+.story__item--lead .eyebrow { color: var(--muted); }
+
+/* Fine print, kept at the foot of the page where fine print belongs. */
+.landing__disclaimer { font-size: 0.85rem; color: var(--dim); max-width: 92ch; margin: 0; }
 
 .figures { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
 .figures__cell {
@@ -199,7 +220,7 @@ button {
   flex-direction: column;
   gap: 0.45rem;
 }
-.card__name { display: flex; align-items: center; gap: 0.67rem; font-size: 1.45rem; font-weight: 600; }
+.card__name { display: flex; align-items: center; gap: 0.67rem; font-size: 1.25rem; font-weight: 600; }
 .card__lead { font-size: 1rem; color: var(--muted); }
 .card__descriptor { font-size: 1rem; color: var(--muted); margin: 0; }
 
@@ -208,7 +229,7 @@ a.card--link:hover { border-color: var(--accent); }
 .card__cta {
   margin-top: auto;
   padding-top: 0.45rem;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: var(--dim);
 }
 a.card--link:hover .card__cta { color: var(--accent); }
@@ -228,10 +249,17 @@ a.card--link:hover .card__cta { color: var(--accent); }
 }
 
 /* One line saying what the room is about to be asked to do, and where the rest of it is. */
-.doer { display: flex; align-items: baseline; gap: 1.35rem; flex-wrap: wrap; }
-.doer__line { margin: 0; color: var(--muted); max-width: 96ch; }
+.doer {
+  display: flex; align-items: baseline; gap: 1.35rem; flex-wrap: wrap;
+  border-top: var(--hair);
+  padding-top: 1.1rem;
+}
+.doer__line { margin: 0; font-size: 1rem; color: var(--muted); max-width: 96ch; }
 
-.landing__foot { margin-top: auto; display: flex; align-items: center; gap: 1.8rem; flex-wrap: wrap; }
+.landing__divisions { display: flex; flex-direction: column; gap: 0.55rem; }
+
+.landing__foot { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 0.9rem; }
+.landing__actions { display: flex; align-items: center; gap: 1.8rem; flex-wrap: wrap; }
 
 .btn {
   border: var(--hair);
@@ -764,7 +792,7 @@ a.flow__label:hover { color: var(--mint); }
    ============================================================ */
 
 @media (max-width: 1100px) {
-  .landing__body, .figures, .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .story, .figures, .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .band { grid-template-columns: 1fr 1fr; }
   .band__cell--hero { grid-column: 1 / -1; }
   .row { grid-template-columns: 14rem minmax(0, 1fr); }
@@ -787,7 +815,7 @@ a.flow__label:hover { color: var(--mint); }
 @media (max-width: 760px) {
   .landing, .sim { padding: 1.35rem 1.1rem 1.55rem; }
   .doc { padding: 1.35rem 1.1rem 3rem; }
-  .landing__body, .figures, .cards, .band, .score__head,
+  .story, .figures, .cards, .band, .score__head,
   .figures--four, .card__figures { grid-template-columns: minmax(0, 1fr); }
   .row { grid-template-columns: minmax(0, 1fr); gap: 0.9rem; }
   .notes { grid-template-columns: minmax(0, 1fr); }

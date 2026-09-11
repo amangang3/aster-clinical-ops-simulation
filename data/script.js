@@ -105,11 +105,17 @@ window.ASTER_SCRIPT = {
   landing: {
     title: "The Coordination Problem",
     subtitle: "Three divisions, one shared trial-data layer, and nobody who can order it built.",
-    paragraphs: [
-      "Aster Life Sciences runs its clinical operations through three divisions, each with its own plan and its own targets. All three agree they should build one shared trial-data layer, so their AI agents can work across the divisions instead of stopping at the edge of each one. The upside they are leaving on the table is worth about {ambition}.",
-      "Every division has still said no — each for a different, fair reason. One cannot take the disruption right now. One is already ahead and does not want to help the others catch up. One does not believe the organisation can actually deliver it. None of them is arguing about the money.",
-      "You are {you}, {you_title}. You cannot order any of this — you own no division and cannot commit anyone’s plan. What you can do is work out what each one needs to say yes, and give it to them. There are four deals you can offer."
+    /* The situation, in reading order. The first is the lead and is set larger; the
+       labels exist so the room knows what to read first and what each block is for. */
+    story: [
+      { label: "Where things stand",
+        body: "Aster Life Sciences runs its clinical operations through three divisions, each with its own plan and its own targets. All three agree they should build one shared trial-data layer, so their AI agents can work across the divisions instead of stopping at the edge of each one. The upside they are leaving on the table is worth about {ambition}." },
+      { label: "Why nobody has said yes",
+        body: "Every division has still said no — each for a different, fair reason. One cannot take the disruption right now. One is already ahead and does not want to help the others catch up. One does not believe the organisation can actually deliver it. None of them is arguing about the money." },
+      { label: "What you can do about it",
+        body: "You are {you}, {you_title}. You cannot order any of this — you own no division and cannot commit anyone’s plan. What you can do is work out what each one needs to say yes, and give it to them. There are four deals you can offer." }
     ],
+    cards_label: "The three divisions",
     do_line: "You will read the three divisions, work out what each needs before it will commit, and offer it. There are four deals — matching the right one, sometimes the right two, to each division is the whole exercise. Only when all three commit does the shared layer get built and the upside get realised.",
     do_link: "How the session works",
     begin: "BEGIN"
