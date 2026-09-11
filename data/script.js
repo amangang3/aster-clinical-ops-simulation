@@ -13,60 +13,71 @@
 
 window.ASTER_SCRIPT = {
 
-  /* ---- The three divisions ---- */
+  /* ---- The three divisions ----
+     Each has a `commit` line, shown the moment it agrees to pay, and a `responses` map for
+     every move that does NOT commit it: the moves it does not need (refused), plus — for
+     Data & Analytics, which needs two — the "helps, but not yet" line for whichever of the
+     pair lands first. The two partial lines are written to read in either order. ---- */
   groups: {
     "site-ops": {
       descriptor: "The biggest division. It needs the layer to reach {cross} it cannot reach on its own.",
+      worry: "Cannot change how it works during its Q3–Q4 enrolment peak, with a leadership handover only two quarters away.",
       role: "Runs the network of sites and hospitals that carry out the trials. It is the biggest of the three divisions.",
       measured: "Enrolment against plan, how long a site takes to activate, and cost per patient enrolled.",
       position: [
-        "Site Operations has the biggest value pool of the three, at {local}. Six of the nine highest-value workflows run through it, and every one of those six either starts or finishes in another division.",
-        "Those six workflows are where its {cross} of extra value sits. Site Operations cannot earn any of it without the shared layer, and it has no data engineering team of its own to build one.",
-        "Q3 and Q4 are its enrolment peak, and they are the two quarters when it can least afford to change how anything works. A new technology leader arrives in two quarters and will inherit whatever gets agreed now."
+        "Site Operations is not fighting the money. Its problem is the calendar. Q3 and Q4 are its enrolment peak, the two quarters when it can least afford to change how anything works — and a new technology leader arrives in two quarters, who will inherit whatever gets agreed now.",
+        "It is also the biggest division, with {local} of potential upside a year. Six of the nine highest-value workflows run through it, and every one of those six either starts or finishes in another division.",
+        "Those six workflows are where its {cross} of extra upside sits. Site Operations cannot earn any of it without the shared layer, and it has no data engineering team of its own to build one."
       ],
       work_out: "Site Operations has not argued about the amount. Work out what else it needs changed before it will say yes.",
       objection: "We are not against this, and we are not arguing about the money. Q3 and Q4 are our enrolment peak. We cannot change how we work in the two busiest quarters of our year. On top of that, I hand over to my successor in two quarters. Ask me for something that will still be running when they arrive.",
       responses: {
         price:      "Money is not the problem. You would be giving us more to spend in the two quarters when we have the least room to change anything.",
-        underwrite: "We are not worried about being left exposed. We are worried about the calendar. A guarantee does not move our enrolment peak.",
-        sequence:   "So we start after the peak, in stages my successor can pick up? Then yes. We will pay the full share."
-      }
+        status:     "A title does not move our enrolment peak. We are not short of standing — we are short of a quarter in which we can change anything.",
+        underwrite: "We are not worried about being left exposed. We are worried about the calendar. A guarantee does not move our enrolment peak."
+      },
+      commit: "So we start after the peak, in stages my successor can pick up? Then yes. We will pay the full share."
     },
 
     "data-analytics": {
-      descriptor: "The only division that can build the layer, and the one that gets least back for what it puts in.",
+      descriptor: "The only division that can build the layer — and the one already out in front, with a lead it would rather keep than share.",
+      worry: "Is already ahead, and does not want to build the other two up to its level and lose the lead it paid for.",
       role: "Collects, validates and analyses the trial data. It is the only division with the engineering depth to build the shared layer.",
       measured: "Data quality, how fast it can answer a question from the trial teams, and delivery against its own five-year platform plan.",
       position: [
-        "Data & Analytics has a {local} value pool. Only {cross} of its value depends on work that spans divisions — the smallest such stake of the three — so it has the least riding on the layer, and it is the only division that can build it.",
-        "It has already funded platform work of its own. The plan is written, the team is hired, and it is further along than the other two divisions.",
-        "Building the shared layer means building it for everyone. That slows its own roadmap and hands over work it has already paid for."
+        "Data & Analytics is already ahead. It has funded its own platform, hired the team, and is further along than either of the others. Its worry is not the money — it is that building one shared layer for everyone hands the other two the capability it spent years building, and closes the gap it is counting on.",
+        "It is the only division that can build the layer, and the one with the least riding on it: of its {local} of potential upside, only {cross} depends on work that spans divisions — the smallest such stake of the three.",
+        "So it is being asked to do the most, level a field it currently leads, and get the least back for it. Left to its own plan, it would rather keep the lead than share it."
       ],
-      work_out: "Data & Analytics is being asked to do the most and gets the least back for it. Work out what would make that a deal rather than a favour.",
-      objection: "We have already paid for this. It is in our five-year plan, the team is hired, and we are further along than either of them. What you are asking is that we slow down and build it for two divisions who have not started.",
+      work_out: "Data & Analytics is being asked to give up a lead it built and paid for. Work out what would make sharing that lead worth more to it than keeping it.",
+      objection: "We are the ones who are ahead. We funded this, we hired the team, and we are further along than either of them. What you are asking is that we build the same capability for two divisions who are behind us, and hand them the head start we paid for. Why would we help them catch up?",
       responses: {
-        sequence:   "Time is not our problem. We are the ones who are ready. Giving us longer just wastes the head start we paid for.",
-        underwrite: "We are not asking to be protected from anything. We are asking why we should hand over something we paid for.",
-        price:      "So you pay us for what we have already built, the other two buy their data services from us, and you guarantee they actually will? Then it is a business, not a tax. We will build it."
-      }
+        sequence:   "Time is not our problem — we are the ones who are ready. More time just lets the others close the gap while we wait.",
+        underwrite: "We are not exposed to anything; we are ahead. Protecting our downside answers a question we did not ask. Our worry is losing the lead, not carrying a risk.",
+        price:      "Paying us for what we built helps — it stops this being a straight giveaway. But money alone still levels the field. If all three run on the same layer, what keeps us the division out in front?",
+        status:     "Being named the owner helps — the others would build on our platform rather than around us. But recognition without paying for what we already built still asks us to hand years of work over for free. What do we get for the work itself?"
+      },
+      commit: "So you pay us for the head start we built, and you make us the owner the other two run on — we stay out in front, and we get paid for it. Then it is worth more to share the lead than to keep it. We will build it."
     },
 
     "patient-engagement": {
       descriptor: "The smallest division, and the one whose own numbers move most when the layer is built.",
+      worry: "Was burned the last time the centre set a standard, and does not trust that the bill will not land on it again.",
       role: "Finds patients, enrols them, and keeps them in the trial. It is the smallest of the three divisions.",
       measured: "Enrolment yield per campaign, patient retention, and cost per enrolled patient.",
       position: [
-        "Patient Engagement is the smallest division, with a {local} value pool. Waiting on the layer is another {cross} from work that spans divisions — half its own pool again, and the best deal of the three for the money.",
-        "Its own plans need {capital}, the least of the three, and it is being asked for the smallest share at {pledge}.",
-        "The last time head office set a standard, this division rebuilt systems that were already working, lost two enrolment campaigns, and paid for it out of its own budget. Nobody paid it back."
+        "Patient Engagement has the most to gain and has been burned before. The last time head office set a standard, it rebuilt systems that were working fine, lost two enrolment campaigns, and paid for all of it out of its own budget. Nobody paid it back. That, not the numbers, is what is stopping it.",
+        "It is the smallest division, with {local} of potential upside. The layer would add another {cross} from work that spans divisions — half its own upside again, and the best deal of the three for the money.",
+        "Its own plans need {capital}, the least of the three, and it is being asked for the smallest share at {pledge}. The economics are not the problem. The memory is."
       ],
       work_out: "Patient Engagement has the most to gain and the least standing to ask for anything. Work out what it needs to hear before it will pay.",
       objection: "The last time head office set a standard, we rebuilt systems that were working fine, lost two enrolment campaigns, and paid for all of it ourselves. The numbers here are good. They were good last time too. That is not what is stopping us.",
       responses: {
         sequence:   "More time does not help. We would spend it waiting to be told the rules had changed again.",
         price:      "We do not need a better price. We need to know that this time the bill does not land on us.",
-        underwrite: "So the cost of moving our systems is covered up front, and our access is guaranteed in writing, before we pay anything? Then we are in, and we will be the cheapest yes you get."
-      }
+        status:     "We are not looking for a title or a seat at the table. We are looking for a promise that the cost does not land on us again."
+      },
+      commit: "So the cost of moving our systems is covered up front, and our access is guaranteed in writing, before we pay anything? Then we are in, and we will be the cheapest yes you get."
     }
   },
 
@@ -96,9 +107,9 @@ window.ASTER_SCRIPT = {
     title: "The Coordination Problem",
     subtitle: "Three divisions, one shared trial-data layer, and nobody who can order it built.",
     paragraphs: [
-      "Aster Life Sciences runs its clinical operations through three divisions. Each has its own budget, its own plan and its own targets, and each is measured on its own results.",
-      "All three want the same thing: a shared trial-data layer that lets their AI agents work across division boundaries instead of stopping at them. It costs {infra} and it is all or nothing. Each division has been asked for a share, and the three shares only cover the bill together.",
-      "You are {you}, {you_title}, and you can make the case but you cannot commit the money. Only the person who owns a budget can put a number into a plan, so the three divisions have to agree. So far they have not."
+      "Aster Life Sciences runs its clinical operations through three divisions, each with its own budget, its own plan and its own targets. All three agree they should build one shared trial-data layer, so their AI agents can work across the divisions instead of stopping at the edge of each one.",
+      "Every division has still said no — each for a different, fair reason. One cannot take the disruption right now. One is already ahead and does not want to help the others catch up. One was burned last time and does not trust it will be different. None of them is arguing about the money.",
+      "You are {you}, {you_title}. You can make the case, but you cannot commit the money — only a division that owns a budget can put a number in its plan. So you have to work out what each one actually needs, and give it to them out of the one budget you do control: the centre’s."
     ],
     figures: [
       { label: "The ambition",            note: "what you are arguing the three divisions should be worth each year" },
@@ -106,8 +117,8 @@ window.ASTER_SCRIPT = {
       { label: "Their own tech budgets",  note: "what the three had set aside for their own plans" },
       { label: "Work spanning divisions", note: "worth nothing today, and only pays once the layer exists" }
     ],
-    pool_label: "value its agents could add each year",
-    do_line: "You are {you}, and you cannot order any of this. You will read the three divisions, work out what each one needs before it will pay its share, and spend the centre\u2019s own budget to give it to them. There are three deals, and only one of them works on each division.",
+    pool_label: "of potential upside a year",
+    do_line: "You are {you}, and you cannot order any of this. You will read the three divisions, work out what each one needs before it will pay its share, and spend the centre\u2019s own budget to give it to them. There are four deals to offer, and matching the right one \u2014 sometimes the right two \u2014 to each division is the whole exercise.",
     do_link: "How the session works",
     begin: "BEGIN",
     secondary: "Debrief"
@@ -119,59 +130,62 @@ window.ASTER_SCRIPT = {
      which division it fits — the diagnosis is the exercise. ---- */
   instructions: {
     title: "How the session works",
-    standfirst: "Ten minutes on one screen. Read this first: what is being decided, where the numbers come from, and what you are being asked to do.",
+    standfirst: "Ten minutes on one screen. Read this first: who you are, what each division is worried about, and what you are being asked to do.",
 
     you: {
       heading: "Who you are in this exercise",
       body: [
         "You are the case protagonist: {you}, {you_title} of the {unit}. Everyone in the room plays the same person.",
-        "You sit on the {council} and can put a proposal on its agenda and argue for it. You own no profit and loss account, and by long-standing practice any number that enters a five-year plan has to be committed by the P&L owner who will carry it. The three people you are about to read own those plans. You do not, and you cannot set a target for any of them.",
-        "What you do control is the centre: the platform, the engineering group, and the budget that pays for both. That is what you are spending when you offer a deal, and it is why the deals on offer are things like covering somebody's migration cost or crediting work they have already paid for. None of them is \u201corder them to do it\u201d, because that is not available to you."
+        "You sit on the {council} and can put a proposal on its agenda and argue for it. But you own no budget, and any number that enters a five-year plan has to be committed by the division that will carry it. The three people you are about to read own those plans. You do not, and you cannot set a target for any of them.",
+        "What you do control is the centre: the platform, the engineering group, and the budget that pays for both. That budget \u2014 yours, not theirs \u2014 is what you spend to win each division over. So the deals you can offer are things like covering someone's migration cost or crediting work they have already paid for. None of them is \u201corder them to do it\u201d, because that is not available to you."
       ]
     },
 
     situation: {
       heading: "What is being decided",
       body: [
-        "Aster wants to build one shared trial-data layer: a single place where all three divisions keep their trial data, so that AI agents can follow a piece of work through the whole Center instead of stopping at the edge of one division.",
-        "It costs {infra} to build. It either gets built or it does not — there is no half version and no pilot.",
-        "Each division has been asked to pay a fixed share of that {infra}, out of the money it had already set aside for its own technology plans. The three shares add up to exactly {infra}, and no two of them are enough on their own."
+        "Aster wants to build one shared trial-data layer: a single place where all three divisions keep their trial data, so AI agents can follow a piece of work through the whole Center instead of stopping at the edge of one division.",
+        "It costs {infra}, and it is all or nothing — there is no half version and no pilot. Each division has been asked to pay a fixed share out of its own technology budget. The three shares add up to exactly {infra}, and no two of them are enough on their own."
       ],
       table_caption: "What each division is being asked for. The shares are fixed — you are not negotiating the amounts.",
-      note: "That is the entire decision. Nobody is deciding how big anyone's budget is, or what the layer should do. The only open question is whether all three divisions will pay their share."
+      note: "The only open question is whether all three divisions will pay their share. All three agree the layer should exist. All three have still said no."
+    },
+
+    blocks: {
+      heading: "What each division is worried about",
+      caption: "Not one of them is arguing about the money or the numbers. Each is holding back for a different, human reason — and that reason is what you have to answer.",
+      note: "Read the three division briefs next; this is only the headline of each. Working out which deal answers which worry is the exercise."
     },
 
     numbers: {
-      heading: "Where the numbers come from",
-      caption: "Four rules produce every figure you will see on the board. The second one is the one people find surprising.",
+      heading: "Where the numbers on the board come from",
+      caption: "Two rules explain everything you will see. You do not need the arithmetic — just these.",
       rows: [
-        ["Each division has a value pool",
-         "This is what AI agents could add in that division each year, if they could reach every piece of data they needed. The three pools come to {pools} between them."],
-        ["Without the shared layer, each division gets {unfunded} of its pool",
-         "An agent can only reach data its own division owns. Most of the work it would do needs something held by another division, so it stops halfway — and an agent that stops halfway has not done part of the job, it has done none of it. This is why the board opens at {baseline} and not at {pools}."],
-        ["With the layer, that {unfunded} cap comes off — and another {cross} becomes reachable",
-         "Agents can follow a piece of work from one division into the next. Each division earns at full rate instead of {unfunded}, and work that spans two divisions starts paying for the first time."],
-        ["But paying for the layer leaves less to spend at home",
-         "A division's share comes out of the budget for its own plans, so it delivers a little less than its full pool. This is why all three paying lands at {ceiling} and not at {pools} plus {cross}. Worked through for Site Operations:"]
+        ["Each division has a potential upside",
+         "What its AI agents could add each year, if they could reach every piece of data they needed. The three come to {pools} between them."],
+        ["Without the layer, most of it is out of reach",
+         "An agent can only use data its own division owns, so any work that crosses into another division stops halfway — and half a workflow is worth nothing. Each division runs at just {unfunded} of its upside, which is why the board opens at {baseline}, not {pools}."],
+        ["The layer unlocks the rest — but only if all three pay",
+         "Build it and every division earns at full rate, and {cross} of work that spans divisions starts paying for the first time, taking the total to {ceiling}. Two divisions paying builds nothing at all."]
       ],
-      note: "Put the second and fourth rules together and you have the problem. A division that pays its share is worse off straight away, and gets nothing back unless the other two pay as well."
+      note: "So a division that pays its share is worse off straight away, and gets nothing back unless the other two pay too. That is the whole trap."
     },
 
     job: {
       heading: "What you are asked to do",
       body: [
-        "All three divisions agree the layer should be built, and none of them disputes the numbers. All three have still said no, each for its own reason, and each reason is a fair one.",
-        "Your job is to work out what each division needs in order to say yes, and then offer it. You have three deals. Each one works on exactly one of the three divisions."
+        "Your job is to work out what each division needs in order to say yes, and then offer it — spending your own budget, not theirs.",
+        "You have four deals. Two of the divisions need one deal each. One division needs two before it will move: a single deal helps, but does not close it."
       ]
     },
 
     moves: {
-      heading: "The three deals",
+      heading: "The four deals",
       caption: "A deal changes the terms a division is offered. It never changes the amount that division pays.",
-      money_heading: "Two different pots of money",
+      money_heading: "Your budget, and theirs",
       money: [
-        ["The share", "The division's own money, out of its own technology budget, going into the {infra} layer. {shares}. These are fixed — you are not negotiating them, you are trying to get them agreed."],
-        ["The deal cost", "The centre\u2019s money — yours — and what it costs you to get that agreement. It comes out of the platform and engineering budget you control, not out of any division\u2019s plan. It does not go into the layer and it does not add to the total. It shows on the board as money spent."]
+        ["Their budget — the share", "Each division pays a fixed share of the {infra} layer out of its own technology budget: {shares}. You are not negotiating these amounts — you are trying to get them agreed."],
+        ["Your budget — the deal cost", "What it costs you to win each agreement, out of the centre\u2019s own platform and engineering budget. It does not go into the layer and does not change the total. It is simply money you spend, and the board shows it as spend."]
       ],
       note: "There is no partial credit and no refund. A deal offered to a division it does not suit costs you the same and changes nothing."
     },
@@ -182,10 +196,12 @@ window.ASTER_SCRIPT = {
       rows: [
         ["If it is not what that division needed",
          "It says no, in its own words, and nothing else on the board moves. Your money is gone and you have learned something."],
-        ["If it is what they needed",
+        ["If it helps but is not enough on its own",
+         "The division says as much: the concession is real, but it still will not pay until everything it needs is in. Your money is spent either way."],
+        ["If it is everything they needed",
          "They agree to pay their share. The funding bar rises by that share, and their own number drops slightly, because they have just spent part of their own budget."],
         ["Once all three have agreed",
-         "The shares reach {infra}, the layer gets built, the {unfunded} cap comes off all three divisions, and the total jumps to {ceiling}."]
+         "The shares reach {infra}, the layer gets built, every division goes from {unfunded} to full rate, and the total jumps to {ceiling}."]
       ]
     },
 
@@ -194,6 +210,7 @@ window.ASTER_SCRIPT = {
       items: [
         "Each deal can be offered to each division once.",
         "The money is spent the moment you offer it, before you find out whether it worked.",
+        "A deal that helps but is not enough leaves the division where it was — it still has not paid.",
         "Once a division agrees to pay, it stays in for the rest of the round.",
         "Nothing can be taken back.",
         "The layer only gets built if all three divisions agree."
@@ -221,7 +238,7 @@ window.ASTER_SCRIPT = {
     not_funded: "Not funded"
   },
 
-  /* ---- The three deals in plain words. What each deal IS, never which division it
+  /* ---- The four deals in plain words. What each deal IS, never which division it
      suits: that is what the room is there to work out. ---- */
   deals: {
     sequence: {
@@ -229,8 +246,12 @@ window.ASTER_SCRIPT = {
       what: "They pay the same share, but later, and in stages rather than all at once. The amount does not change — only when it lands."
     },
     price: {
-      name: "Pay them for it",
-      what: "Credit the work they have already paid for, make them the one the other two buy from, and guarantee they actually will."
+      name: "Pay for the head start",
+      what: "Credit the work they have already paid for and guarantee them the demand, so sharing the layer earns them money instead of just levelling the field."
+    },
+    status: {
+      name: "Name them the owner",
+      what: "Make them the owner of the shared layer, so the other two build on their platform. They keep their lead instead of dissolving it into a shared asset."
     },
     underwrite: {
       name: "Cover their losses",
@@ -312,20 +333,20 @@ window.ASTER_SCRIPT = {
       caption: "Why it defends its own plan instead.",
       rows: [
         ["Absorption", "“We cannot take this much change this fast.”", "A timing problem, not a size problem — so commit the number and negotiate the clock."],
-        ["Advantage",  "“We already paid for this. Why would we level down?”", "A property problem — so pay for what they give up: credit the head start, guarantee them demand."],
+        ["Advantage",  "“We are ahead. Why would we help them catch up?”", "A head-start problem — so let them keep the lead as they share it: pay for what they built, and make them the owner the others build on."],
         ["Assurance",  "“Last time the centre moved, we ate the cost.”", "A trust problem — so guarantee the downside: caps, kill criteria, migration costs covered."]
       ]
     },
     moves: {
-      heading: "The three moves",
-      caption: "Each block has one move that answers it. That one-to-one mapping is the mechanic."
+      heading: "The four moves",
+      caption: "Each block has the move that answers it — except the division out in front, whose block takes the pair, PRICE and STATUS. That mapping is the mechanic."
     },
     diagnosis: {
       heading: "The applied diagnosis",
       rows: {
         "site-ops":           { pull: "Dependent", pull_note: "six of its nine top workflows run into another division, and it cannot build the layer they need" },
-        "data-analytics":     { pull: "Supplier",  pull_note: "the only division that can build the layer, the least value depending on it, and the worst return on its own share" },
-        "patient-engagement": { pull: "Dependent", pull_note: "best return per dollar in the room, and the layer is worth half its pool again" }
+        "data-analytics":     { pull: "Supplier",  pull_note: "the only division that can build the layer, already ahead of the other two, and the least riding on a layer that lets them catch up" },
+        "patient-engagement": { pull: "Dependent", pull_note: "best return per dollar in the room, and the layer is worth half its own upside again" }
       }
     },
     outcomes: {
@@ -341,7 +362,7 @@ window.ASTER_SCRIPT = {
         ["Agents remove partial credit",
          "Software that sees half your data gives you a worse answer, and a worse answer is still useful. An agent that can reach half a workflow does not complete it. Coverage used to scale the value of a system; with agents it gates it. That is why the shared layer is all or nothing rather than merely nice to have."],
         ["Agents act, they do not report",
-         "A shared data layer is a read. An agent that reschedules a site visit, or contacts a patient, is taking an action inside a division that answers for the consequences. That produces an objection none of the three deals on this board can answer: not who pays, but who is accountable when it acts wrongly."],
+         "A shared data layer is a read. An agent that reschedules a site visit, or contacts a patient, is taking an action inside a division that answers for the consequences. That produces an objection none of the four deals on this board can answer: not who pays, but who is accountable when it acts wrongly."],
         ["The constraint has swapped ends",
          "Agent capability arrives in weeks. The agreements in this room take quarters. For most of the history of enterprise technology the build was the bottleneck and the business waited for it. That has reversed, which is why nothing in this exercise was ever blocked by the model, the data or the money."]
       ],
@@ -357,7 +378,7 @@ window.ASTER_SCRIPT = {
         "The layer cost {infra} against {gain} of value. Why does that deal not happen on its own?",
         "You have just done this the hard way, one negotiation at a time, and it worked. Is that an argument for doing it this way, or an argument that the target should have been set at the top and held across all three? Answering \u201cboth\u201d is not available.",
         "The layer had to be funded by all three or not at all. Does the fact that no single division could reach the line on its own make the case for an enterprise-level commitment, or only for better negotiation by the centre?",
-        "An agent owned by one division takes an action inside another and gets it wrong. Which of these three divisions carries that, and which of the three deals buys it? Neither question has an answer on this board, and both have to be answered before anything ships."
+        "An agent owned by one division takes an action inside another and gets it wrong. Which of these three divisions carries that, and which of the four deals buys it? Neither question has an answer on this board, and both have to be answered before anything ships."
       ]
     },
     closing: {
@@ -396,7 +417,7 @@ window.ASTER_SCRIPT = {
         { label: "4 · The exercise", href: "sim.html",
           body: "The session itself. One screen, driven from the keyboard so you can keep facing the room. Nothing is stored and nothing is random, so the same choices always produce the same numbers." },
         { label: "5 · The debrief", href: "debrief.html",
-          body: "Afterwards. The two framework tables, the three moves, the applied diagnosis, all eight outcomes with your round marked, the pilot trap named under the table that proves it, why any of this is different with agents rather than with a shared warehouse, and six questions to open the discussion." }
+          body: "Afterwards. The two framework tables, the four moves, the applied diagnosis, all eight outcomes with your round marked, the pilot trap named under the table that proves it, why any of this is different with agents rather than with a shared warehouse, and six questions to open the discussion." }
       ],
       deck: { label: "The deck", body: "framework-deck.pptx holds four slides. Slide 1 sets up the case and slide 2 explains the exercise. Slides 3 and 4 are the framework, and they are the ones to use after the debrief." }
     },
@@ -410,7 +431,7 @@ window.ASTER_SCRIPT = {
          "Read the objections out, or have three people read them. Say that each division is right about its own situation, and that none of them is arguing about the size of the prize."],
         ["1:30 · First diagnosis",
          "Take the first suggestion from the room and apply it, whatever it is.",
-         "Ask what each division needs before it will pledge. Most rooms reach for money first, because money is what executives are used to offering. It works on one of the three."],
+         "Ask what each division needs before it will pledge. Most rooms reach for money first, because money is what executives are used to offering. It commits nobody on its own now — it is only half of what the division out in front needs, and it is wrong for the other two."],
         ["3:00 · Let it be wrong",
          "Apply the wrong deals without commenting. The spend climbs and nothing else changes.",
          "Point at the spend once. That money is gone whether or not the deal landed. Then read the objection again and ask what it was asking for."],
@@ -434,11 +455,11 @@ window.ASTER_SCRIPT = {
 
     key: {
       heading: "The answer key",
-      caption: "One deal answers each block. The other two cost full price and buy nothing. If the room stalls, H puts the block labels on screen and turns the exercise into matching.",
+      caption: "One deal answers each block — except the division out in front, which needs two, PRICE and STATUS, and does not commit until both are in. Every other deal costs full price and buys nothing. If the room stalls, H puts the block labels on screen and turns the exercise into matching.",
       tell_heading: "The tell",
       tells: {
         "site-ops":           "“We are not against this,” followed by two dates. The objection is about the calendar, and the division is managing a handover, not defending a position.",
-        "data-analytics":     "“We already funded this.” The objection is about ownership of something already bought, so anything that sounds like levelling down makes it worse.",
+        "data-analytics":     "“Why would we help them catch up?” The division is ahead and means to stay there, so the answer has to let it keep the lead — pay for the head start (PRICE) and make it the owner the others run on (STATUS). One without the other only half-answers it.",
         "patient-engagement": "“Nobody paid for it.” The objection is about what happened last time, which is why a better price answers a question nobody asked."
       }
     },
@@ -459,7 +480,7 @@ window.ASTER_SCRIPT = {
         ["The room stalls on the diagnosis",
          "Press H. The block labels appear and the exercise becomes matching instead of diagnosis. A weaker lesson, but a better use of the minutes you have left."],
         ["Someone says the centre should just mandate it",
-         "This is the case question, so do not close it down — and do not let the exercise be read as an argument against it either. Both halves are live. For it: no division could reach the funding line alone, the value pools that matter cut across all three, and voluntary adoption produced the pilot trap on screen. Against it: nobody here can mandate anything, a P&L owner can agree in the room and under-resource it for four quarters, and two of the three were right that the deal as first offered was bad for them. The exercise shows what the negotiation costs. It does not settle whether you should have had to run it."],
+         "This is the case question, so do not close it down — and do not let the exercise be read as an argument against it either. Both halves are live. For it: no division could reach the funding line alone, the upside that matters cuts across all three divisions, and voluntary adoption produced the pilot trap on screen. Against it: nobody here can mandate anything, a P&L owner can agree in the room and under-resource it for four quarters, and two of the three were right that the deal as first offered was bad for them. The exercise shows what the negotiation costs. It does not settle whether you should have had to run it."],
         ["Someone says the multiplier is arbitrary",
          "Agree about the size — {unfunded} is invented. Do not concede the shape. Software that covers half your data gives you half an answer, and half an answer is still worth having. An agent that can reach half a workflow does not finish it, so a crossing workflow is worth nothing at all until the layer exists. The cap is a property of automation, not a convenience of the model."],
         ["Someone asks why the divisions do not just talk to each other",
@@ -506,13 +527,13 @@ window.ASTER_SCRIPT = {
   keys: {
     heading: "Facilitator keys",
     rows: [
-      ["1 2 3", "Select division"],
-      ["Q W E", "Apply Sequence / Price / Underwrite to the selected division"],
-      ["H",     "Show the block labels, for when the room stalls"],
-      ["N",     "Presenter note for the current beat"],
-      ["C",     "Close the round"],
-      ["R",     "Reset"],
-      ["?",     "This list"]
+      ["1 2 3",   "Select division"],
+      ["Q W E R", "Apply Sequence / Price / Status / Underwrite to the selected division"],
+      ["H",       "Show the block labels, for when the room stalls"],
+      ["N",       "Presenter note for the current beat"],
+      ["C",       "Close the round"],
+      ["⌫",       "Reset"],
+      ["?",       "This list"]
     ],
     dismiss: "Any key to dismiss"
   }

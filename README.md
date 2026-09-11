@@ -61,9 +61,12 @@ page.
    blocks each one is different, specific, and rarely about the size of the prize.
 3. Partial coordination is worse than none. The model is built to prove this rather than assert it.
 
-Three divisions defend their own plans for three different reasons — a timing problem, a property problem, and
-a trust problem. Each has exactly one move that answers it: **Sequence**, **Price**, **Underwrite**. Reaching
-for the wrong one costs its full price and buys nothing.
+Three divisions defend their own plans for three different reasons — a timing problem, a head-start problem,
+and a trust problem. There are four levers: **Sequence**, **Price**, **Status**, **Underwrite**. Two of the
+divisions are answered by a single lever each (Sequence, Underwrite). The division that is already ahead needs
+**both Price and Status** — money alone only half-answers it, because being paid still lets the others catch
+up; it commits only once it is also made the owner of the shared layer. Reaching for the wrong lever costs its
+full price and buys nothing.
 
 ## Every reachable outcome
 
@@ -92,11 +95,11 @@ Keyboard only, and never shown on screen during the exercise.
 | Key | Action |
 |---|---|
 | `1` `2` `3` | Select division |
-| `Q` `W` `E` | Apply Sequence / Price / Underwrite to the selected division |
+| `Q` `W` `E` `R` | Apply Sequence / Price / Status / Underwrite to the selected division |
 | `H` | Toggle the block labels — the hint, for when the room stalls |
 | `N` | Toggle the presenter note for whatever beat the board is on |
 | `C` | Close the round |
-| `R` | Reset |
+| `⌫` Backspace | Reset |
 | `?` | Overlay listing these keys |
 
 ## Run of show
@@ -107,7 +110,8 @@ what to say at each beat and what to do when it goes sideways.
 1. Open `sim.html`. Read the three objections aloud, or have three people read them.
 2. Ask the room: *what does each of them actually need?* Take suggestions. Apply them.
 3. Let the room misdiagnose. The first instinct is almost always **Price** on everybody — money is the move
-   executives reach for — and it lands on exactly one of the three.
+   executives reach for. It commits nobody: it is wrong for two of the divisions, and only half of what the
+   division out in front needs.
 4. When two divisions have committed, stop and point at the enterprise figure. It has gone **down**. Sit in that.
 5. Close the third. Let the gate reveal play without talking over it.
 6. `C` to close the round. Read the wasted spend aloud.

@@ -318,7 +318,7 @@ a.card--link:hover .card__cta { color: var(--accent); }
 
 .row {
   display: grid;
-  grid-template-columns: 18rem minmax(0, 1fr) 23rem;
+  grid-template-columns: 17rem minmax(0, 1fr) 26rem;
   gap: 1.35rem;
   align-items: start;
   background: var(--surface);
@@ -367,6 +367,9 @@ a.card--link:hover .card__cta { color: var(--accent); }
 }
 .response--right { color: var(--mint); }
 .response--wrong { color: var(--coral); }
+/* A needed move that landed but has not closed the deal on its own — the first of the two
+   Data & Analytics needs. Warm, not the green of a full commit nor the red of a refusal. */
+.response--partial { color: var(--amber); }
 .response::after {
   content: "";
   display: inline-block;
@@ -397,7 +400,7 @@ a.card--link:hover .card__cta { color: var(--accent); }
 .bar__legend { display: flex; gap: 1.1rem; font-size: 1rem; color: var(--dim); flex-wrap: wrap; }
 .bar__legend b { color: var(--muted); font-weight: 600; }
 
-.moves { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.45rem; margin-top: auto; }
+.moves { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; margin-top: auto; }
 .move {
   border: var(--hair);
   border-radius: var(--radius);

@@ -142,13 +142,14 @@
   el("key-heading").textContent = G.key.heading;
   el("key-caption").textContent = G.key.caption;
   table(el("key"),
-    ["Division", "Block", "The move that answers it", "Cost", G.key.tell_heading],
+    ["Division", "Block", "The move(s) that answer it", "Cost", G.key.tell_heading],
     A.groups.map(function (g) {
+      var needs = FMT.needs(g.id);
       return [
         g.short,
         g.block.charAt(0).toUpperCase() + g.block.slice(1),
-        FMT.move(g.move).label,
-        FMT.moneyInt(FMT.move(g.move).cost),
+        needs.map(function (id) { return FMT.move(id).label; }).join(" + "),
+        FMT.moneyInt(needs.reduce(function (s, id) { return s + FMT.move(id).cost; }, 0)),
         G.key.tells[g.id]
       ];
     }),

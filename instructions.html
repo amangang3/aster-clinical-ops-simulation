@@ -30,10 +30,16 @@
   </section>
 
   <section>
+    <h2 id="blocks-heading"></h2>
+    <p class="caption" id="blocks-caption"></p>
+    <table class="grid" id="blocks"></table>
+    <p class="prose callout" id="blocks-note"></p>
+  </section>
+
+  <section>
     <h2 id="numbers-heading"></h2>
     <p class="caption" id="numbers-caption"></p>
     <table class="grid" id="numbers"></table>
-    <dl class="worked" id="worked"></dl>
     <p class="prose callout" id="numbers-note"></p>
   </section>
 
@@ -148,6 +154,23 @@
     "<th class='num'>Share of the " + money(A.infrastructure_required) + " layer</th></tr></thead>");
   el("situation-note").textContent = fill(I.situation.note);
 
+  /* What each division is worried about — the challenges, before any of the arithmetic.
+     One line per division, in its own accent, taken from the division copy. */
+  el("blocks-heading").textContent = I.blocks.heading;
+  el("blocks-caption").textContent = fill(I.blocks.caption);
+  var blocks = tbody(el("blocks"));
+  A.groups.forEach(function (g) {
+    var name = document.createElement("span");
+    name.className = "swatch accent-" + g.accent;
+    name.innerHTML = '<span class="dot"></span>';
+    name.appendChild(document.createTextNode(g.short));
+    tr(blocks, [
+      { cls: "factor", node: name },
+      { text: S.groups[g.id].worry }
+    ]);
+  });
+  el("blocks-note").textContent = fill(I.blocks.note);
+
   /* Where the numbers come from */
   el("numbers-heading").textContent = I.numbers.heading;
   el("numbers-caption").textContent = fill(I.numbers.caption);
@@ -155,30 +178,12 @@
   I.numbers.rows.forEach(function (row) {
     tr(numbers, [{ cls: "factor", text: row[0] }, { text: row[1] }]);
   });
-
-  /* The fourth rule, worked through on one division so the arithmetic is visible. */
-  var g = A.groups[0];
-  var left = g.capital_need - g.pledge;
-  var pct = Math.round(left / g.capital_need * 100) + "%";
-  [
-    ["Its own technology budget", money(g.capital_need)],
-    ["Its share of the layer", "− " + money(g.pledge)],
-    ["Left for its own plans", money(left) + ", which is " + pct + " of what it needed"],
-    ["So its value pool of " + money(g.local_pool) + " delivers", pct + " of what it could"]
-  ].forEach(function (pair) {
-    var dt = document.createElement("dt");
-    dt.textContent = pair[0];
-    var dd = document.createElement("dd");
-    dd.textContent = pair[1];
-    el("worked").appendChild(dt);
-    el("worked").appendChild(dd);
-  });
   el("numbers-note").textContent = fill(I.numbers.note);
 
   el("job-heading").textContent = I.job.heading;
   paras("job", I.job.body);
 
-  /* The three deals: framework label, what it is in plain words, and the price. */
+  /* The four deals: framework label, what it is in plain words, and the price. */
   el("moves-heading").textContent = I.moves.heading;
   el("moves-caption").textContent = fill(I.moves.caption);
   var moves = tbody(el("moves"));

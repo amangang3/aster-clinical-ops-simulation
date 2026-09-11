@@ -17,28 +17,34 @@ window.ASTER = {
   multiplier_funded: 1.00,
   multiplier_unfunded: 0.55,     // agents confined inside one boundary
 
+  /* Each division has one block, and one or more moves answer it. The block→move map is
+     derived (FMT.needs), never hand-listed, so it cannot drift: a division commits once
+     every move whose `answers` matches its block has landed. Data & Analytics is the one
+     division whose block takes two moves — PRICE and STATUS — so it needs both to say yes. */
   groups: [
     { id: "site-ops",           name: "Site Operations & Trial Execution",  short: "Site Operations",
       lead: "Senior Director Luis Moreno",  accent: "amber",
       local_pool: 140, cross_value: 40, capital_need: 26, pledge: 8,
-      pull: "dependent", block: "absorption", move: "sequence" },
+      pull: "dependent", block: "absorption" },
 
     { id: "data-analytics",     name: "Clinical Data & Analytics",          short: "Data & Analytics",
       lead: "Senior Director Evan Cole",    accent: "cyan",
       local_pool: 95,  cross_value: 20, capital_need: 22, pledge: 6,
-      pull: "supplier",  block: "advantage",  move: "price" },
+      pull: "supplier",  block: "advantage" },
 
     { id: "patient-engagement", name: "Patient Engagement & Recruitment",   short: "Patient Engagement",
       lead: "Senior Director Clara Vega",   accent: "violet",
       local_pool: 70,  cross_value: 35, capital_need: 12, pledge: 4,
-      pull: "dependent", block: "assurance", move: "underwrite" }
+      pull: "dependent", block: "assurance" }
   ],
 
   moves: [
     { id: "sequence",   label: "SEQUENCE",   cost: 6,  answers: "absorption",
       blurb: "Commit the number, negotiate the clock." },
-    { id: "price",      label: "PRICE",      cost: 12, answers: "advantage",
-      blurb: "Pay for what they give up. Credit the head start, guarantee demand." },
+    { id: "price",      label: "PRICE",      cost: 6,  answers: "advantage",
+      blurb: "Pay for the head start. Credit what they have already built, guarantee them demand." },
+    { id: "status",     label: "STATUS",     cost: 6,  answers: "advantage",
+      blurb: "Protect the lead. Name them owner of the shared layer, so the others build on their platform." },
     { id: "underwrite", label: "UNDERWRITE", cost: 9,  answers: "assurance",
       blurb: "Guarantee the downside. Caps, kill criteria, migration costs covered." }
   ]
@@ -79,6 +85,12 @@ window.compute = function compute(state) {
 window.ASTER_FMT = {
   group:   id => window.ASTER.groups.find(g => g.id === id),
   move:    id => window.ASTER.moves.find(m => m.id === id),
+  // The moves a division needs before it commits: every move that answers its block.
+  // One for two of the divisions; two (PRICE and STATUS) for Data & Analytics.
+  needs:   id => {
+    const b = window.ASTER_FMT.group(id).block;
+    return window.ASTER.moves.filter(m => m.answers === b).map(m => m.id);
+  },
   // $124.62M — two decimals, the precision the outcome table is verified to.
   money:   n => "$" + n.toFixed(2) + "M",
   // $18M — whole-dollar figures that are exact by construction (costs, pledges, pools).
@@ -100,8 +112,8 @@ window.ASTER_FMT = {
       ambition:  F.moneyInt(A.ambition),
       infra:     F.moneyInt(A.infrastructure_required),
       capital:   F.moneyInt(F.sum("capital_need")),
-      // The three value pools added up, at full rate. The copy needs this to explain
-      // why the board opens lower than the sum of the pools.
+      // The three potential-upside figures added up, at full rate. The copy needs this to
+      // explain why the board opens lower than the sum of them.
       pools:     F.moneyInt(F.sum("local_pool")),
       you:       window.ASTER.meta.you.name,
       you_title: window.ASTER.meta.you.title,

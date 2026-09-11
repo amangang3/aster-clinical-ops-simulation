@@ -100,7 +100,7 @@ is actually for:
    than a modelling convenience — the facilitator concedes the *size* of the number and never the shape.
 2. **Agents act; they do not report.** A shared data layer is a read. An agent that reschedules a site visit or
    contacts a patient takes an action inside a division that answers for the consequences. That is an objection
-   none of the three moves can answer, and in a real agent programme it is usually the one that stops the work.
+   none of the four moves can answer, and in a real agent programme it is usually the one that stops the work.
    It stays out of the mechanic on purpose (§4.6, the closing block) and is named in the discussion.
 3. **The constraint has swapped ends.** Agent capability arrives in weeks; these agreements take quarters. For
    most of the history of enterprise technology the build was the bottleneck and the business waited for it.
@@ -133,25 +133,28 @@ the copy elsewhere. Do not paraphrase these definitions — they are used verbat
 | Factor | Description |
 |---|---|
 | **Absorption** | *"We cannot take this much change this fast."* A timing problem, not a size problem — so commit the number and negotiate the clock. |
-| **Advantage** | *"We already paid for this. Why would we level down?"* A property problem — so pay for what they give up: credit the head start, guarantee them demand. |
+| **Advantage** | *"We are ahead. Why would we help them catch up?"* A head-start problem, not a property one — the division is out in front and does not want the others levelling up to it. So let it keep the lead while it shares: pay for what it built, **and** make it the owner the others build on. |
 | **Assurance** | *"Last time the centre moved, we ate the cost."* A trust problem — so guarantee the downside: caps, kill criteria, migration costs covered. |
 
-### 2.3 The three moves
+### 2.3 The four moves
 
-Each individualism factor has exactly one move that answers it. This one-to-one mapping is the mechanic.
+Each individualism factor is answered by one move — **except Advantage, which takes two** (PRICE *and* STATUS). A
+division commits only once every move that answers its block has landed, so the division out in front does not
+say yes to either lever alone. Everything else is a one-to-one mapping. This is the mechanic.
 
 | Move | Answers | What it is |
 |---|---|---|
 | **SEQUENCE** | Absorption | Commit the number, negotiate the clock, not the size. |
-| **PRICE** | Advantage | Pay for what they give up — credit the head start, guarantee them demand. |
+| **PRICE** | Advantage | Pay for the head start — credit the work they already built, guarantee them demand. |
+| **STATUS** | Advantage | Protect the lead — name them owner of the shared layer, so the others build on their platform. |
 | **UNDERWRITE** | Assurance | Guarantee the downside — caps, kill criteria, migration costs covered. |
 
 ### 2.4 The applied diagnosis
 
-| Division | Pull | Block | Move |
+| Division | Pull | Block | Move(s) |
 |---|---|---|---|
 | Site Operations | **Dependent** — 40% of its value needs a layer it cannot build; six of nine top workflows cross its boundary | **Absorption** (timing) | **Sequence** |
-| Clinical Data & Analytics | **Supplier** — the only group that can build the layer; its own pool is hardest to grow | **Advantage** (property) | **Price** |
+| Clinical Data & Analytics | **Supplier** — the only group that can build the layer; already ahead of the other two, and least riding on a layer that lets them catch up | **Advantage** (head start) | **Price + Status** |
 | Patient Engagement | **Dependent** — best return per dollar in the room, nearly all of it gone without shared data | **Assurance** (trust) | **Underwrite** |
 
 ---
@@ -176,28 +179,34 @@ window.ASTER = {
   multiplier_funded: 1.00,
   multiplier_unfunded: 0.55,     // agents confined inside one boundary
 
+  // No `move` field: the moves a division needs are derived from its block (every move whose
+  // `answers` matches), so the block→move map cannot drift. Advantage yields two; the rest one.
   groups: [
     { id: "site-ops",           name: "Site Operations & Trial Execution",  short: "Site Operations",
       lead: "Senior Director Luis Moreno",  accent: "amber",
       local_pool: 140, cross_value: 40, capital_need: 26, pledge: 8,
-      pull: "dependent", block: "absorption", move: "sequence" },
+      pull: "dependent", block: "absorption" },
 
     { id: "data-analytics",     name: "Clinical Data & Analytics",          short: "Data & Analytics",
       lead: "Senior Director Evan Cole",    accent: "cyan",
       local_pool: 95,  cross_value: 20, capital_need: 22, pledge: 6,
-      pull: "supplier",  block: "advantage",  move: "price" },
+      pull: "supplier",  block: "advantage" },
 
     { id: "patient-engagement", name: "Patient Engagement & Recruitment",   short: "Patient Engagement",
       lead: "Senior Director Clara Vega",   accent: "violet",
       local_pool: 70,  cross_value: 35, capital_need: 12, pledge: 4,
-      pull: "dependent", block: "assurance", move: "underwrite" }
+      pull: "dependent", block: "assurance" }
   ],
 
+  // PRICE was split into PRICE + STATUS (6 + 6), so the four move costs still sum to $27M and
+  // the outcome economics are unchanged. Both answer "advantage": Data & Analytics needs both.
   moves: [
     { id: "sequence",   label: "SEQUENCE",   cost: 6,  answers: "absorption",
       blurb: "Commit the number, negotiate the clock." },
-    { id: "price",      label: "PRICE",      cost: 12, answers: "advantage",
-      blurb: "Pay for what they give up. Credit the head start, guarantee demand." },
+    { id: "price",      label: "PRICE",      cost: 6,  answers: "advantage",
+      blurb: "Pay for the head start. Credit what they have already built, guarantee them demand." },
+    { id: "status",     label: "STATUS",     cost: 6,  answers: "advantage",
+      blurb: "Protect the lead. Name them owner of the shared layer, so the others build on their platform." },
     { id: "underwrite", label: "UNDERWRITE", cost: 9,  answers: "assurance",
       blurb: "Guarantee the downside. Caps, kill criteria, migration costs covered." }
   ]
@@ -257,7 +266,10 @@ function compute(state) {
 }
 ```
 
-A move is `correct` when `move.answers === group.block`. Nothing else in the system decides this.
+A move is `correct` for a division when it is one of that division's needed moves — `FMT.needs(id)`, the moves
+whose `answers` matches the block (one move, or two for Data & Analytics). A correct move that lands *lands*
+but does not commit the division until **every** needed move has landed; the first of Data & Analytics' pair is
+a real concession that still does not close the deal. Nothing else in the system decides this.
 
 ### 3.4 Every reachable outcome — verify against this table
 
@@ -393,25 +405,32 @@ In order:
   the model — division, its own budget, its share — with a total row, because the three shares summing to
   exactly the build cost is the thing to see. Then the line that answers what people actually ask: nobody is
   deciding how big anyone's budget is, or what the layer should do.
-- **Where the numbers come from**, as four rows: what a value pool is; without the layer each division gets
-  `multiplier_unfunded` of it, which is why the board opens below the sum of the pools; with the layer that cap
-  comes off and `cross_value` becomes reachable; and paying a share leaves less to spend at home. The fourth
-  row must say why all three paying lands short of pools plus cross value, or rows three and four contradict
-  each other. It is followed by that rule worked through on one division in figures.
-- **What the room is asked to do**: work out what each division needs, then offer the deal that gives it
-- **The three deals**: for each one, its framework label, what it is in plain words, and its cost from `moves`,
-  under a header that says whose money that is — *what it costs you*. The plain name is what makes the labels
-  usable cold; it never says which division a deal suits.
-- **Two different pots of money**, as its own table, because confusing them is the easiest mistake on the page
-  and the amounts invite it — `SEQUENCE` costs $6M and Data & Analytics' share is also $6M. The *share* is the
-  division's own money going into the layer, and is fixed. The *deal cost* is the centre's money, spent to get
-  the agreement; it never enters the layer and never enters the enterprise total, which `compute()` confirms —
-  `spent` is returned alongside `enterprise`, never subtracted from it.
-- **What happens when you offer a deal**, in three rows: the cost leaves before anyone knows whether it worked;
-  a deal that misses draws a refusal and moves nothing; a deal that lands has the division agree to its share,
+- **What each division is worried about**, placed before any of the arithmetic — one line per division, in its
+  own accent, from the `worry` field in the copy. This centres the exercise on the three human challenges (a
+  calendar, a lead worth protecting, a broken trust) rather than opening on a wall of numbers. It still names no
+  block and no move; working out which deal answers which worry is the exercise.
+- **Where the numbers on the board come from**, condensed to two rows: each division has a *potential upside*
+  (the reader-facing rename of "value pool"); without the layer it runs at `multiplier_unfunded` of it because
+  half a workflow is worth nothing, which is why the board opens below the sum of the upsides; build it and the
+  cap comes off, `cross_value` becomes reachable, and the total reaches the ceiling — but only if all three pay.
+  No worked arithmetic block: the goal here is fewer numbers, not more.
+- **What the room is asked to do**: work out what each division needs, then offer the deal that gives it —
+  spending the centre's budget, not theirs. Four deals; two divisions need one each, one needs two.
+- **The four deals**: for each one, its framework label, what it is in plain words, and its cost from `moves`,
+  under a header that says whose money that is. The plain name is what makes the labels usable cold; it never
+  says which division a deal suits.
+- **Your budget, and theirs**, as its own table, because confusing them is the easiest mistake on the page and
+  the amounts invite it — `SEQUENCE` costs $6M and Data & Analytics' share is also $6M. *Their budget — the
+  share* is the division's own money going into the layer, and is fixed. *Your budget — the deal cost* is the
+  centre's money, spent to get the agreement; it never enters the layer and never enters the enterprise total,
+  which `compute()` confirms — `spent` is returned alongside `enterprise`, never subtracted from it.
+- **What happens when you offer a deal**, in four rows: the cost leaves before anyone knows whether it worked;
+  a deal that misses draws a refusal and moves nothing; a deal that *helps but is not enough* (the first of the
+  pair) draws a real concession but no commit; a deal that finishes the job has the division agree to its share,
   the funding bar rise, and its own number fall slightly. Then what happens once all three have agreed.
-- **The rules**, as a short list: one offer of each deal per division, money spent when offered, agreement is
-  permanent, nothing can be taken back, all three needed to build the layer
+- **The rules**, as a short list: one offer of each deal per division, money spent when offered, a helping-but-
+  insufficient deal leaves the division where it was, agreement is permanent, nothing can be taken back, all
+  three needed to build the layer
 - **What to watch**: the enterprise figure, because it does not move the way people expect
 
 ### 4.3b The division pages — one brief per division
@@ -456,7 +475,7 @@ total and `NOT FUNDED` / `FUNDED`.
 - A value bar scaled against `local_pool + cross_value`, as two segments. Its legend words come from the copy
   file and say what the two kinds of value are in plain terms — "Its own work" and "Work spanning divisions",
   never "local" and "cross-boundary". The same two words head the scoreboard columns.
-- Three move buttons, each three lines: the framework label, what the deal is in plain words from `deals` in
+- Four move buttons, each three lines: the framework label, what the deal is in plain words from `deals` in
   the copy file, then the cost from `moves` — `SEQUENCE / Change the timing / $6M`. The label alone means
   nothing to a room seeing it for the first time, and the plain line is what makes it usable cold. The hover
   title carries the full description; nothing on the button says which division a deal suits.
@@ -470,8 +489,13 @@ total and `NOT FUNDED` / `FUNDED`.
 2. The group's response line types in beneath the objection, 18ms per character.
 3. **Wrong move:** the row shakes horizontally once, 6px, 180ms. The response is the group's rejection line.
    The button stays locked and greys out — a move once spent on a group cannot be spent again. State unchanged.
-4. **Right move:** the row flashes mint, the state badge flips `DEFENDING → COMMITTED`, the block label
-   appears with a tick, the pledge meter increments, and every number on screen recomputes.
+4. **Correct but not enough** (only the first of Data & Analytics' PRICE/STATUS pair): the button turns mint
+   and the partial line types in amber (`response--partial`). The concession is real and the money is spent,
+   but the division does not commit — the badge stays `DEFENDING` and no numbers move. The other needed move
+   and the two wrong moves remain live.
+5. **Right move** (the single needed move, or the second of the pair): the row flashes mint, the state badge
+   flips `DEFENDING → COMMITTED`, the block label appears with a tick, the pledge meter increments, and every
+   number on screen recomputes.
 
 A group that has committed has its remaining move buttons disabled. Moves already spent on a group stay
 visibly spent. There is no undo. `R` resets the whole round.
@@ -497,11 +521,11 @@ a complete and instructive outcome, not an error.
 | Key | Action |
 |---|---|
 | `1` `2` `3` | Select group row |
-| `Q` `W` `E` | Apply Sequence / Price / Underwrite to the selected row |
+| `Q` `W` `E` `R` | Apply Sequence / Price / Status / Underwrite to the selected row |
 | `H` | Toggle block labels visible — the hint, for when the room stalls |
 | `N` | Toggle the presenter note (§4.7) |
 | `C` | Close the round |
-| `R` | Reset |
+| `Backspace` | Reset (moved off `R`, which now applies Underwrite) |
 | `?` | Overlay listing these keys |
 
 ### 4.5 The scoreboard
@@ -525,7 +549,7 @@ Replaces the board on close. Everything computed, nothing typed.
 Reference material, read after the exercise. Scrolling is fine here.
 
 1. The two framework tables from §2.1 and §2.2, rendered exactly as written
-2. The three moves from §2.3
+2. The four moves from §2.3
 3. The applied diagnosis from §2.4
 3a. **The pilot trap**, named directly under the outcome table that proves it, and **why this is different
    with agents** (§1.1) as three rows plus the closing line — the answer to "why is this in an agentic course?"
@@ -578,7 +602,7 @@ templated, or randomised. Voice: senior, specific, not hostile. Each division is
 wins and this section is stale — regenerate it from the copy file rather than editing it here. Plain words are
 a requirement of the dialogue too: a division says "money is not the problem", never "absorption capacity".
 
-### Site Operations & Trial Execution — Luis Moreno · block: absorption · move: sequence
+### Site Operations & Trial Execution — Luis Moreno · block: absorption · needs: sequence
 
 - **Objection (visible from the start):** *“We are not against this, and we are not arguing about the money. Q3 and
   Q4 are our enrolment peak. We cannot change how we work in the two busiest quarters of our year. On top of that, I
@@ -590,7 +614,7 @@ a requirement of the dialogue too: a division says "money is not the problem", n
 - **On UNDERWRITE (wrong):** *“We are not worried about being left exposed. We are worried about the calendar. A
   guarantee does not move our enrolment peak.”*
 
-### Clinical Data & Analytics — Evan Cole · block: advantage · move: price
+### Clinical Data & Analytics — Evan Cole · block: advantage · needs: price + status
 
 - **Objection (visible from the start):** *“We have already paid for this. It is in our five-year plan, the team is
   hired, and we are further along than either of them. What you are asking is that we slow down and build it for two
@@ -602,7 +626,7 @@ a requirement of the dialogue too: a division says "money is not the problem", n
 - **On UNDERWRITE (wrong):** *“We are not asking to be protected from anything. We are asking why we should hand
   over something we paid for.”*
 
-### Patient Engagement & Recruitment — Clara Vega · block: assurance · move: underwrite
+### Patient Engagement & Recruitment — Clara Vega · block: assurance · needs: underwrite
 
 - **Objection (visible from the start):** *“The last time head office set a standard, we rebuilt systems that were
   working fine, lost two enrolment campaigns, and paid for all of it ourselves. The numbers here are good. They were

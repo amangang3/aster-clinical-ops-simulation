@@ -322,7 +322,9 @@
 
     var g = FMT.group(gid);
     var m = FMT.move(mid);
-    var correct = m.answers === g.block;   // nothing else in the system decides this
+    var copy = S.groups[gid];
+    var needs = FMT.needs(gid);            // one move, or two for Data & Analytics
+    var correct = needs.indexOf(mid) !== -1;   // a move this division actually needs
     var token = epoch;
 
     busy = true;
@@ -336,15 +338,14 @@
 
     var row = rowOf(gid);
     var resp = row.querySelector(".response");
-    var line = S.groups[gid].responses[mid];
 
     if (!correct) {
-      // 3. Wrong move: one shake, the rejection line, and nothing else changes.
+      // Wrong move: one shake, the rejection line, and nothing else changes.
       if (!REDUCED) {
         row.classList.add("is-shaking");
         window.setTimeout(function () { row.classList.remove("is-shaking"); }, SHAKE_MS);
       }
-      typeInto(resp, "“" + line + "”", "response--wrong", token).then(function () {
+      typeInto(resp, "“" + copy.responses[mid] + "”", "response--wrong", token).then(function () {
         if (token !== epoch) return;
         busy = false;
         A.groups.forEach(function (x) { renderMoves(x.id); });
@@ -352,11 +353,27 @@
       return;
     }
 
-    // 4. Right move.
+    // A needed move landed. It only commits the division once every needed move has —
+    // so for Data & Analytics, the first of PRICE/STATUS is a real concession that still
+    // does not close the deal.
+    var complete = needs.every(function (n) { return state.moveSpent[gid][n] === "landed"; });
+
+    if (!complete) {
+      // Partial: the move helped, but the block is not fully answered yet. No commit.
+      typeInto(resp, "“" + copy.responses[mid] + "”", "response--partial", token).then(function () {
+        if (token !== epoch) return;
+        renderMoves(gid);
+        busy = false;
+        A.groups.forEach(function (x) { renderMoves(x.id); });
+      });
+      return;
+    }
+
+    // Every needed move is in: the division commits.
     state.committed[gid] = true;
     var opensGate = now().funded && !gateShown;
 
-    typeInto(resp, "“" + line + "”", "response--right", token).then(function () {
+    typeInto(resp, "“" + copy.commit + "”", "response--right", token).then(function () {
       if (token !== epoch) return;
       row.classList.add("is-flashing");
       window.setTimeout(function () { row.classList.remove("is-flashing"); }, FLASH_MS);
@@ -610,7 +627,9 @@
      Facilitator keys — never shown on screen
      --------------------------------------------------------------- */
 
-  var MOVE_KEYS = { q: "sequence", w: "price", e: "underwrite" };
+  // Left-to-right across the four deal buttons on each row. Reset moved off R, which now
+  // applies UNDERWRITE, onto Backspace.
+  var MOVE_KEYS = { q: "sequence", w: "price", e: "status", r: "underwrite" };
 
   function onKey(ev) {
     if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
@@ -619,6 +638,7 @@
 
     if (!overlay.hidden) { overlay.hidden = true; ev.preventDefault(); return; }
     if (k === "?") { overlay.hidden = false; ev.preventDefault(); return; }
+    if (k === "Backspace") { reset(); ev.preventDefault(); return; }
 
     var lower = k.toLowerCase();
 
@@ -630,7 +650,6 @@
     if (lower === "h") { hinted = !hinted; renderRows(false); ev.preventDefault(); return; }
     if (lower === "n") { notesOn = !notesOn; renderNotes(); ev.preventDefault(); return; }
     if (lower === "c") { closeRound(); ev.preventDefault(); return; }
-    if (lower === "r") { reset(); ev.preventDefault(); return; }
   }
 
   function buildKeysOverlay() {

@@ -128,7 +128,7 @@
       return [{ text: r[0], cls: "factor" }, { text: r[1], cls: "quote" }, r[2]];
     }));
 
-  /* 3. The three moves */
+  /* 3. The four moves */
   el("m-heading").textContent = D.moves.heading;
   el("m-caption").textContent = D.moves.caption;
   table(el("m-table"),
@@ -145,14 +145,14 @@
   /* 4. The applied diagnosis */
   el("d-heading").textContent = D.diagnosis.heading;
   table(el("d-table"),
-    [{ label: "Division" }, { label: "Pull" }, { label: "Block" }, { label: "Move" }],
+    [{ label: "Division" }, { label: "Pull" }, { label: "Block" }, { label: "Move(s)" }],
     A.groups.map(function (g) {
       var d = D.diagnosis.rows[g.id];
       return [
         { text: g.name, cls: "factor" },
         { html: "<b>" + d.pull + "</b> — " + d.pull_note },
         { html: "<b>" + g.block.charAt(0).toUpperCase() + g.block.slice(1) + "</b>" },
-        { html: "<b>" + FMT.move(g.move).label + "</b>" }
+        { html: FMT.needs(g.id).map(function (id) { return "<b>" + FMT.move(id).label + "</b>"; }).join(" + ") }
       ];
     }));
 
