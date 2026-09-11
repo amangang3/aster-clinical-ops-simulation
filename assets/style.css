@@ -23,20 +23,22 @@ html.fit {
 }
 
 :root {
-  --bg:        #0E1526;
-  --surface:   #1A2337;
-  --hairline:  #27334B;
+  /* Light theme. Text is the old dark navy; surfaces are white on a cool near-white
+     page; the accents are darkened from their dark-mode values so they clear ~4:1 on white. */
+  --bg:        #F4F6F9;
+  --surface:   #FFFFFF;
+  --hairline:  #DCE2EC;
 
-  --text:      #FFFFFF;
-  --muted:     #9AA7BD;
-  --dim:       #6E7C94;
+  --text:      #0E1526;
+  --muted:     #47566B;
+  --dim:       #5F6E84;
 
-  --amber:     #E8A33D;   /* Site Operations */
-  --cyan:      #4FC3D9;   /* Data & Analytics */
-  --violet:    #A78BFA;   /* Patient Engagement */
+  --amber:     #B0740D;   /* Site Operations */
+  --cyan:      #147D97;   /* Data & Analytics */
+  --violet:    #6A4CD4;   /* Patient Engagement */
 
-  --mint:      #3FD9A0;   /* collaboration / committed */
-  --coral:     #F0685F;   /* individualism / defending */
+  --mint:      #0C8F6E;   /* collaboration / committed */
+  --coral:     #D8483F;   /* individualism / defending */
 
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --serif: Georgia, "Iowan Old Style", "Times New Roman", Times, serif;
@@ -244,9 +246,9 @@ a.card--link:hover .card__cta { color: var(--accent); }
   display: inline-block;
   transition: background 200ms var(--ease), border-color 200ms var(--ease);
 }
-.btn:hover { background: #223050; }
+.btn:hover { background: #E9EDF3; }
 .btn--primary { background: var(--mint); color: #06231A; border-color: var(--mint); }
-.btn--primary:hover { background: #57E5AF; }
+.btn--primary:hover { background: #0A7D60; }
 
 .link-quiet {
   font-size: 1rem;
@@ -337,7 +339,7 @@ a.card--link:hover .card__cta { color: var(--accent); }
 }
 .row.is-selected { border-color: var(--muted); border-left-color: var(--accent); }
 .row.is-committed { border-left-color: var(--mint); }
-.row.is-flashing { background: #1E3B33; }
+.row.is-flashing { background: #DCF4EC; }
 
 .row__name { display: flex; align-items: center; gap: 0.67rem; font-size: 1.5rem; font-weight: 600; }
 .row__lead { font-size: 1rem; color: var(--dim); margin-top: 0.1rem; }
@@ -393,7 +395,7 @@ a.card--link:hover .card__cta { color: var(--accent); }
 .bar {
   display: flex;
   height: 0.83rem;
-  background: #121B2E;
+  background: #E7EBF1;
   border: var(--hair);
   border-radius: 999px;
   overflow: hidden;
@@ -411,7 +413,7 @@ a.card--link:hover .card__cta { color: var(--accent); }
   border: var(--hair);
   border-radius: var(--radius);
   padding: 0.45rem 0.3rem;
-  background: #16203457;
+  background: #F1F4F8;
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -422,7 +424,7 @@ a.card--link:hover .card__cta { color: var(--accent); }
 /* The framework label means nothing cold, so the button says what the deal is. Smaller
    and tighter than the label, because three lines still have to fit the one-screen board. */
 .move__plain { font-size: 0.86em; line-height: 1.2; color: var(--muted) !important; }
-.move:hover:not(:disabled) { background: #223050; border-color: var(--muted); }
+.move:hover:not(:disabled) { background: #E6EBF2; border-color: var(--muted); }
 .move:disabled { cursor: default; }
 .move.is-spent { color: var(--dim); border-style: dashed; }
 .move.is-spent span { text-decoration: line-through; }
@@ -523,7 +525,7 @@ table.grid th {
 table.grid td.num, table.grid th.num { text-align: right; font-variant-numeric: tabular-nums; }
 /* status cells are two short words — never worth breaking over two lines */
 table.grid td.mint, table.grid td.coral { white-space: nowrap; }
-table.grid tr.is-current td { background: #1E3B33; }
+table.grid tr.is-current td { background: #DCF4EC; }
 table.grid tr.is-current td:first-child { box-shadow: inset 3px 0 0 var(--mint); }
 
 .panel {
@@ -558,7 +560,7 @@ table.grid tr.is-current td:first-child { box-shadow: inset 3px 0 0 var(--mint);
 .keys {
   position: fixed;
   inset: 0;
-  background: #0E1526EE;
+  background: #0E152699;
   display: flex;
   align-items: center;
   justify-content: center;
