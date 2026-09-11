@@ -318,7 +318,7 @@ window.ASTER_SCRIPT = {
         "Give the intro above to the whole room.",
         "Have the room get into groups of three, with the exercise site open on one laptop per group.",
         "Each group reads the three division briefs, then works the exercise together: pick a division, offer it a deal, and see how it responds. The goal is to get all three to commit so the layer gets built.",
-        "Give them ten to fifteen minutes and circulate. If a group stalls, tell them to press H — the board will name what is blocking each division.",
+        "Give them ten to fifteen minutes and circulate. If a group stalls, send it back to the brief for whichever division it is stuck on — what that division is holding out for is in what it says, and the brief is the only place it is written down.",
         "Bring the room back together and ask what it took to get all three in, and what happened when only one or two committed."
       ]
     },
@@ -331,7 +331,7 @@ window.ASTER_SCRIPT = {
       caption: "Every group has this on one laptop and moves through it in order. The pages name none of the blocks — the diagnosis is the exercise.",
       items: [
         { label: "1 · The situation", href: "index.html",
-          body: "The scenario, who the room is playing, and the three division briefs — a page each on what a division does, where it stands and what it has said. Where each group starts, and the material it diagnoses from." },
+          body: "The scenario, who the room is playing, and the three division briefs — a page each on what a division does, where it stands and what it has said. Where each group starts, and the material it diagnoses from. Each brief opens in a new tab, so a group can keep all three open beside the situation page and move between them while it works." },
         { label: "2 · How it works", href: "instructions.html",
           body: "The rules of the exercise and, in one line each, what every division is worried about. Groups should read this before they touch the board." },
         { label: "3 · The exercise", href: "sim.html",
@@ -346,7 +346,6 @@ window.ASTER_SCRIPT = {
     rows: [
       ["1 2 3",   "Select division"],
       ["Q W E R", "Apply Sequence / Price / Status / Trust-building to the selected division"],
-      ["H",       "Show the block labels, for when the room stalls"],
       ["N",       "Presenter note for the current beat"],
       ["C",       "Close the round"],
       ["⌫",       "Reset"],

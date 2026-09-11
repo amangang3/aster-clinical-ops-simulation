@@ -81,7 +81,6 @@ Keyboard only, and never shown on screen during the exercise.
 |---|---|
 | `1` `2` `3` | Select division |
 | `Q` `W` `E` `R` | Apply Sequence / Price / Status / Trust-building to the selected division |
-| `H` | Toggle the block labels — the hint, for when the room stalls |
 | `N` | Toggle the presenter note for whatever beat the board is on |
 | `C` | Close the round |
 | `⌫` Backspace | Reset |
@@ -102,8 +101,8 @@ what to say at each beat and what to do when it goes sideways.
 6. `C` to close the round. Read the deals that changed nothing aloud.
 7. Close on `framework-deck.pptx` — the framework, then the blocker → move playbook.
 
-If the room stalls, `H` reveals the block labels and turns the exercise from diagnosis into matching. That is a
-worse lesson but a better use of the remaining minutes.
+If a group stalls, send it back to the brief for the division it is stuck on. What that division is holding
+out for is in what it says, and the brief is the only place it is written down.
 
 ## Structure
 

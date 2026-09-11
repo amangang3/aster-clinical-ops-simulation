@@ -25,7 +25,7 @@
      a per-division record of which deals have been offered.
      --------------------------------------------------------------- */
 
-  var state, selected, closed, busy, hinted, gateShown, notesOn = false;
+  var state, selected, closed, busy, gateShown, notesOn = false;
   var epoch = 0;    // bumped by reset and close, to cancel anything still in flight
 
   function freshState() {
@@ -189,7 +189,7 @@
 
       var blockBadge = row.querySelector(".badge--block");
       blockBadge.textContent = (committed ? "✓ " : "") + g.block.toUpperCase();
-      blockBadge.hidden = !(committed || hinted);
+      blockBadge.hidden = !committed;
 
       renderMoves(g.id);
     });
@@ -473,7 +473,6 @@
     selected = 0;
     closed = false;
     busy = false;
-    hinted = false;
     gateShown = false;
     el("sim").classList.remove("is-dimmed");
     el("scoreboard").hidden = true;
@@ -514,7 +513,6 @@
       applyMove(A.groups[selected].id, MOVE_KEYS[lower]);
       ev.preventDefault(); return;
     }
-    if (lower === "h") { hinted = !hinted; renderRows(); ev.preventDefault(); return; }
     if (lower === "n") { notesOn = !notesOn; renderNotes(); ev.preventDefault(); return; }
     if (lower === "c") { closeRound(); ev.preventDefault(); return; }
   }

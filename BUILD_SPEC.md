@@ -379,23 +379,26 @@ with.
 Respect `prefers-reduced-motion: reduce` by skipping all transitions and setting final values immediately. The
 outcome must be identical either way.
 
-### 4.3 `index.html` — landing
+### 4.3 `index.html` — the situation
 
 A document, like the rest of the flow: it uses the shared `.doc` layout and scrolls. It is not pinned to one
 screen — that pinning clipped the page whenever the content grew, and took the nav and the BEGIN button with
 it. Only `sim.html` is a one-screen page.
 
-- Title, and the disclaimer from `meta.disclaimer` in small dim text
-- The situation in three short paragraphs: three operating groups each with its own P&L; the CIO has run a
-  demo and everyone agrees the opportunity is real; nobody agrees who commits. The CIO can argue for a number
-  and cannot set one, because only a P&L owner commits a number into a plan.
-- Four figures rendered from constants: `$250M` ambition · `$18M` shared trial-data layer · `$60M` platform
-  capital (sum of `capital_need`) · `$95M` cross-boundary value (sum of `cross_value`)
-- The three divisions as cards: short name, lead, `local_pool`, and one line of descriptor. Each card is a
-  link into that division's own page (§4.3b)
-- One line saying what the room is about to be asked to do, with a link to `instructions.html`
-- One primary button, **BEGIN**, to `instructions.html` — the landing hands off to the next step in the flow,
-  not to the board, so nobody arrives at the exercise without having been told the rules
+This is step 1 of three, and it carries the briefs. There is no separate divisions hub.
+
+- Title and standfirst, then the situation in three headed sections, read top to bottom: where things stand,
+  why nobody has said yes, what you can do about it
+- **What you will do** — restates who the room is playing before it names the task, because the one thing
+  people get wrong is assuming they are playing a division. Everyone is the CIO; nobody owns a division;
+  the only thing on the table is a deal
+- The three divisions as cards: short name, lead, one line of descriptor, and a **Read the full brief**
+  button in the division's accent. Each opens that division's brief (§4.3b) in a **new tab**
+  (`target="_blank"`, `rel="noopener"`), so a group can keep all three open beside this page
+- One primary button, **BEGIN**, to `instructions.html` — the situation hands off to the next step in the
+  flow, not to the board, so nobody arrives at the exercise without having been told the rules
+- The disclaimer from `meta.disclaimer` as fine print at the foot
+- No figures. The exercise is number-free apart from the run-rate ambition, which appears once in the copy
 
 ### 4.3a `instructions.html` — how the session works
 
@@ -482,8 +485,8 @@ total and `NOT FUNDED` / `FUNDED`.
 - Accent dot, short name, lead name
 - **State badge** — `DEFENDING` in coral, or `COMMITTED` in mint
 - **The objection**, in the group's own words, in the serif face (§5). This is visible from the start.
-- **The block label is hidden.** It is revealed only when that group's correct move is applied, or by the
-  facilitator hint (below). The room's job is to diagnose from the objection.
+- **The block label is hidden.** It is revealed only when that group's correct move is applied. There is no
+  key that reveals it early — the room's job is to diagnose from the objection.
 - A value bar scaled against `local_pool + cross_value`, as two segments. Its legend words come from the copy
   file and say what the two kinds of value are in plain terms — "Its own work" and "Work spanning divisions",
   never "local" and "cross-boundary". The same two words head the scoreboard columns.
@@ -534,7 +537,6 @@ a complete and instructive outcome, not an error.
 |---|---|
 | `1` `2` `3` | Select group row |
 | `Q` `W` `E` `R` | Apply Sequence / Price / Status / Trust-building to the selected row |
-| `H` | Toggle block labels visible — the hint, for when the room stalls |
 | `N` | Toggle the presenter note (§4.7) |
 | `C` | Close the round |
 | `Backspace` | Reset (moved off `R`, which now applies Trust-building) |
@@ -660,8 +662,8 @@ Eight to twelve minutes at the lectern. Write this into the README so a facilita
 6. `C` to close the round. Read the wasted spend aloud.
 7. Close on the two framework slides.
 
-If the room stalls, `H` reveals the block labels and turns the exercise from diagnosis into matching. That is a
-worse lesson but a better use of the remaining minutes.
+If a group stalls, send it back to the brief for the division it is stuck on. What that division is holding
+out for is in what it says, and the brief is the only place it is written down.
 
 ---
 

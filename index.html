@@ -76,10 +76,13 @@
   el("cards-caption").textContent = FMT.fill(L.cards_caption);
 
   A.groups.forEach(function (g) {
-    // Each card is the way into that division's own page.
+    // Each card opens that division's brief in its own tab, so a group can keep all
+    // three briefs open beside this page while it works.
     var c = document.createElement("a");
     c.className = "card card--link accent-" + g.accent;
     c.href = g.id + ".html";
+    c.target = "_blank";
+    c.rel = "noopener";
     c.innerHTML =
       '<div class="card__name"><span class="dot"></span></div>' +
       '<div class="card__lead"></div>' +
