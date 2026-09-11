@@ -285,32 +285,30 @@ window.ASTER_SCRIPT = {
   },
 
   /* ---- Facilitator guide ----
-     This runs as an in-class small-group exercise: faculty gives an intro, the room splits
-     into threes, and each group works the simulation on its own laptop, then reconvenes. ---- */
+     This runs as an in-class small-group exercise: faculty gives a short intro, the room
+     splits into threes, and each group works the simulation on its own laptop. ---- */
   facilitate: {
     title: "Facilitator guide",
-    standfirst: "How to run this in class: the intro to give, how to put the room into groups of three, and what to draw out when they come back together.",
-    warning: "This page has the answers on it. It is for you, not the groups — do not send it round with the exercise.",
+    standfirst: "How to run this in class: the intro to give, and how to put the room into groups of three to work the exercise.",
 
     intro: {
       heading: "The intro to give the class",
-      lead: "Read or paraphrase this to the whole room before you split it into groups. Two minutes, no slides needed.",
+      lead: "Read or paraphrase this to the whole room before you split it up. Two minutes, no slides needed.",
       body: [
-        "For the next twenty minutes you are all the same person: {you}, {you_title} of Aster Life Sciences’ Global Clinical Operations Center. Aster runs its clinical work through three divisions, each with its own plan and its own targets. All three agree they should build one shared trial-data layer, so their AI agents can work across the divisions instead of stopping at the edge of each one. The upside on the table is worth about {ambition}.",
-        "Every division has still said no — each for a different, human reason, and none of them about the money. Your job is to work out what each one needs in order to say yes, and offer it. But you cannot order anyone: you own no division and cannot commit anyone’s plan. All you can do is offer deals, and there are four of them.",
-        "In your group, read the three divisions, then open the exercise and try to get all three to commit. Watch what it takes — and watch what happens when only one or two of them do."
+        "For the next twenty minutes you are {you}, {you_title} of Aster Life Sciences’ {unit}. Aster runs its clinical work through three divisions, each with its own plan and its own targets. All three agree there should be one shared trial-data layer — a single home for their trial data, so their AI agents can work across the divisions instead of stopping at the edge of each one. But agreeing it should exist is not the same as building it. Each division has been asked to commit its own plan, its own budget and its own way of working to building the layer, and each has said no. You own no division and cannot commit anyone’s plan for them. All you can do is work out what each one needs in order to say yes, and offer it.",
+        "Get into groups of three, one laptop between you. Read the three division briefs together, talk through what is actually stopping each division, and decide as a group what to offer it. Get all three to commit and the layer gets built — and watch what happens when only one or two of them do."
       ]
     },
 
     run: {
       heading: "How to run it",
-      caption: "About twenty minutes: a two-minute intro, ten to fifteen in groups, and the rest reconvened.",
+      caption: "About twenty minutes: a two-minute intro, ten to fifteen in groups, and a short reconvene.",
       steps: [
         "Give the intro above to the whole room.",
-        "Split the room into groups of three, one laptop per group, opened to the exercise site.",
-        "Each group reads the three division briefs, then works the exercise: pick a division, offer it a deal, and see how it responds. The goal is to get all three to commit so the shared upside is realised.",
-        "Give them ten to fifteen minutes and circulate. If a group stalls, tell them to press H — the board will name what is blocking each division and turn the exercise into matching.",
-        "Reconvene. Walk the answer key, draw out the two moments below, and open the discussion."
+        "Have the room get into groups of three, with the exercise site open on one laptop per group.",
+        "Each group reads the three division briefs, then works the exercise together: pick a division, offer it a deal, and see how it responds. The goal is to get all three to commit so the layer gets built.",
+        "Give them ten to fifteen minutes and circulate. If a group stalls, tell them to press H — the board will name what is blocking each division.",
+        "Bring the room back together and ask what it took to get all three in, and what happened when only one or two committed."
       ]
     },
 
@@ -327,73 +325,6 @@ window.ASTER_SCRIPT = {
         { label: "4 · The exercise", href: "sim.html",
           body: "The board itself. The group clicks a deal onto a division; if it fits, the division commits. All three commit and the shared upside flips from locked to realised. Closing the round shows what worked and what changed nothing." }
       ]
-    },
-
-    key: {
-      heading: "The answer key",
-      caption: "One deal answers each block — except the division out in front, which needs two, PRICE and STATUS, and does not commit until both are in. Every other deal changes nothing. Keep this to yourself; the board’s H key gives groups the block labels if they stall.",
-      tell_heading: "The tell",
-      tells: {
-        "site-ops":           "“We are not against this,” followed by two dates. The objection is about the calendar, and the division is managing a handover, not defending a position.",
-        "data-analytics":     "“Why would we help them catch up?” The division is ahead and means to stay there, so the answer has to let it keep the lead — pay for the head start (PRICE) and make it the owner the others run on (STATUS). One without the other only half-answers it.",
-        "patient-engagement": "“We do not believe it will work.” The objection is faith in the organisation, not money — which is why a better price answers a question nobody asked. What moves them is seeing it delivered: internal wins they can point to, and outside proof."
-      }
-    },
-
-    moments: {
-      heading: "What to draw out in the debrief",
-      items: [
-        { title: "The upside staying locked",
-          body: "Ask the groups what happened when two divisions committed and the third had not. The upside stayed locked and nothing ran across them — two divisions did what was asked, spent real effort and political capital, and realised nothing. Neither made a mistake. That is what a pilot looks like from the centre: effort spent, capability given up, and still nothing realised. This is the point of the exercise; give it room." },
-        { title: "The reveal, and reaching for money",
-          body: "Most groups reach for money first, on everyone — it is what executives are used to offering, and it commits nobody. Then the upside flips from locked to realised only on the third commitment. Make one point: nothing about the three divisions changed at the end, only the last commitment did. The constraint was never money; it was the agreements." }
-      ]
-    },
-
-    trouble: {
-      heading: "If a group gets stuck",
-      rows: [
-        ["A group cannot diagnose a division",
-         "Tell them to press H. The board labels what is blocking each division and the exercise becomes matching. A weaker lesson, but it keeps them moving."],
-        ["A group offers money to everyone",
-         "Let it ride. It commits nobody, and they will feel the effort spent for nothing. That is the intended first mistake, and it is worth naming in the debrief."],
-        ["A group gets all three first try",
-         "Ask them to reset — Backspace — and get one division deliberately wrong, so they can see the upside stay locked and feel why partial coordination buys nothing."],
-        ["You are short on time",
-         "Have groups skip the briefs, open the exercise, and use the hint (H). They lose the diagnosis but still see the all-or-nothing."]
-      ]
-    },
-
-    pushback: {
-      heading: "Questions to reconvene on",
-      items: [
-        { q: "Isn't this a prisoner's dilemma?",
-          a: "Not quite. Nobody defects to get ahead. Each division is choosing what is genuinely best for its own plan, and two of the three are right that the deal as first offered is bad for them. The trap is the all-or-nothing: no division can build the layer alone, and whoever moves first has committed to something that does not exist yet." },
-        { q: "Why is partial coordination worse than none?",
-          a: "A division that commits spends real effort and political capital and gets nothing back until the layer exists. Two committing realises nothing: the work that crosses between them still cannot run. The effort is spent, the layer is not built, and everything still stops at the edge of each division." },
-        { q: "Wouldn't the centre just fund the layer itself?",
-          a: "Sometimes it can, and then the exercise is about the next shared asset instead of this one. Money is rarely the hard part. The hard part is who changes how they work once it exists, and that is a commitment rather than a cheque." },
-        { q: "The smallest division has the most to gain. Why not just tell it what to do?",
-          a: "Because it has the most to gain proportionally and the least standing to ask for anything, and it does not yet believe the organisation can deliver. That combination is why its objection is about belief rather than money. It is the easiest yes available and the easiest one to lose." },
-        { q: "Where does the technology come into this?",
-          a: "It does not. The constraint was never the model, the data or the capital. It was whether a division would commit to something they do not control." }
-      ]
-    },
-
-    keys: {
-      heading: "Driving the board",
-      caption: "Groups just click the deals — no keyboard needed. The keys below are optional, for driving it yourself from the front. The one worth telling groups about is H, the hint.",
-      note: "1 2 3 select a division · Q W E R offer Sequence / Price / Status / Trust-building · H shows the block labels · C closes the round · Backspace resets."
-    },
-
-    handoff: {
-      heading: "Where this sits in the session",
-      body: "The room has already argued the case question: one enterprise-wide target held across all three divisions, or each division setting its own inside its own plan with the centre offering support. This exercise comes after that argument and before the practitioner conversation that follows it. Its job is not to settle the question — it is to let each group feel what division-led adoption costs when the shared layer does not get built, and what informal influence costs when you have no authority to compel anyone. Send the room into the practitioner conversation with the pilot trap fresh, not with a conclusion."
-    },
-
-    close: {
-      heading: "Before class",
-      body: "Run it once yourself with the room's worst instinct: offer money to everyone, then fix it. That is the mistake most groups make, and seeing it once tells you what to listen for as you circulate. Press Backspace to reset; nothing is stored, nothing carries over, and the same choices always produce the same outcome."
     }
   },
 
