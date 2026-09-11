@@ -42,7 +42,8 @@
   el("work-heading").textContent = D.labels.work_out;
   el("work").textContent = fill(copy.work_out);
 
-  /* The three pages are a loop, so a reader can walk all of them and end at the hub. */
+  /* The three pages are a loop, so a reader can walk all of them and end back on the
+     situation page, which is where the briefs are reached from. */
   var order = A.groups.map(function (x) { return x.id; });
   var nextId = order[(order.indexOf(id) + 1) % order.length];
   var next = FMT.group(nextId);
@@ -50,4 +51,5 @@
   nextLink.href = nextId + ".html";
   nextLink.textContent = D.next + ": " + next.short;
   el("back").textContent = D.back;
+  el("to-sim").textContent = S.nav.steps[2].label;
 })();

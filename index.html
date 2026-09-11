@@ -20,14 +20,14 @@
   <div id="story"></div>
 
   <section>
+    <h2 id="do-heading"></h2>
+    <div class="prose" id="do-line"></div>
+  </section>
+
+  <section id="divisions">
     <h2 id="cards-heading"></h2>
     <p class="caption" id="cards-caption"></p>
     <div class="cards" id="cards"></div>
-  </section>
-
-  <section>
-    <h2 id="do-heading"></h2>
-    <div class="prose"><p id="do-line"></p></div>
   </section>
 
   <footer class="doc__foot">
@@ -89,14 +89,18 @@
     c.querySelector(".card__descriptor").textContent =
       FMT.fill(S.groups[g.id].descriptor);
     var cta = document.createElement("span");
-    cta.className = "card__cta";
+    cta.className = "card__cta btn btn--card";
     cta.textContent = S.divisions.cta;
     c.appendChild(cta);
     el("cards").appendChild(c);
   });
 
   el("do-heading").textContent = L.do_heading;
-  el("do-line").textContent = FMT.fill(L.do_line);
+  L.do_line.forEach(function (text) {
+    var p = document.createElement("p");
+    p.textContent = FMT.fill(text);
+    el("do-line").appendChild(p);
+  });
   el("do-link").textContent = L.do_link;
 
   el("begin").textContent = L.begin;

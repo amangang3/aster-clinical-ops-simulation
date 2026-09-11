@@ -93,8 +93,7 @@ window.ASTER_SCRIPT = {
     steps: [
       { href: "index.html",        n: "1", label: "The situation" },
       { href: "instructions.html", n: "2", label: "How it works" },
-      { href: "divisions.html",    n: "3", label: "The divisions" },
-      { href: "sim.html",          n: "4", label: "The exercise" }
+      { href: "sim.html",          n: "3", label: "The exercise" }
     ],
     guide: "Facilitator guide",
     guide_href: "facilitate.html",
@@ -116,9 +115,12 @@ window.ASTER_SCRIPT = {
         body: "You are {you}, {you_title}. You cannot order any of this — you own no division and cannot commit anyone’s plan. What you can do is work out what each one needs to say yes, and give it to them. There are four deals you can offer." }
     ],
     cards_heading: "The three divisions",
-    cards_caption: "Open each one to read what it does, where it stands and what it has said.",
+    cards_caption: "Read all three before the exercise starts. Each brief covers what the division does, what it is measured on, where it stands, and what it has said about committing.",
     do_heading: "What you will do",
-    do_line: "You will read the three divisions, work out what each needs before it will commit, and offer it. There are four deals — matching the right one, sometimes the right two, to each division is the whole exercise. Only when all three commit does the shared layer get built and the upside get realised.",
+    do_line: [
+      "Everyone in the room plays the same person: {you}, {you_title}. You are not one of the three divisions, and you are not arguing a division’s corner. You sit at the centre, none of them reports to you, and the only thing you can put on the table is a deal.",
+      "So you will read all three briefs, work out what each division needs before it will commit, and offer it. There are four deals — matching the right one, sometimes the right two, to each division is the whole exercise. Only when all three commit does the shared layer get built and the upside get realised."
+    ],
     do_link: "How the session works",
     begin: "BEGIN"
   },
@@ -187,7 +189,7 @@ window.ASTER_SCRIPT = {
       ]
     },
 
-    ready: "READ THE DIVISIONS"
+    ready: "OPEN THE EXERCISE"
   },
 
   /* ---- Labels the board and scoreboard use ---- */
@@ -230,9 +232,10 @@ window.ASTER_SCRIPT = {
   },
 
   /* ---- The divisions hub ---- */
+  /* There is no longer a divisions hub page — the three briefs are reached from the
+     situation page, which is step 1 of the flow. What is left here is the copy the
+     three division pages themselves use. */
   divisions: {
-    title: "The three divisions",
-    standfirst: "Read all three before the exercise starts. Each page covers what the division does, what it is measured on, where it stands, and what it has said about committing.",
     cta: "Read the full brief",
     labels: {
       role: "What it does",
@@ -244,7 +247,7 @@ window.ASTER_SCRIPT = {
     },
     ask_line: "Commit its share to building the shared trial-data layer — its own plan, its own budget, in service of something that only pays once all three commit.",
     next: "Next division",
-    back: "All three divisions"
+    back: "Back to the three divisions"
   },
 
   /* ---- Presenter note on the board, toggled with N ---- */
@@ -328,12 +331,10 @@ window.ASTER_SCRIPT = {
       caption: "Every group has this on one laptop and moves through it in order. The pages name none of the blocks — the diagnosis is the exercise.",
       items: [
         { label: "1 · The situation", href: "index.html",
-          body: "The scenario and the three divisions. Where each group starts." },
+          body: "The scenario, who the room is playing, and the three division briefs — a page each on what a division does, where it stands and what it has said. Where each group starts, and the material it diagnoses from." },
         { label: "2 · How it works", href: "instructions.html",
           body: "The rules of the exercise and, in one line each, what every division is worried about. Groups should read this before they touch the board." },
-        { label: "3 · The divisions", href: "divisions.html",
-          body: "A page per division — what it does, where it stands, and what it has said. This is the material each group diagnoses from." },
-        { label: "4 · The exercise", href: "sim.html",
+        { label: "3 · The exercise", href: "sim.html",
           body: "The board itself. The group clicks a deal onto a division; if it fits, the division commits. All three commit and the shared upside flips from locked to realised. Closing the round shows what worked and what changed nothing." }
       ]
     }

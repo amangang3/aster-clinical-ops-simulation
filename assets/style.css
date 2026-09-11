@@ -188,25 +188,26 @@ button {
 }
 .card__name { display: flex; align-items: center; gap: 0.67rem; font-size: 1.25rem; font-weight: 600; }
 .card__lead { font-size: 1rem; color: var(--muted); }
-.card__descriptor { font-size: 1rem; color: var(--muted); margin: 0; }
+.card__descriptor { font-size: 1rem; color: var(--muted); margin: 0 0 0.9rem; }
 
 a.card--link { text-decoration: none; color: inherit; transition: border-color 200ms var(--ease); }
 a.card--link:hover { border-color: var(--accent); }
-.card__cta {
-  margin-top: auto;
-  padding-top: 0.45rem;
-  font-size: 0.85rem;
-  color: var(--dim);
-}
-a.card--link:hover .card__cta { color: var(--accent); }
 
-/* The divisions hub: the same cards, wider, with the four figures on each */
-.cards--stacked { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
-.card--division { padding: 1.35rem 1.55rem 1.45rem; }
-.card__figures { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-top: 0.45rem; }
-.card__figures b { display: block; font-size: 1.45rem; font-weight: 600; color: var(--accent); }
-.card__figures span { font-size: 0.95rem; color: var(--dim); }
-.card--division .card__cta { align-self: flex-start; }
+/* The three briefs are only reachable from this page, so the link that opens one is a
+   button in the division's own accent rather than a quiet line of text. */
+.btn--card {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 0.55rem 1.2rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-color: var(--accent);
+  color: var(--accent);
+  background: transparent;
+  transition: background 200ms var(--ease), color 200ms var(--ease);
+}
+a.card--link:hover .btn--card { background: var(--accent); color: var(--surface); }
 
 .dot {
   width: 0.72rem; height: 0.72rem; border-radius: 50%;
@@ -769,7 +770,7 @@ a.flow__label:hover { color: var(--mint); }
   .sim { padding: 1.35rem 1.1rem 1.55rem; }
   .doc { padding: 1.35rem 1.1rem 3rem; }
   .figures, .cards, .band, .score__head,
-  .figures--four, .card__figures { grid-template-columns: minmax(0, 1fr); }
+  .figures--four { grid-template-columns: minmax(0, 1fr); }
   .row { grid-template-columns: minmax(0, 1fr); gap: 0.9rem; }
   .notes { grid-template-columns: minmax(0, 1fr); }
   .notes__head { grid-row: auto; flex-direction: row; gap: 0.67rem; flex-wrap: wrap; align-items: baseline; }

@@ -327,13 +327,12 @@ nothing. Both figures are displayed at the close (§4.5).
 ### 4.1 Repo layout
 
 ```
-index.html          1 · landing — context, the four figures, the three divisions
+index.html          1 · the situation — context, who the room plays, and the three briefs
 instructions.html   2 · how the session works, written for the room (§4.3a)
-divisions.html      3 · the three divisions side by side, each linking to its own page
-site-ops.html       3 · one brief per division (§4.3b) — three shells, one renderer
+site-ops.html       one brief per division (§4.3b) — three shells, one renderer
 data-analytics.html
 patient-engagement.html
-sim.html            4 · the simulation itself — this is the whole exercise
+sim.html            3 · the simulation itself — this is the whole exercise
 facilitate.html     the facilitator guide (§4.7) — the answer key lives here, never project it
 assets/style.css    all styling, one file
 assets/sim.js       state machine, animation, rendering
@@ -450,7 +449,7 @@ In order:
 
 Three pages, one per division, built from a single shell plus `assets/division.js`. The body carries
 `data-group="<id>"`; everything else is read from the model and the copy file, so the three pages cannot drift
-apart and no figure is typed into any of them. `divisions.html` is the hub: the three side by side with their
+apart and no figure is typed into any of them. The three briefs are reached from `index.html`, which carries the
 four figures each, linking into the briefs, and the briefs loop to one another so the room can walk all three
 and come back.
 

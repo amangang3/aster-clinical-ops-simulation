@@ -37,7 +37,6 @@ two-slide framework deck closes the session once the round is done.
 - `instructions.html` — written for the room: what is being decided, where the numbers come from, the three
   deals, which of the two pots of money each amount comes out of, what offering a deal does, and the rules.
   Send it round beforehand or spend a minute on it at the start. It names no blocks.
-- `divisions.html` — the three divisions side by side, each linking to its own page
 - `site-ops.html`, `data-analytics.html`, `patient-engagement.html` — one brief per division: what it
   does, what it is measured on, its four numbers, where it stands, and what it has said. This is the
   material the room diagnoses from
@@ -121,11 +120,10 @@ there is someone to explain them.
 ```
 index.html          1 · the situation
 instructions.html   2 · how the session works, for the room
-divisions.html      3 · the three divisions
-site-ops.html       3 · one brief per division, all three from the same shell
+site-ops.html       one brief per division, reached from the situation page
 data-analytics.html
 patient-engagement.html
-sim.html            4 · the exercise, ending in the scoreboard
+sim.html            3 · the exercise, ending in the scoreboard
 facilitate.html     the facilitator guide
 assets/style.css    all styling
 assets/sim.js       state machine, rendering, animation
