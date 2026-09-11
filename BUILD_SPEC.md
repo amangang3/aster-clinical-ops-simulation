@@ -91,7 +91,7 @@ anything.
 Substitute a shared data warehouse, a common CRM or a single ERP instance for the trial-data layer and nothing
 in §2, §3 or §3.4 changes — not the multiplier, not the threshold, not the three blocks, not the result that
 partial coordination is worse than none. Those are the economics of shared services, and a good student will
-say so. Three things are specific to agents, they are stated on `debrief.html`, and they are what the session
+say so. Three things are specific to agents, the facilitator names them at the close (§4.7), and they are what the session
 is actually for:
 
 1. **Agents remove partial credit.** Software that covers half the data returns a worse answer, which is still
@@ -101,7 +101,7 @@ is actually for:
 2. **Agents act; they do not report.** A shared data layer is a read. An agent that reschedules a site visit or
    contacts a patient takes an action inside a division that answers for the consequences. That is an objection
    none of the four moves can answer, and in a real agent programme it is usually the one that stops the work.
-   It stays out of the mechanic on purpose (§4.6, the closing block) and is named in the discussion.
+   It stays out of the mechanic on purpose and is named by the facilitator in discussion (§4.7).
 3. **The constraint has swapped ends.** Agent capability arrives in weeks; these agreements take quarters. For
    most of the history of enterprise technology the build was the bottleneck and the business waited for it.
    That reversal is what turns teaching point 1 from a platitude into a finding.
@@ -109,7 +109,7 @@ is actually for:
 The line that carries all three: **agents turn the org chart into the systems architecture**, because an
 agent's reach is set by permission and accountability rather than by integration effort.
 
-The counterintuitive result in §3.4 has a name in this world and the debrief uses it: **the pilot trap.** Two
+The counterintuitive result in §3.4 has a name in this world and the facilitator uses it: **the pilot trap.** Two
 divisions fund their own agent pilots, both hit their own success criteria, neither can finish a crossing
 workflow, and the enterprise ends up behind where it started.
 
@@ -117,7 +117,7 @@ workflow, and the enterprise ends up behind where it started.
 
 ## 2. THE FRAMEWORK
 
-This is the intellectual content the simulation demonstrates. It is shown on `debrief.html` and referenced in
+This is the intellectual content the simulation demonstrates. It is carried by the framework deck (§6) and referenced in
 the copy elsewhere. Do not paraphrase these definitions — they are used verbatim in class.
 
 ### 2.1 Forces incentivising collaboration — why any division comes to the table
@@ -322,7 +322,6 @@ site-ops.html       3 · one brief per division (§4.3b) — three shells, one r
 data-analytics.html
 patient-engagement.html
 sim.html            4 · the simulation itself — this is the whole exercise
-debrief.html        5 · the framework, the eight outcomes, the discussion questions
 facilitate.html     the facilitator guide (§4.7) — the answer key lives here, never project it
 assets/style.css    all styling, one file
 assets/sim.js       state machine, animation, rendering
@@ -384,7 +383,6 @@ One screen, no scrolling at 1080p.
 - One line saying what the room is about to be asked to do, with a link to `instructions.html`
 - One primary button, **BEGIN**, to `instructions.html` — the landing hands off to the next step in the flow,
   not to the board, so nobody arrives at the exercise without having been told the rules
-- A quiet secondary link to `debrief.html`, styled so nobody clicks it by accident mid-class
 
 ### 4.3a `instructions.html` — how the session works
 
@@ -543,34 +541,21 @@ Replaces the board on close. Everything computed, nothing typed.
   $X. The layer was never built.`
 - **The invariant, stated plainly:** if one or two groups committed, show
   `Partial coordination cost more than doing nothing. Doing nothing produced $167.75M.`
-- A `BACK TO THE BOARD` button and a link to `debrief.html`
+- A `BACK TO THE BOARD` button. This is the terminal screen; the session moves to the deck from here.
 
-### 4.6 `debrief.html`
+### 4.6 `debrief.html` — REMOVED
 
-Reference material, read after the exercise. Scrolling is fine here.
-
-1. The two framework tables from §2.1 and §2.2, rendered exactly as written
-2. The four moves from §2.3
-3. The applied diagnosis from §2.4
-3a. **The pilot trap**, named directly under the outcome table that proves it, and **why this is different
-   with agents** (§1.1) as three rows plus the closing line — the answer to "why is this in an agentic course?"
-4. **All eight outcomes** from §3.4 as a table, with the current session's outcome highlighted if the page was
-   reached from a closed round (pass state in the URL hash; do not use storage)
-5. Discussion questions:
-   - Which move did the room reach for first, and what did that assume about the block?
-   - Two divisions did the right thing and the number went down. What does that tell you about pilots?
-   - Patient Engagement has the best return per dollar in the room and the least standing to demand anything.
-     Where is that division in your company?
-   - The layer cost $18M against $110M of value. Why does that deal not happen on its own?
-   - What would have to be true for a mandate to be the right answer here rather than a lazy one?
-6. A closing note naming the fourth kind of block deliberately kept out of the model: concerns entirely real to
-   one division and unpriceable by everyone else. No move fixes those. Name them and take them off the table
-   early, or they contaminate everything after.
+The debrief page was cut. Its framework content now lives in the two-slide `framework-deck.pptx` (§6): slide 1
+is the two force tables (§2.1–§2.2), slide 2 the generalised blocker→move playbook (§2.3, all four moves). The
+material that had no home on the slides — the eight-outcome table, the pilot trap, the "why agentic" three
+lines, the discussion questions, and the fourth-block closing note — is now the facilitator's to deliver from
+`facilitate.html` (§4.7): the beat script names the pilot trap and the three agentic points at the close, and
+the pushback table carries the rest. The exercise ends at its own scoreboard (§4.5); there is no sixth page.
 
 ### 4.7 The flow, and `facilitate.html`
 
 **The flow.** The class-facing pages are one numbered path — *1 the situation · 2 how it works · 3 the
-divisions · 4 the exercise · 5 the debrief* — rendered by `assets/nav.js` from `nav` in `data/script.js`, with
+divisions · 4 the exercise* — rendered by `assets/nav.js` from `nav` in `data/script.js`, with
 the current page marked. Five labels are as many as fit on one line, so the steps carry no descriptions; the
 guide has room for those and gives them. It
 sits at the top of the documents and quietly in the exercise's footer, where it must not compete with the
@@ -659,7 +644,7 @@ Eight to twelve minutes at the lectern. Write this into the README so a facilita
 4. When two groups have committed, stop and point at the enterprise figure. It has gone **down**. Sit in that.
 5. Close the third. Let the gate reveal play without talking over it.
 6. `C` to close the round. Read the wasted spend aloud.
-7. Move to `debrief.html`, or straight to the framework slides.
+7. Close on the two framework slides.
 
 If the room stalls, `H` reveals the block labels and turns the exercise from diagnosis into matching. That is a
 worse lesson but a better use of the remaining minutes.
@@ -686,7 +671,7 @@ course name, no institution, no instructor, no dates.
    ugly first, with no animation at all, and confirm every one of the eight states is reachable by clicking.
 6. Add animation. Gate reveal last.
 7. `data/script.js` and wire the dialogue in.
-8. `index.html`, then `debrief.html`.
+8. `index.html`, then `facilitate.html`.
 9. `README.md`.
 
 ---

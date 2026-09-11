@@ -591,9 +591,6 @@
     });
 
     el("score-back").textContent = S.scoreboard.back;
-    var link = el("score-debrief");
-    link.textContent = S.scoreboard.debrief;
-    link.href = "debrief.html#committed=" + (ids.length ? ids.join(",") : "none");
   }
 
   /* ---------------------------------------------------------------

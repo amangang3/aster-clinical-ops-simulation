@@ -30,8 +30,8 @@ follows, so it deliberately argues neither side of the mandate question. It show
 costs when the shared layer never gets built, and what influence costs without authority.
 
 The class-facing pages are one path, and every page links to the next: **1 the situation → 2 how it works
-→ 3 the divisions → 4 the exercise → 5 the debrief**. The facilitator guide hangs off that path from every
-page.
+→ 3 the divisions → 4 the exercise**. The facilitator guide hangs off that path from every page, and the
+two-slide framework deck closes the session once the round is done.
 
 - `index.html` — the situation, the four figures, and the three divisions
 - `instructions.html` — written for the room: what is being decided, where the numbers come from, the three
@@ -41,8 +41,7 @@ page.
 - `site-ops.html`, `data-analytics.html`, `patient-engagement.html` — one brief per division: what it
   does, what it is measured on, its four numbers, where it stands, and what it has said. This is the
   material the room diagnoses from
-- `sim.html` — the exercise itself
-- `debrief.html` — the framework, all eight outcomes, and discussion questions
+- `sim.html` — the exercise itself, ending in a scoreboard with the outcome, the ledger and the wasted spend
 - `facilitate.html` — the facilitator guide: what to do and say at each beat, the answer key, and the
   questions the room tends to ask. It has the answers on it, so do not project it.
 - `framework-deck.pptx` — two slides for the close: the framework, and the framework applied (blocker → move, all four)
@@ -54,7 +53,7 @@ page.
    agreements it can strike. Three things make this an agentic problem rather than the shared-services problem
    of the last thirty years: agents remove partial credit (half a workflow is not half the value, it is none),
    agents act inside divisions that answer for the consequences, and capability now arrives faster than the
-   agreements needed to use it. `debrief.html` states all three.
+   agreements needed to use it. The facilitator names all three at the close (see `facilitate.html` and the deck).
 1. Agentic value sits on the boundaries between divisions, so the binding constraint is not technology or
    capital — it is whether P&L owners will commit to something they do not control.
 2. The case for collaborating is never the problem. Every division agrees the shared asset should exist. What
@@ -115,7 +114,7 @@ what to say at each beat and what to do when it goes sideways.
 4. When two divisions have committed, stop and point at the enterprise figure. It has gone **down**. Sit in that.
 5. Close the third. Let the gate reveal play without talking over it.
 6. `C` to close the round. Read the wasted spend aloud.
-7. Move to `debrief.html`, or straight to `framework-deck.pptx`.
+7. Close on `framework-deck.pptx` — the framework, then the blocker → move playbook.
 
 If the room stalls, `H` reveals the block labels and turns the exercise from diagnosis into matching. That is a
 worse lesson but a better use of the remaining minutes.
@@ -129,7 +128,7 @@ Anything a participant reads is written in plain words: no "boundary", no "reali
 "platform capital", and no "pledge" where "pay its share" will do. That applies to the board as well as the
 documents — the value bar says *its own work* and *work spanning divisions*, the deal buttons carry a plain
 line under the framework label, and the funding meter counts in words. Framework terms belong on
-`debrief.html`, `facilitate.html` and the deck, where there is someone to explain them. `test.html` is unlinked and enumerates all
+`facilitate.html` and the deck, where there is someone to explain them. `test.html` is unlinked and enumerates all
 eight states against the expected table — open it after changing any constant.
 
 ```
@@ -139,8 +138,7 @@ divisions.html      3 · the three divisions
 site-ops.html       3 · one brief per division, all three from the same shell
 data-analytics.html
 patient-engagement.html
-sim.html            4 · the exercise
-debrief.html        5 · the framework and the outcomes
+sim.html            4 · the exercise, ending in the scoreboard
 facilitate.html     the facilitator guide
 test.html           model check, not linked from anywhere
 assets/style.css    all styling

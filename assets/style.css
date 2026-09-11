@@ -89,7 +89,7 @@ button {
 .coral { color: var(--coral); }
 
 /* ============================================================
-   The flow — situation → exercise → debrief, on every page
+   The flow — situation → how it works → the divisions → exercise, on every page
    ============================================================ */
 
 .nav {
@@ -584,27 +584,24 @@ table.grid tr.is-current td:first-child { box-shadow: inset 3px 0 0 var(--mint);
 .keys__dismiss { margin-top: 1.1rem; font-size: 1rem; color: var(--dim); }
 
 /* ============================================================
-   Documents — debrief.html, facilitate.html · scrolling is fine here
+   Documents — instructions.html, the division briefs, facilitate.html · scrolling is fine here
    ============================================================ */
 
-.debrief, .doc { max-width: 66rem; margin: 0 auto; padding: 2rem 2.65rem 5rem; }
-.debrief header, .doc__head { margin-bottom: 2.35rem; }
-.debrief nav, .doc nav { margin-bottom: 2.2rem; }
-.debrief h1, .doc h1 { font-size: 2.55rem; }
-.debrief section, .doc section { margin-bottom: 2.55rem; }
-.debrief h2, .doc h2 { font-size: 1.67rem; margin-bottom: 0.35rem; }
-.debrief .caption, .doc .caption { font-size: 1.06rem; color: var(--muted); margin: 0 0 0.9rem; max-width: 84ch; }
+.doc { max-width: 66rem; margin: 0 auto; padding: 2rem 2.65rem 5rem; }
+.doc__head { margin-bottom: 2.35rem; }
+.doc nav { margin-bottom: 2.2rem; }
+.doc h1 { font-size: 2.55rem; }
+.doc section { margin-bottom: 2.55rem; }
+.doc h2 { font-size: 1.67rem; margin-bottom: 0.35rem; }
+.doc .caption { font-size: 1.06rem; color: var(--muted); margin: 0 0 0.9rem; max-width: 84ch; }
 
-.debrief .factor, .doc .factor { font-weight: 600; }
-.debrief .quote { font-family: var(--serif); font-size: 1.11rem; color: var(--text); }
+.doc .factor { font-weight: 600; }
 
-.debrief ol.questions { margin: 0; padding-left: 1.55rem; font-size: 1.17rem; }
-.debrief ol.questions li { margin-bottom: 0.78rem; color: var(--muted); }
 
 .closing { border-left: 3px solid var(--hairline); padding-left: 1.35rem; }
 .closing p { font-size: 1.11rem; color: var(--muted); max-width: 88ch; }
 
-.debrief__foot, .doc__foot { display: flex; gap: 1.55rem; align-items: center; flex-wrap: wrap; padding-top: 0.67rem; }
+.doc__foot { display: flex; gap: 1.55rem; align-items: center; flex-wrap: wrap; padding-top: 0.67rem; }
 
 /* ---- instructions and division pages ---- */
 
@@ -760,7 +757,7 @@ a.flow__label:hover { color: var(--mint); }
 
 @media (max-width: 760px) {
   .landing, .sim { padding: 1.35rem 1.1rem 1.55rem; }
-  .debrief, .doc { padding: 1.35rem 1.1rem 3rem; }
+  .doc { padding: 1.35rem 1.1rem 3rem; }
   .landing__body, .figures, .cards, .band, .score__head,
   .figures--four, .card__figures { grid-template-columns: minmax(0, 1fr); }
   .row { grid-template-columns: minmax(0, 1fr); gap: 0.9rem; }

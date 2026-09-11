@@ -1,5 +1,5 @@
-/* The flow between the pages: situation → how it works → the divisions → exercise →
-   debrief, with the facilitator guide to one side. Rendered from data/script.js so the
+/* The flow between the pages: situation → how it works → the divisions → exercise,
+   with the facilitator guide to one side. Rendered from data/script.js so the
    wording lives in one place.
 
    Any page that wants it carries <nav id="nav"></nav>; add data-variant="compact"

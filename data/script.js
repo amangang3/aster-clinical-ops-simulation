@@ -6,8 +6,8 @@
 
    Two rules for anything written in here:
    - In the Aster copy: "division", never group/unit/team, and "shared trial-data layer",
-     never system/platform. The debrief framework is the exception — it is written to
-     travel beyond this case, so it says "shared asset" on purpose.
+     never system/platform. (The portable framework wording lives in framework-deck.pptx,
+     not here.)
    - Never state a ratio or a share that the constants in data/model.js do not produce.
      $95M pool + $20M cross is middling, not smallest; check before writing "most" or "least". */
 
@@ -94,8 +94,7 @@ window.ASTER_SCRIPT = {
       { href: "index.html",        n: "1", label: "The situation" },
       { href: "instructions.html", n: "2", label: "How it works" },
       { href: "divisions.html",    n: "3", label: "The divisions" },
-      { href: "sim.html",          n: "4", label: "The exercise" },
-      { href: "debrief.html",      n: "5", label: "The debrief" }
+      { href: "sim.html",          n: "4", label: "The exercise" }
     ],
     guide: "Facilitator guide",
     guide_href: "facilitate.html",
@@ -119,8 +118,7 @@ window.ASTER_SCRIPT = {
     ],
     do_line: "You are {you}, and you cannot order any of this. You will read the three divisions, work out what each one needs before it will pay its share, and spend the centre\u2019s own budget to give it to them. There are four deals to offer, and matching the right one \u2014 sometimes the right two \u2014 to each division is the whole exercise.",
     do_link: "How the session works",
-    begin: "BEGIN",
-    secondary: "Debrief"
+    begin: "BEGIN"
   },
 
   /* ---- Instructions, for the people in the room ----
@@ -299,77 +297,6 @@ window.ASTER_SCRIPT = {
     }
   },
 
-  /* ---- Debrief ---- */
-  debrief: {
-    title: "Debrief",
-    collaborate: {
-      heading: "Forces incentivising collaboration",
-      caption: "Why any division comes to the table.",
-      rows: [
-        ["Dependency", "Value you cannot get without something another division owns. The more of your value depends on work that crosses into someone else, the more you need the deal — and if you are the one who owns the thing everybody needs, your upside is their commitment, not your own roadmap."],
-        ["Threshold",  "The shared asset is all or nothing. It exists only above a funding line no single division can reach on its own, so it gets built jointly or it does not get built."],
-        ["Duplication","Left alone, divisions quietly build the same capability twice. Nobody can see it from inside their own plan, and the waste only surfaces once both have been funded."]
-      ]
-    },
-    individualism: {
-      heading: "Forces incentivising individualism",
-      caption: "Why it defends its own plan instead.",
-      rows: [
-        ["Absorption", "“We cannot take this much change this fast.”", "A timing problem, not a size problem — so commit the number and negotiate the clock."],
-        ["Advantage",  "“We are ahead. Why would we help them catch up?”", "A head-start problem — so let them keep the lead as they share it: pay for what they built, and make them the owner the others build on."],
-        ["Assurance",  "“Last time the centre moved, we ate the cost.”", "A trust problem — so guarantee the downside: caps, kill criteria, migration costs covered."]
-      ]
-    },
-    moves: {
-      heading: "The four moves",
-      caption: "Each block has the move that answers it — except the division out in front, whose block takes the pair, PRICE and STATUS. That mapping is the mechanic."
-    },
-    diagnosis: {
-      heading: "The applied diagnosis",
-      rows: {
-        "site-ops":           { pull: "Dependent", pull_note: "six of its nine top workflows run into another division, and it cannot build the layer they need" },
-        "data-analytics":     { pull: "Supplier",  pull_note: "the only division that can build the layer, already ahead of the other two, and the least riding on a layer that lets them catch up" },
-        "patient-engagement": { pull: "Dependent", pull_note: "best return per dollar in the room, and the layer is worth half its own upside again" }
-      }
-    },
-    outcomes: {
-      heading: "Every reachable outcome",
-      caption: "Eight states, and only one of them builds the layer. Look at the middle six: every partial coalition ends up below {baseline}, which is what the room produces when nobody pledges at all.",
-      pilot_heading: "This has a name, and you have seen it",
-      pilot: "Two divisions fund their own agent pilots. Both spend real budget, both build something that works inside their own walls, and neither can finish a workflow that crosses out of it. The enterprise is worse off than if nobody had started — {worstpair} together produce {worst} against {baseline} for doing nothing. This is the most common way an enterprise agent programme fails, and it does not look like failure from inside either division: both pilots hit their own success criteria."
-    },
-    agentic: {
-      heading: "Why this is different with agents",
-      caption: "Everything above would be true of a shared warehouse or a single ERP. Three things are not, and they are why this exercise is in an agentic course.",
-      rows: [
-        ["Agents remove partial credit",
-         "Software that sees half your data gives you a worse answer, and a worse answer is still useful. An agent that can reach half a workflow does not complete it. Coverage used to scale the value of a system; with agents it gates it. That is why the shared layer is all or nothing rather than merely nice to have."],
-        ["Agents act, they do not report",
-         "A shared data layer is a read. An agent that reschedules a site visit, or contacts a patient, is taking an action inside a division that answers for the consequences. That produces an objection none of the four deals on this board can answer: not who pays, but who is accountable when it acts wrongly."],
-        ["The constraint has swapped ends",
-         "Agent capability arrives in weeks. The agreements in this room take quarters. For most of the history of enterprise technology the build was the bottleneck and the business waited for it. That has reversed, which is why nothing in this exercise was ever blocked by the model, the data or the money."]
-      ],
-      close: "Agents turn the org chart into the systems architecture. An agent's reach is set by permission and accountability rather than by integration effort, so the value an enterprise can capture is bounded by the agreements it can strike — which is a negotiation, not a build."
-    },
-
-    questions: {
-      heading: "Discussion",
-      items: [
-        "Which move did the room reach for first, and what did that assume about the block?",
-        "Two divisions did the right thing and the number went down. What does that tell you about pilots?",
-        "Patient Engagement has the best return per dollar in the room and the least standing to demand anything. Where is that division in your company?",
-        "The layer cost {infra} against {gain} of value. Why does that deal not happen on its own?",
-        "You have just done this the hard way, one negotiation at a time, and it worked. Is that an argument for doing it this way, or an argument that the target should have been set at the top and held across all three? Answering \u201cboth\u201d is not available.",
-        "The layer had to be funded by all three or not at all. Does the fact that no single division could reach the line on its own make the case for an enterprise-level commitment, or only for better negotiation by the centre?",
-        "An agent owned by one division takes an action inside another and gets it wrong. Which of these three divisions carries that, and which of the four deals buys it? Neither question has an answer on this board, and both have to be answered before anything ships."
-      ]
-    },
-    closing: {
-      heading: "One kind of block this model leaves out",
-      body: "There is a fourth kind of objection the mechanic ignores on purpose: a concern that is entirely real to one division and cannot be priced by anyone else. A regulatory exposure only they carry. A commitment already made to someone outside the room. Accountability for what an agent does in someone else's name. No deal fixes those, because there is nothing to trade. Name them early and take them off the table, or they will contaminate every negotiation that follows. In an agent programme the accountability one is not an edge case — it is usually the objection that actually stops the work."
-    }
-  },
-
   /* ---- Scoreboard ---- */
   scoreboard: {
     title: "The round",
@@ -377,8 +304,7 @@ window.ASTER_SCRIPT = {
     ledger_empty: "No deals were offered.",
     bought_nothing: "bought nothing",
     table_heading: "Where the value landed",
-    back: "BACK TO THE BOARD",
-    debrief: "Debrief"
+    back: "BACK TO THE BOARD"
   },
 
   /* ---- Facilitator guide ---- */
@@ -389,20 +315,18 @@ window.ASTER_SCRIPT = {
 
     flow: {
       heading: "Where each page fits",
-      caption: "Five pieces, in the order you use them.",
+      caption: "Four pieces, in the order you use them, then the deck to close.",
       items: [
         { label: "1 · The situation", href: "index.html",
-          body: "Put it up while the room settles. Four figures carry the set-up: {ambition} of ambition, an {infra} layer, {capital} of technology budget across the three divisions, and {cross} of value that only exists once the layer is built." },
+          body: "Put it up while the room settles. It leads with the three divisions and what stops each one; the set-up figures sit under it, quietly." },
         { label: "2 · How it works", href: "instructions.html",
           body: "Written for the room, not for you. Send it round beforehand, or spend a minute on it at the start. It explains the {unfunded} multiplier, which is the one thing people need before the board makes sense, and it does not name any of the blocks." },
         { label: "3 · The divisions", href: "divisions.html",
           body: "A page per division: what it does, what it is measured on, its four numbers, and what it has said. This is the material the room diagnoses from, so it is worth reading before the exercise, not during it." },
         { label: "4 · The exercise", href: "sim.html",
-          body: "The session itself. One screen, driven from the keyboard so you can keep facing the room. Nothing is stored and nothing is random, so the same choices always produce the same numbers." },
-        { label: "5 · The debrief", href: "debrief.html",
-          body: "Afterwards. The two framework tables, the four moves, the applied diagnosis, all eight outcomes with your round marked, the pilot trap named under the table that proves it, why any of this is different with agents rather than with a shared warehouse, and six questions to open the discussion." }
+          body: "The session itself. One screen, driven from the keyboard so you can keep facing the room. When you close the round, the scoreboard shows the outcome, the ledger and the wasted spend. Nothing is stored and nothing is random, so the same choices always produce the same numbers." }
       ],
-      deck: { label: "The deck", body: "framework-deck.pptx is two slides for after the debrief: the framework (the forces for and against a shared asset), then the framework applied (blocker to move, all four). Project them to close." }
+      deck: { label: "The deck, to close", body: "framework-deck.pptx is two slides: the framework (the forces for and against a shared asset), then the framework applied — blocker to move, all four. Project them once the round is closed. This is where the framework gets named; the class-facing pages never do." }
     },
 
     beats: {
@@ -431,8 +355,8 @@ window.ASTER_SCRIPT = {
          "Press C. The board freezes and the ledger appears.",
          "Read the ledger out, wasted spend included. A clean round costs {dealcost} and returns {gain}, which is {ret}. Anything misdiagnosed cost full price and bought nothing."],
         ["10:00 · Hand off",
-         "Go to the debrief, or to the two-slide framework deck.",
-         "Ask the transfer question before you show the framework: which of these three is your division, and which block are you actually arguing? If anyone asks why this is an agentic problem rather than the shared-services problem their company had in 1998, that is the right question — the debrief answers it in three lines, and it is worth reading out."]
+         "Close on the two-slide framework deck.",
+         "Ask the transfer question before you show the framework: which of these three is your division, and which block are you actually arguing? If anyone asks why this is an agentic problem rather than the shared-services problem their company had in 1998, that is the right question — answer it live in three lines: agents remove partial credit (half a workflow is worth nothing), agents act rather than report (someone is accountable when it acts wrongly), and capability now arrives faster than the agreements to use it."]
       ]
     },
 

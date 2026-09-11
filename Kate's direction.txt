@@ -1,0 +1,7 @@
+Feedback to implement: 
+
+1. Simplify exercise by rewording, and bringing the challenges each group has more centered, instead of starting by focusing on the numbers. Presentation is currently confusing, lots of numbers thrown at reader, and Rae spending money vs division budget framing is not super clear. Rename value pool to potential upside realized or something similar, currently confusing. Main feedback is to simplify. 
+
+2. Add 4 levers by separating the price component into an additional status component, where the group that needed price, now needs both price and status upgrades (maybe status is a leadership position on some board, think this through
+
+3. Advantage described incorrectly, it should be about a group having an advantage, and not wanting others to catchup as much 
