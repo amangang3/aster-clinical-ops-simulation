@@ -284,62 +284,54 @@ window.ASTER_SCRIPT = {
     back: "BACK TO THE BOARD"
   },
 
-  /* ---- Facilitator guide ---- */
+  /* ---- Facilitator guide ----
+     This runs as an in-class small-group exercise: faculty gives an intro, the room splits
+     into threes, and each group works the simulation on its own laptop, then reconvenes. ---- */
   facilitate: {
     title: "Facilitator guide",
-    standfirst: "How to run the exercise cold: where each page fits, what to do and say at each beat, the answer key, and the questions the room tends to ask.",
-    warning: "This page gives away the answers. Do not put it on the projector.",
+    standfirst: "How to run this in class: the intro to give, how to put the room into groups of three, and what to draw out when they come back together.",
+    warning: "This page has the answers on it. It is for you, not the groups — do not send it round with the exercise.",
 
-    flow: {
-      heading: "Where each page fits",
-      caption: "Four pieces, in the order you use them, then the deck to close.",
-      items: [
-        { label: "1 · The situation", href: "index.html",
-          body: "Put it up while the room settles. It leads with the three divisions and what stops each one; the stakes are set in a line, not a wall of numbers." },
-        { label: "2 · How it works", href: "instructions.html",
-          body: "Written for the room, not for you. Send it round beforehand, or spend a minute on it at the start. It sets up who the room is playing and that the layer needs all three divisions, and it names none of the blocks." },
-        { label: "3 · The divisions", href: "divisions.html",
-          body: "A page per division: what it does, what it is measured on, where it stands, and what it has said. This is the material the room diagnoses from, so it is worth reading before the exercise, not during it." },
-        { label: "4 · The exercise", href: "sim.html",
-          body: "The session itself. One screen, driven from the keyboard so you can keep facing the room. When you close the round, the scoreboard shows who committed, which deals landed, and which changed nothing. Nothing is stored and nothing is random." }
-      ],
-      deck: { label: "The deck, to close", body: "framework-deck.pptx is two slides: the framework (the forces for and against a shared asset), then the framework applied — blocker to move, all four. Project them once the round is closed. This is where the framework gets named; the class-facing pages never do." }
+    intro: {
+      heading: "The intro to give the class",
+      lead: "Read or paraphrase this to the whole room before you split it into groups. Two minutes, no slides needed.",
+      body: [
+        "For the next twenty minutes you are all the same person: {you}, {you_title} of Aster Life Sciences’ Global Clinical Operations Center. Aster runs its clinical work through three divisions, each with its own plan and its own targets. All three agree they should build one shared trial-data layer, so their AI agents can work across the divisions instead of stopping at the edge of each one. The upside on the table is worth about {ambition}.",
+        "Every division has still said no — each for a different, human reason, and none of them about the money. Your job is to work out what each one needs in order to say yes, and offer it. But you cannot order anyone: you own no division and cannot commit anyone’s plan. All you can do is offer deals, and there are four of them.",
+        "In your group, read the three divisions, then open the exercise and try to get all three to commit. Watch what it takes — and watch what happens when only one or two of them do."
+      ]
     },
 
-    beats: {
-      heading: "Beat by beat",
-      caption: "Eight to twelve minutes. The timings are a shape, not a script. The two pauses are the parts worth protecting.",
-      rows: [
-        ["0:00 · Set up",
-         "Open the exercise. Three divisions, three objections, nothing else on screen.",
-         "Read the objections out, or have three people read them. Say that each division is right about its own situation, and that none of them is arguing about the size of the prize."],
-        ["1:30 · First diagnosis",
-         "Take the first suggestion from the room and offer it, whatever it is.",
-         "Ask what each division needs before it will commit. Most rooms reach for money first, because money is what executives are used to offering. It commits nobody on its own — it is only half of what the division out in front needs, and it is wrong for the other two."],
-        ["3:00 · Let it be wrong",
-         "Offer the wrong deals without commenting. The count of deals offered climbs and nothing commits.",
-         "Point at that once: the effort is spent whether or not the deal landed. Then read the objection again and ask what it was asking for."],
-        ["5:00 · The first commit",
-         "Offer a deal that fits. The badge flips and the block appears.",
-         "Say what the deal answered. Then send the room back to the other two objections with that in mind."],
-        ["6:30 · Nothing moves",
-         "Stop as soon as the second division commits. Point at the shared upside.",
-         "Two divisions did the right thing and the upside is still locked — nothing runs across them. Let that sit before you explain it."],
-        ["8:00 · The gate",
-         "Offer the third deal and stay quiet for a few seconds.",
-         "All three commit, the layer is built, and the upside flips from locked to realised. Let the reveal finish before you say anything."],
-        ["9:00 · Close the round",
-         "Press C. The board freezes and the ledger appears.",
-         "Read the ledger out, the deals that changed nothing included. A clean round commits all three with nothing wasted; anything misdiagnosed changed nothing and the effort was spent anyway."],
-        ["10:00 · Hand off",
-         "Close on the two-slide framework deck.",
-         "Ask the transfer question before you show the framework: which of these three is your division, and which block are you actually arguing? If anyone asks why this is an agentic problem rather than the shared-services problem their company had in 1998, that is the right question — answer it live in three lines: agents remove partial credit (half a workflow is worth nothing), agents act rather than report (someone is accountable when it acts wrongly), and capability now arrives faster than the agreements to use it."]
+    run: {
+      heading: "How to run it",
+      caption: "About twenty minutes: a two-minute intro, ten to fifteen in groups, and the rest reconvened.",
+      steps: [
+        "Give the intro above to the whole room.",
+        "Split the room into groups of three, one laptop per group, opened to the exercise site.",
+        "Each group reads the three division briefs, then works the exercise: pick a division, offer it a deal, and see how it responds. The goal is to get all three to commit so the shared upside is realised.",
+        "Give them ten to fifteen minutes and circulate. If a group stalls, tell them to press H — the board will name what is blocking each division and turn the exercise into matching.",
+        "Reconvene. Walk the answer key, draw out the two moments below, and open the discussion."
+      ]
+    },
+
+    flow: {
+      heading: "What each group works through",
+      caption: "Every group has this on one laptop and moves through it in order. The pages name none of the blocks — the diagnosis is the exercise.",
+      items: [
+        { label: "1 · The situation", href: "index.html",
+          body: "The scenario and the three divisions. Where each group starts." },
+        { label: "2 · How it works", href: "instructions.html",
+          body: "The rules of the exercise and, in one line each, what every division is worried about. Groups should read this before they touch the board." },
+        { label: "3 · The divisions", href: "divisions.html",
+          body: "A page per division — what it does, where it stands, and what it has said. This is the material each group diagnoses from." },
+        { label: "4 · The exercise", href: "sim.html",
+          body: "The board itself. The group clicks a deal onto a division; if it fits, the division commits. All three commit and the shared upside flips from locked to realised. Closing the round shows what worked and what changed nothing." }
       ]
     },
 
     key: {
       heading: "The answer key",
-      caption: "One deal answers each block — except the division out in front, which needs two, PRICE and STATUS, and does not commit until both are in. Every other deal changes nothing. If the room stalls, H puts the block labels on screen and turns the exercise into matching.",
+      caption: "One deal answers each block — except the division out in front, which needs two, PRICE and STATUS, and does not commit until both are in. Every other deal changes nothing. Keep this to yourself; the board’s H key gives groups the block labels if they stall.",
       tell_heading: "The tell",
       tells: {
         "site-ops":           "“We are not against this,” followed by two dates. The objection is about the calendar, and the division is managing a handover, not defending a position.",
@@ -349,35 +341,31 @@ window.ASTER_SCRIPT = {
     },
 
     moments: {
-      heading: "The two moments that carry the session",
+      heading: "What to draw out in the debrief",
       items: [
         { title: "The upside staying locked",
-          body: "The instinct is to explain it away in the same breath, and that kills the lesson. Two divisions did what was asked, spent real effort and political capital, and the shared upside is still locked — nothing runs across them. Neither made a mistake. This is what a pilot looks like from the centre: effort spent, capability given up, and still nothing realised. Give the room time to get there." },
-        { title: "The gate reveal",
-          body: "It runs for about a second and a half and it is the only purely visual part of the session. Talking over it costs you the moment. Watch the room, not the screen, then make one point: nothing about the three divisions changed, only the last commitment did." }
+          body: "Ask the groups what happened when two divisions committed and the third had not. The upside stayed locked and nothing ran across them — two divisions did what was asked, spent real effort and political capital, and realised nothing. Neither made a mistake. That is what a pilot looks like from the centre: effort spent, capability given up, and still nothing realised. This is the point of the exercise; give it room." },
+        { title: "The reveal, and reaching for money",
+          body: "Most groups reach for money first, on everyone — it is what executives are used to offering, and it commits nobody. Then the upside flips from locked to realised only on the third commitment. Make one point: nothing about the three divisions changed at the end, only the last commitment did. The constraint was never money; it was the agreements." }
       ]
     },
 
     trouble: {
-      heading: "If it goes sideways",
+      heading: "If a group gets stuck",
       rows: [
-        ["The room stalls on the diagnosis",
-         "Press H. The block labels appear and the exercise becomes matching instead of diagnosis. A weaker lesson, but a better use of the minutes you have left."],
-        ["Someone says the centre should just mandate it",
-         "This is the case question, so do not close it down — and do not let the exercise be read as an argument against it either. Both halves are live. For it: no division could build the layer alone, the value that matters cuts across all three, and voluntary adoption produced the pilot trap on screen. Against it: nobody here can mandate anything, a division can agree in the room and under-resource it for four quarters, and two of the three were right that the deal as first offered was bad for them. The exercise shows what the negotiation costs. It does not settle whether you should have had to run it."],
-        ["Someone says the all-or-nothing is artificial",
-         "Hold the line: it is a property of agents, not a convenience of the model. Software that covers half your data gives you half an answer, and half an answer is still worth having. An agent that can reach half a workflow does not finish it, so a crossing workflow is worth nothing at all until the layer exists. That is why two divisions committing still realises nothing."],
-        ["Someone asks why the divisions do not just talk to each other",
-         "They have, and they agree. Everyone thinks the layer should exist. That is the premise, and it changes nothing, which is the uncomfortable part."],
-        ["The room gets all three right first time",
-         "It happens, and it is usually luck. Press Backspace, run it again with a deliberate mistake on one division, and let them watch deals get offered for nothing."],
-        ["You have four minutes, not twelve",
-         "Skip the misdiagnosis. Offer the correct deals in order, stop after the second, and sit on the still-locked upside."]
+        ["A group cannot diagnose a division",
+         "Tell them to press H. The board labels what is blocking each division and the exercise becomes matching. A weaker lesson, but it keeps them moving."],
+        ["A group offers money to everyone",
+         "Let it ride. It commits nobody, and they will feel the effort spent for nothing. That is the intended first mistake, and it is worth naming in the debrief."],
+        ["A group gets all three first try",
+         "Ask them to reset — Backspace — and get one division deliberately wrong, so they can see the upside stay locked and feel why partial coordination buys nothing."],
+        ["You are short on time",
+         "Have groups skip the briefs, open the exercise, and use the hint (H). They lose the diagnosis but still see the all-or-nothing."]
       ]
     },
 
     pushback: {
-      heading: "What the room tends to ask",
+      heading: "Questions to reconvene on",
       items: [
         { q: "Isn't this a prisoner's dilemma?",
           a: "Not quite. Nobody defects to get ahead. Each division is choosing what is genuinely best for its own plan, and two of the three are right that the deal as first offered is bad for them. The trap is the all-or-nothing: no division can build the layer alone, and whoever moves first has committed to something that does not exist yet." },
@@ -387,23 +375,25 @@ window.ASTER_SCRIPT = {
           a: "Sometimes it can, and then the exercise is about the next shared asset instead of this one. Money is rarely the hard part. The hard part is who changes how they work once it exists, and that is a commitment rather than a cheque." },
         { q: "The smallest division has the most to gain. Why not just tell it what to do?",
           a: "Because it has the most to gain proportionally and the least standing to ask for anything, and it does not yet believe the organisation can deliver. That combination is why its objection is about belief rather than money. It is the easiest yes available and the easiest one to lose." },
-        { q: "What if two divisions have the same block?",
-          a: "That is the normal case. The diagnosis still works, the deals just collapse into two. The blocks land one per division here because the case was written that way." },
         { q: "Where does the technology come into this?",
           a: "It does not. The constraint was never the model, the data or the capital. It was whether a division would commit to something they do not control." }
       ]
     },
 
-    keys: { heading: "Facilitator keys", caption: "Keyboard only. None of this is on screen during the exercise unless you ask for it." },
+    keys: {
+      heading: "Driving the board",
+      caption: "Groups just click the deals — no keyboard needed. The keys below are optional, for driving it yourself from the front. The one worth telling groups about is H, the hint.",
+      note: "1 2 3 select a division · Q W E R offer Sequence / Price / Status / Trust-building · H shows the block labels · C closes the round · Backspace resets."
+    },
 
     handoff: {
       heading: "Where this sits in the session",
-      body: "The room has already argued the case question: one enterprise-wide target held across all three divisions, or each division setting its own inside its own plan with the centre offering support. This exercise comes after that argument and before the practitioner conversation that follows it. Its job is not to settle the question — it is to make the room feel what the second option costs when the shared layer does not get built, and what informal influence costs when you have no authority to compel anyone. Both of those are what the practitioner will be asked about. Send the room into that conversation with the pilot trap and the price of three negotiations fresh, not with a conclusion."
+      body: "The room has already argued the case question: one enterprise-wide target held across all three divisions, or each division setting its own inside its own plan with the centre offering support. This exercise comes after that argument and before the practitioner conversation that follows it. Its job is not to settle the question — it is to let each group feel what division-led adoption costs when the shared layer does not get built, and what informal influence costs when you have no authority to compel anyone. Send the room into the practitioner conversation with the pilot trap fresh, not with a conclusion."
     },
 
     close: {
-      heading: "Before you stand up",
-      body: "Run it once on your own with the room's worst instincts: offer money to everybody, then fix it. Ten minutes of that teaches you the timing of the two pauses, which are the only parts that really go wrong. Press Backspace and the board is clean again. Nothing is stored, nothing carries over, and the same choices always produce the same outcome."
+      heading: "Before class",
+      body: "Run it once yourself with the room's worst instinct: offer money to everyone, then fix it. That is the mistake most groups make, and seeing it once tells you what to listen for as you circulate. Press Backspace to reset; nothing is stored, nothing carries over, and the same choices always produce the same outcome."
     }
   },
 

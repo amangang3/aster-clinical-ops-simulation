@@ -17,21 +17,22 @@
     <p class="warning" id="warning"></p>
   </header>
 
+  <section class="intro">
+    <h2 id="intro-heading"></h2>
+    <p class="caption" id="intro-lead"></p>
+    <blockquote class="script" id="intro-body"></blockquote>
+  </section>
+
+  <section>
+    <h2 id="run-heading"></h2>
+    <p class="caption" id="run-caption"></p>
+    <ol class="run" id="run"></ol>
+  </section>
+
   <section>
     <h2 id="flow-heading"></h2>
     <p class="caption" id="flow-caption"></p>
     <div class="flow" id="flow"></div>
-  </section>
-
-  <section class="handoff">
-    <h2 id="handoff-heading"></h2>
-    <p class="prose" id="handoff-body"></p>
-  </section>
-
-  <section>
-    <h2 id="beats-heading"></h2>
-    <p class="caption" id="beats-caption"></p>
-    <table class="grid grid--beats" id="beats"></table>
   </section>
 
   <section>
@@ -55,10 +56,15 @@
     <div class="qa" id="pushback"></div>
   </section>
 
+  <section class="handoff">
+    <h2 id="handoff-heading"></h2>
+    <p class="prose" id="handoff-body"></p>
+  </section>
+
   <section>
     <h2 id="keys-heading"></h2>
     <p class="caption" id="keys-caption"></p>
-    <table class="grid grid--keys" id="keys"></table>
+    <p class="prose" id="keys-note"></p>
   </section>
 
   <section class="closing">
@@ -110,10 +116,28 @@
   el("standfirst").textContent = fill(G.standfirst);
   el("warning").textContent = G.warning;
 
-  /* Where each page fits */
+  /* The intro to read to the class */
+  el("intro-heading").textContent = G.intro.heading;
+  el("intro-lead").textContent = fill(G.intro.lead);
+  G.intro.body.forEach(function (text) {
+    var p = document.createElement("p");
+    p.textContent = fill(text);
+    el("intro-body").appendChild(p);
+  });
+
+  /* How to run it — numbered steps */
+  el("run-heading").textContent = G.run.heading;
+  el("run-caption").textContent = fill(G.run.caption);
+  G.run.steps.forEach(function (text) {
+    var li = document.createElement("li");
+    li.textContent = fill(text);
+    el("run").appendChild(li);
+  });
+
+  /* What each group works through */
   el("flow-heading").textContent = G.flow.heading;
-  el("flow-caption").textContent = G.flow.caption;
-  G.flow.items.concat([G.flow.deck]).forEach(function (item) {
+  el("flow-caption").textContent = fill(G.flow.caption);
+  G.flow.items.forEach(function (item) {
     var card = document.createElement("div");
     card.className = "flow__item";
     var head = document.createElement(item.href ? "a" : "span");
@@ -127,19 +151,9 @@
     el("flow").appendChild(card);
   });
 
-  /* Where this sits in the session */
-  el("handoff-heading").textContent = G.handoff.heading;
-  el("handoff-body").textContent = fill(G.handoff.body);
-
-  /* Beat by beat */
-  el("beats-heading").textContent = G.beats.heading;
-  el("beats-caption").textContent = fill(G.beats.caption);
-  table(el("beats"), ["Beat", "What you do", "What to say, and what happens"], G.beats.rows,
-        ["beat", "", ""]);
-
   /* The answer key — read out of the model, never typed */
   el("key-heading").textContent = G.key.heading;
-  el("key-caption").textContent = G.key.caption;
+  el("key-caption").textContent = fill(G.key.caption);
   table(el("key"),
     ["Division", "Block", "The move(s) that answer it", G.key.tell_heading],
     A.groups.map(function (g) {
@@ -153,7 +167,7 @@
     }),
     ["factor", "", "factor", "tell"]);
 
-  /* The two moments */
+  /* What to draw out in the debrief */
   el("moments-heading").textContent = G.moments.heading;
   G.moments.items.forEach(function (m) {
     var d = document.createElement("div");
@@ -167,11 +181,11 @@
     el("moments").appendChild(d);
   });
 
-  /* If it goes sideways */
+  /* If a group gets stuck */
   el("trouble-heading").textContent = G.trouble.heading;
   table(el("trouble"), ["If", "Then"], G.trouble.rows, ["factor", ""]);
 
-  /* What the room pushes back with */
+  /* Questions to reconvene on */
   el("pushback-heading").textContent = G.pushback.heading;
   G.pushback.items.forEach(function (item) {
     var d = document.createElement("div");
@@ -185,12 +199,16 @@
     el("pushback").appendChild(d);
   });
 
-  /* The keys, from the same list the ? overlay uses */
-  el("keys-heading").textContent = G.keys.heading;
-  el("keys-caption").textContent = G.keys.caption;
-  table(el("keys"), ["Key", "Action"], S.keys.rows, ["key", ""]);
+  /* Where this sits in the session */
+  el("handoff-heading").textContent = G.handoff.heading;
+  el("handoff-body").textContent = fill(G.handoff.body);
 
-  /* Before you stand up */
+  /* Driving the board */
+  el("keys-heading").textContent = G.keys.heading;
+  el("keys-caption").textContent = fill(G.keys.caption);
+  el("keys-note").textContent = fill(G.keys.note);
+
+  /* Before class */
   el("close-heading").textContent = G.close.heading;
   el("close-body").textContent = fill(G.close.body);
 

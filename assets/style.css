@@ -695,6 +695,25 @@ table.grid tr.is-total td:first-child { color: var(--muted); font-weight: 400; }
   padding: 0.45rem 0.9rem;
 }
 
+/* The intro faculty reads aloud, set apart like a card so it reads as "say this" */
+.script {
+  margin: 1rem 0 0;
+  border-left: 3px solid var(--mint);
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.4rem;
+  font-family: var(--serif);
+  font-size: 1.17rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+.script p { margin: 0 0 0.7rem; }
+.script p:last-child { margin-bottom: 0; }
+
+/* The run-of-show steps */
+.run { margin: 0; padding-left: 1.55rem; color: var(--muted); font-size: 1.11rem; }
+.run li { margin-bottom: 0.6rem; }
+
 .flow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 .flow__item {
   background: var(--surface);
