@@ -4,3 +4,6 @@ Thumbs.db
 *.swp
 .vscode/
 .idea/
+
+# Internal feedback notes — never publish to this public repo
+Kate's direction.txt
