@@ -26,8 +26,8 @@ window.ASTER_SCRIPT = {
       measured: "Enrolment against plan, how long a site takes to activate, and cost per patient enrolled.",
       position: [
         "Site Operations is not fighting the money. Its problem is the calendar. Q3 and Q4 are its enrolment peak, the two quarters when it can least afford to change how anything works — and a new technology leader arrives in two quarters, who will inherit whatever gets agreed now.",
-        "It is also the biggest division, with {local} of potential upside a year. Six of the nine highest-value workflows run through it, and every one of those six either starts or finishes in another division.",
-        "Those six workflows are where its {cross} of extra upside sits. Site Operations cannot earn any of it without the shared layer, and it has no data engineering team of its own to build one."
+        "It is also the biggest division, with {local} of potential upside a year. Six of the nine highest-value workflows run through it, and every one of those six either starts or finishes in another division — Site Operations is where the handoffs land, which is what makes it dependent. It is not short of scale; it is downstream.",
+        "Those six workflows are where its {cross} of extra upside sits. Site Operations cannot earn any of it without the shared layer, and it has no data engineering team of its own to build one. It also cannot test what it does not own: when an agent picks up work in another division and hands it back, the part that failed is not on Site Operations' side of the line, and neither is the fix."
       ],
       work_out: "Site Operations has not argued about the amount. Work out what else it needs changed before it will say yes.",
       objection: "We are not against this, and we are not arguing about the money. Q3 and Q4 are our enrolment peak. We cannot change how we work in the two busiest quarters of our year. On top of that, I hand over to my successor in two quarters. Ask me for something that will still be running when they arrive.",
@@ -45,9 +45,9 @@ window.ASTER_SCRIPT = {
       role: "Collects, validates and analyses the trial data. It is the only division with the engineering depth to build the shared layer.",
       measured: "Data quality, how fast it can answer a question from the trial teams, and delivery against its own five-year platform plan.",
       position: [
-        "Data & Analytics is already ahead. It has funded its own platform, hired the team, and is further along than either of the others. Its worry is not the money — it is that building one shared layer for everyone hands the other two the capability it spent years building, and closes the gap it is counting on.",
+        "Data & Analytics is already ahead — not because it had the most to gain, but because it was the furthest along technically when the work started, so it went first. It has funded its own platform, hired the team, and is further along than either of the others. Everything the other two would have to build, it has already built once, its own way. Its worry is not the money — it is that building one shared layer for everyone hands the other two the capability it spent years building, and closes the gap it is counting on.",
         "It is the only division that can build the layer, and the one with the least riding on it: of its {local} of potential upside, only {cross} depends on work that spans divisions — the smallest such stake of the three.",
-        "So it is being asked to do the most, level a field it currently leads, and get the least back for it. Left to its own plan, it would rather keep the lead than share it."
+        "So it is being asked to do the most, level a field it currently leads, and get the least back for it. Going first is also why it depends on the layer least: the others would be moving onto its way of working, not the other way round. Left to its own plan, it would rather keep the lead than share it."
       ],
       work_out: "Data & Analytics is being asked to give up a lead it built and paid for. Work out what would make sharing that lead worth more to it than keeping it.",
       objection: "We are the ones who are ahead. We funded this, we hired the team, and we are further along than either of them. What you are asking is that we build the same capability for two divisions who are behind us, and hand them the head start we paid for. Why would we help them catch up?",
@@ -55,9 +55,9 @@ window.ASTER_SCRIPT = {
         sequence:   "Time is not our problem — we are the ones who are ready. More time just lets the others close the gap while we wait.",
         underwrite: "We are not exposed to anything; we are ahead. Protecting our downside answers a question we did not ask. Our worry is losing the lead, not carrying a risk.",
         price:      "Paying us for what we built helps — it stops this being a straight giveaway. But money alone still levels the field. If all three run on the same layer, what keeps us the division out in front?",
-        status:     "Being named the owner helps — the others would build on our platform rather than around us. But recognition without paying for what we already built still asks us to hand years of work over for free. What do we get for the work itself?"
+        status:     "Being named the owner helps — the others would build on our platform, to our rules, rather than around us. But setting the rules without paying for what we already built still asks us to hand years of work over for free. What do we get for the work itself?"
       },
-      commit: "So you pay us for the head start we built, and you make us the owner the other two run on — we stay out in front, and we get paid for it. Then it is worth more to share the lead than to keep it. We will build it."
+      commit: "So you pay us for the head start we built, and you make us the owner the other two run on — they work to our standard, not to a committee's — we stay out in front, and we get paid for it. Then it is worth more to share the lead than to keep it. We will build it."
     },
 
     "patient-engagement": {
@@ -149,7 +149,7 @@ window.ASTER_SCRIPT = {
 
     blocks: {
       heading: "What each division is worried about",
-      caption: "Not one of them is arguing about the money or the numbers. Each is holding back for a different, human reason — and that reason is what you have to answer.",
+      caption: "Not one of them is arguing about the money or the numbers. Each is holding back for a different, human reason — and that reason is what you have to answer. Two things shape how badly each one needs this: where it sits in the flow of work, and how early it started. The division that sits where the handoffs land needs it most. The division that started first needs it least — it is already working the way it would have to work anyway.",
       note: "Read the three division briefs next; this is only the headline of each. Working out which deal answers which worry is the exercise."
     },
 
@@ -232,7 +232,7 @@ window.ASTER_SCRIPT = {
     },
     status: {
       name: "Name them the owner",
-      what: "Make them the owner of the shared layer, so the other two build on their platform. They keep their lead instead of dissolving it into a shared asset."
+      what: "Make them the owner of the shared layer, so the other two build on their platform and on the rules they set for it — how far an agent can go on its own, when it has to stop and ask, what good enough looks like. They keep their lead instead of dissolving it into a shared asset."
     },
     underwrite: {
       name: "Cover their losses",

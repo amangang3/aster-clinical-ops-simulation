@@ -146,7 +146,7 @@ say yes to either lever alone. Everything else is a one-to-one mapping. This is 
 |---|---|---|
 | **SEQUENCE** | Absorption | Commit the number, negotiate the clock, not the size. |
 | **PRICE** | Advantage | Pay for the head start — credit the work they already built, guarantee them demand. |
-| **STATUS** | Advantage | Protect the lead — name them owner of the shared layer, so the others build on their platform. |
+| **STATUS** | Advantage | Protect the lead — name them owner of the shared layer, so the others build on their platform *and the rules they set for it* (autonomy levels, escalation thresholds, what "good enough" means). The authority lever, not a title. |
 | **UNDERWRITE** | Assurance | Guarantee the downside — caps, kill criteria, migration costs covered. |
 
 ### 2.4 The applied diagnosis
@@ -208,7 +208,7 @@ window.ASTER = {
     { id: "price",      label: "PRICE",      cost: 11, answers: "advantage",
       blurb: "Pay for the head start. Credit what they have already built, guarantee them demand." },
     { id: "status",     label: "STATUS",     cost: 1,  answers: "advantage",
-      blurb: "Protect the lead. Name them owner of the shared layer, so the others build on their platform." },
+      blurb: "Protect the lead. Name them owner of the shared layer, so the others build on their platform and the rules they set for it." },
     { id: "underwrite", label: "UNDERWRITE", cost: 9,  answers: "assurance",
       blurb: "Guarantee the downside. Caps, kill criteria, migration costs covered." }
   ]
