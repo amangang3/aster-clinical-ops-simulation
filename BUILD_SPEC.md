@@ -134,7 +134,7 @@ the copy elsewhere. Do not paraphrase these definitions — they are used verbat
 |---|---|
 | **Absorption** | *"We cannot take this much change this fast."* A timing problem, not a size problem — so commit the number and negotiate the clock. |
 | **Advantage** | *"We are ahead. Why would we help them catch up?"* A head-start problem, not a property one — the division is out in front and does not want the others levelling up to it. So let it keep the lead while it shares: pay for what it built, **and** make it the owner the others build on. |
-| **Assurance** | *"Last time the centre moved, we ate the cost."* A trust problem — so guarantee the downside: caps, kill criteria, migration costs covered. |
+| **Assurance** | *"We do not believe this organisation can actually deliver."* A belief problem — so build the belief: roadshows, visible internal wins, outside proof points. |
 
 ### 2.3 The four moves
 
@@ -144,10 +144,10 @@ say yes to either lever alone. Everything else is a one-to-one mapping. This is 
 
 | Move | Answers | What it is |
 |---|---|---|
-| **SEQUENCE** | Absorption | Commit the number, negotiate the clock, not the size. |
+| **SEQUENCE** | Absorption | Commit the number, negotiate the clock and incremental improvements stage by stage, not the size. |
 | **PRICE** | Advantage | Pay for the head start — credit the work they already built, guarantee them demand. |
 | **STATUS** | Advantage | Protect the lead — name them owner of the shared layer, so the others build on their platform *and the rules they set for it* (autonomy levels, escalation thresholds, what "good enough" means). The authority lever, not a title. |
-| **UNDERWRITE** | Assurance | Guarantee the downside — caps, kill criteria, migration costs covered. |
+| **TRUST-BUILDING** | Assurance | Build belief that the organisation can deliver — roadshows, visible internal wins, outside proof points. |
 
 ### 2.4 The applied diagnosis
 
@@ -155,7 +155,7 @@ say yes to either lever alone. Everything else is a one-to-one mapping. This is 
 |---|---|---|---|
 | Site Operations | **Dependent** — 40% of its value needs a layer it cannot build; six of nine top workflows cross its boundary | **Absorption** (timing) | **Sequence** |
 | Clinical Data & Analytics | **Supplier** — the only group that can build the layer; already ahead of the other two, and least riding on a layer that lets them catch up | **Advantage** (head start) | **Price + Status** |
-| Patient Engagement | **Dependent** — best return per dollar in the room, nearly all of it gone without shared data | **Assurance** (trust) | **Underwrite** |
+| Patient Engagement | **Dependent** — best return per dollar in the room, nearly all of it gone without shared data | **Assurance** (belief) | **Trust-building** |
 
 ---
 
@@ -204,13 +204,13 @@ window.ASTER = {
   // actually closes the deal the $11M one only half-answered. Both answer "advantage".
   moves: [
     { id: "sequence",   label: "SEQUENCE",   cost: 6,  answers: "absorption",
-      blurb: "Commit the number, negotiate the clock." },
+      blurb: "Commit the number, negotiate the clock, and incremental improvements stage by stage." },
     { id: "price",      label: "PRICE",      cost: 11, answers: "advantage",
       blurb: "Pay for the head start. Credit what they have already built, guarantee them demand." },
     { id: "status",     label: "STATUS",     cost: 1,  answers: "advantage",
       blurb: "Protect the lead. Name them owner of the shared layer, so the others build on their platform and the rules they set for it." },
-    { id: "underwrite", label: "UNDERWRITE", cost: 9,  answers: "assurance",
-      blurb: "Guarantee the downside. Caps, kill criteria, migration costs covered." }
+    { id: "trust",      label: "TRUST-BUILDING", cost: 9, answers: "assurance",
+      blurb: "Build belief that the organisation can deliver. Roadshows, visible internal wins, and outside proof points." }
   ]
 };
 ```
@@ -520,11 +520,11 @@ a complete and instructive outcome, not an error.
 | Key | Action |
 |---|---|
 | `1` `2` `3` | Select group row |
-| `Q` `W` `E` `R` | Apply Sequence / Price / Status / Underwrite to the selected row |
+| `Q` `W` `E` `R` | Apply Sequence / Price / Status / Trust-building to the selected row |
 | `H` | Toggle block labels visible — the hint, for when the room stalls |
 | `N` | Toggle the presenter note (§4.7) |
 | `C` | Close the round |
-| `Backspace` | Reset (moved off `R`, which now applies Underwrite) |
+| `Backspace` | Reset (moved off `R`, which now applies Trust-building) |
 | `?` | Overlay listing these keys |
 
 ### 4.5 The scoreboard
@@ -597,8 +597,8 @@ a requirement of the dialogue too: a division says "money is not the problem", n
   the full share.”*
 - **On PRICE (wrong):** *“Money is not the problem. You would be giving us more to spend in the two quarters when we
   have the least room to change anything.”*
-- **On UNDERWRITE (wrong):** *“We are not worried about being left exposed. We are worried about the calendar. A
-  guarantee does not move our enrolment peak.”*
+- **On TRUST-BUILDING (wrong):** *“Roadshows and success stories do not move our enrolment peak. We are short of a
+  quarter we can change, not short of belief.”*
 
 ### Clinical Data & Analytics — Evan Cole · block: advantage · needs: price + status
 
@@ -609,20 +609,21 @@ a requirement of the dialogue too: a division says "money is not the problem", n
   the head start we paid for.”*
 - **On PRICE (right):** *“So you pay us for what we have already built, the other two buy their data services from
   us, and you guarantee they actually will? Then it is a business, not a tax. We will build it.”*
-- **On UNDERWRITE (wrong):** *“We are not asking to be protected from anything. We are asking why we should hand
-  over something we paid for.”*
+- **On TRUST-BUILDING (wrong):** *“We do not need convincing that it works — we built it. Selling it to the sceptics
+  is someone else’s job, not ours.”*
 
-### Patient Engagement & Recruitment — Clara Vega · block: assurance · needs: underwrite
+### Patient Engagement & Recruitment — Clara Vega · block: assurance (belief) · needs: trust
 
-- **Objection (visible from the start):** *“The last time head office set a standard, we rebuilt systems that were
-  working fine, lost two enrolment campaigns, and paid for all of it ourselves. The numbers here are good. They were
-  good last time too. That is not what is stopping us.”*
-- **On SEQUENCE (wrong):** *“More time does not help. We would spend it waiting to be told the rules had changed
-  again.”*
-- **On PRICE (wrong):** *“We do not need a better price. We need to know that this time the bill does not land on
-  us.”*
-- **On UNDERWRITE (right):** *“So the cost of moving our systems is covered up front, and our access is guaranteed
-  in writing, before we pay anything? Then we are in, and we will be the cheapest yes you get.”*
+- **Objection (visible from the start):** *“We have watched the centre promise big things before, and stall. It is
+  not the money, and it is not the numbers — those are good. We just do not believe this organisation can actually
+  pull something like this off. Show us it can.”*
+- **On SEQUENCE (wrong):** *“More time does not change whether we believe it will work. We would just spend it
+  waiting to see if it does.”*
+- **On PRICE (wrong):** *“A better price does not make the thing more likely to get built. We are not holding out for
+  money.”*
+- **On TRUST-BUILDING (right):** *“So you will show it working — roadshows, the early wins where we can see them, the
+  outside companies who have already done it — until we believe this organisation can deliver? Then we are in, and we
+  will be the cheapest yes you get.”*
 
 ### System lines
 

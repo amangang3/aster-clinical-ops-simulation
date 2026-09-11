@@ -625,8 +625,8 @@
      --------------------------------------------------------------- */
 
   // Left-to-right across the four deal buttons on each row. Reset moved off R, which now
-  // applies UNDERWRITE, onto Backspace.
-  var MOVE_KEYS = { q: "sequence", w: "price", e: "status", r: "underwrite" };
+  // applies TRUST-BUILDING, onto Backspace.
+  var MOVE_KEYS = { q: "sequence", w: "price", e: "status", r: "trust" };
 
   function onKey(ev) {
     if (ev.metaKey || ev.ctrlKey || ev.altKey) return;

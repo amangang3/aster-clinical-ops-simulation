@@ -34,7 +34,7 @@ window.ASTER_SCRIPT = {
       responses: {
         price:      "Money is not the problem. You would be giving us more to spend in the two quarters when we have the least room to change anything.",
         status:     "A title does not move our enrolment peak. We are not short of standing — we are short of a quarter in which we can change anything.",
-        underwrite: "We are not worried about being left exposed. We are worried about the calendar. A guarantee does not move our enrolment peak."
+        trust:      "Roadshows and success stories do not move our enrolment peak. We are short of a quarter we can change, not short of belief."
       },
       commit: "So we start after the peak, in stages my successor can pick up? Then yes. We will pay the full share."
     },
@@ -53,7 +53,7 @@ window.ASTER_SCRIPT = {
       objection: "We are the ones who are ahead. We funded this, we hired the team, and we are further along than either of them. What you are asking is that we build the same capability for two divisions who are behind us, and hand them the head start we paid for. Why would we help them catch up?",
       responses: {
         sequence:   "Time is not our problem — we are the ones who are ready. More time just lets the others close the gap while we wait.",
-        underwrite: "We are not exposed to anything; we are ahead. Protecting our downside answers a question we did not ask. Our worry is losing the lead, not carrying a risk.",
+        trust:      "We do not need convincing that it works — we built it. Selling it to the sceptics is someone else’s job, not ours.",
         price:      "Paying us for what we built helps — it stops this being a straight giveaway. But money alone still levels the field. If all three run on the same layer, what keeps us the division out in front?",
         status:     "Being named the owner helps — the others would build on our platform, to our rules, rather than around us. But setting the rules without paying for what we already built still asks us to hand years of work over for free. What do we get for the work itself?"
       },
@@ -62,22 +62,22 @@ window.ASTER_SCRIPT = {
 
     "patient-engagement": {
       descriptor: "The smallest division, and the one whose own numbers move most when the layer is built.",
-      worry: "Was burned the last time the centre set a standard, and does not trust that the bill will not land on it again.",
+      worry: "Does not believe the internal organisation can actually deliver something this big, having watched central initiatives stall before.",
       role: "Finds patients, enrols them, and keeps them in the trial. It is the smallest of the three divisions.",
       measured: "Enrolment yield per campaign, patient retention, and cost per enrolled patient.",
       position: [
-        "Patient Engagement has the most to gain and has been burned before. The last time head office set a standard, it rebuilt systems that were working fine, lost two enrolment campaigns, and paid for all of it out of its own budget. Nobody paid it back. That, not the numbers, is what is stopping it.",
+        "Patient Engagement has the most to gain, and the least faith that it will actually arrive. It has watched the centre promise big internal initiatives before and seen them stall. That, not the numbers, is what is stopping it.",
         "It is the smallest division, with {local} of potential upside. The layer would add another {cross} from work that spans divisions — half its own upside again, and the best deal of the three for the money.",
-        "Its own plans need {capital}, the least of the three, and it is being asked for the smallest share at {pledge}. The economics are not the problem. The memory is."
+        "Its own plans need {capital}, the least of the three, and it is being asked for the smallest share at {pledge}. The economics are not the problem. The belief is."
       ],
       work_out: "Patient Engagement has the most to gain and the least standing to ask for anything. Work out what it needs to hear before it will pay.",
-      objection: "The last time head office set a standard, we rebuilt systems that were working fine, lost two enrolment campaigns, and paid for all of it ourselves. The numbers here are good. They were good last time too. That is not what is stopping us.",
+      objection: "We have watched the centre promise big things before, and stall. It is not the money, and it is not the numbers — those are good. We just do not believe this organisation can actually pull something like this off. Show us it can.",
       responses: {
-        sequence:   "More time does not help. We would spend it waiting to be told the rules had changed again.",
-        price:      "We do not need a better price. We need to know that this time the bill does not land on us.",
-        status:     "We are not looking for a title or a seat at the table. We are looking for a promise that the cost does not land on us again."
+        sequence:   "More time does not change whether we believe it will work. We would just spend it waiting to see if it does.",
+        price:      "A better price does not make the thing more likely to get built. We are not holding out for money.",
+        status:     "We are not looking for a title or a seat at the table. We need to believe this organisation can actually deliver first."
       },
-      commit: "So the cost of moving our systems is covered up front, and our access is guaranteed in writing, before we pay anything? Then we are in, and we will be the cheapest yes you get."
+      commit: "So you will show it working — roadshows, the early wins where we can see them, the outside companies who have already done it — until we believe this organisation can deliver? Then we are in, and we will be the cheapest yes you get."
     }
   },
 
@@ -107,7 +107,7 @@ window.ASTER_SCRIPT = {
     subtitle: "Three divisions, one shared trial-data layer, and nobody who can order it built.",
     paragraphs: [
       "Aster Life Sciences runs its clinical operations through three divisions, each with its own budget, its own plan and its own targets. All three agree they should build one shared trial-data layer, so their AI agents can work across the divisions instead of stopping at the edge of each one.",
-      "Every division has still said no — each for a different, fair reason. One cannot take the disruption right now. One is already ahead and does not want to help the others catch up. One was burned last time and does not trust it will be different. None of them is arguing about the money.",
+      "Every division has still said no — each for a different, fair reason. One cannot take the disruption right now. One is already ahead and does not want to help the others catch up. One does not believe the organisation can actually deliver it. None of them is arguing about the money.",
       "You are {you}, {you_title}. You can make the case, but you cannot commit the money — only a division that owns a budget can put a number in its plan. So you have to work out what each one actually needs, and give it to them out of the one budget you do control: the centre’s."
     ],
     figures: [
@@ -134,7 +134,7 @@ window.ASTER_SCRIPT = {
       body: [
         "You are the case protagonist: {you}, {you_title} of the {unit}. Everyone in the room plays the same person.",
         "You sit on the {council} and can put a proposal on its agenda and argue for it. But you own no budget, and any number that enters a five-year plan has to be committed by the division that will carry it. The three people you are about to read own those plans. You do not, and you cannot set a target for any of them.",
-        "What you do control is the centre: the platform, the engineering group, and the budget that pays for both. That budget \u2014 yours, not theirs \u2014 is what you spend to win each division over. So the deals you can offer are things like covering someone's migration cost or crediting work they have already paid for. None of them is \u201corder them to do it\u201d, because that is not available to you."
+        "What you do control is the centre: the platform, the engineering group, and the budget that pays for both. That budget \u2014 yours, not theirs \u2014 is what you spend to win each division over. So the deals you can offer are things like crediting work a division has already paid for, or winning over the ones who do not yet believe it will deliver. None of them is \u201corder them to do it\u201d, because that is not available to you."
       ]
     },
 
@@ -224,7 +224,7 @@ window.ASTER_SCRIPT = {
   deals: {
     sequence: {
       name: "Change the timing",
-      what: "They pay the same share, but later, and in stages rather than all at once. The amount does not change — only when it lands."
+      what: "They pay the same share, but later, and in stages rather than all at once. The amount does not change — only when it lands, and each stage is a chance to negotiate incremental improvements instead of committing to everything up front."
     },
     price: {
       name: "Pay for the head start",
@@ -234,9 +234,9 @@ window.ASTER_SCRIPT = {
       name: "Name them the owner",
       what: "Make them the owner of the shared layer, so the other two build on their platform and on the rules they set for it — how far an agent can go on its own, when it has to stop and ask, what good enough looks like. They keep their lead instead of dissolving it into a shared asset."
     },
-    underwrite: {
-      name: "Cover their losses",
-      what: "A cap on what they can lose, agreed conditions for pulling out, and the cost of moving their systems paid up front."
+    trust: {
+      name: "Build the belief",
+      what: "Run roadshows, celebrate the internal wins as they land, and point to the outside companies who have already done it — so the doubt that this organisation can deliver gives way to belief."
     }
   },
 
@@ -367,7 +367,7 @@ window.ASTER_SCRIPT = {
       tells: {
         "site-ops":           "“We are not against this,” followed by two dates. The objection is about the calendar, and the division is managing a handover, not defending a position.",
         "data-analytics":     "“Why would we help them catch up?” The division is ahead and means to stay there, so the answer has to let it keep the lead — pay for the head start (PRICE) and make it the owner the others run on (STATUS). One without the other only half-answers it.",
-        "patient-engagement": "“Nobody paid for it.” The objection is about what happened last time, which is why a better price answers a question nobody asked."
+        "patient-engagement": "“We do not believe it will work.” The objection is faith in the organisation, not money — which is why a better price answers a question nobody asked. What moves them is seeing it delivered: internal wins they can point to, and outside proof."
       }
     },
 
@@ -409,7 +409,7 @@ window.ASTER_SCRIPT = {
         { q: "Wouldn't the centre just fund the layer itself?",
           a: "Sometimes it can, and then the exercise is about the next shared asset instead of this one. Funding is rarely the hard part. The hard part is who changes how they work once it exists, and that is a commitment rather than a cheque." },
         { q: "The smallest division has the best economics. Why not just tell it what to do?",
-          a: "Because it has the best return per dollar in the room and the least standing to ask for anything, and it has been burned before. That combination is why its objection is about trust rather than money. It is the cheapest yes available and the easiest one to lose." },
+          a: "Because it has the best return per dollar in the room and the least standing to ask for anything, and it does not yet believe the organisation can deliver. That combination is why its objection is about belief rather than money. It is the cheapest yes available and the easiest one to lose." },
         { q: "What if two divisions have the same block?",
           a: "That is the normal case. The diagnosis still works, the deals just collapse into two. The blocks land one per division here because the case was written that way." },
         { q: "Where does the technology come into this?",
@@ -435,7 +435,7 @@ window.ASTER_SCRIPT = {
     heading: "Facilitator keys",
     rows: [
       ["1 2 3",   "Select division"],
-      ["Q W E R", "Apply Sequence / Price / Status / Underwrite to the selected division"],
+      ["Q W E R", "Apply Sequence / Price / Status / Trust-building to the selected division"],
       ["H",       "Show the block labels, for when the room stalls"],
       ["N",       "Presenter note for the current beat"],
       ["C",       "Close the round"],

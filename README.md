@@ -61,8 +61,8 @@ two-slide framework deck closes the session once the round is done.
 3. Partial coordination is worse than none. The model is built to prove this rather than assert it.
 
 Three divisions defend their own plans for three different reasons — a timing problem, a head-start problem,
-and a trust problem. There are four levers: **Sequence**, **Price**, **Status**, **Underwrite**. Two of the
-divisions are answered by a single lever each (Sequence, Underwrite). The division that is already ahead needs
+and a trust problem. There are four levers: **Sequence**, **Price**, **Status**, **Trust-building**. Two of the
+divisions are answered by a single lever each (Sequence, Trust-building). The division that is already ahead needs
 **both Price and Status** — money alone only half-answers it, because being paid still lets the others catch
 up; it commits only once it is also made the owner of the shared layer. Reaching for the wrong lever costs its
 full price and buys nothing.
@@ -94,7 +94,7 @@ Keyboard only, and never shown on screen during the exercise.
 | Key | Action |
 |---|---|
 | `1` `2` `3` | Select division |
-| `Q` `W` `E` `R` | Apply Sequence / Price / Status / Underwrite to the selected division |
+| `Q` `W` `E` `R` | Apply Sequence / Price / Status / Trust-building to the selected division |
 | `H` | Toggle the block labels — the hint, for when the room stalls |
 | `N` | Toggle the presenter note for whatever beat the board is on |
 | `C` | Close the round |
