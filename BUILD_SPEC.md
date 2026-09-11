@@ -331,7 +331,7 @@ assets/nav.js       the flow between pages, rendered on every page
 data/model.js       constants + compute() — the only place numbers live
 data/script.js      every line of dialogue (§5)
 test.html           model check — enumerates §3.4, linked from nowhere
-framework-deck.pptx the four framework slides the simulation sits between (§6)
+framework-deck.pptx the two framework slides used to close the session (§6)
 README.md           §7
 BUILD_SPEC.md       this file
 .nojekyll
@@ -350,7 +350,7 @@ facilitator copy. Each division page is a shell that names its division and read
 sentence from `data/model.js` and `data/script.js`, like every other page here.
 
 The deck carries the same constants as `data/model.js` and is written against this mechanic, not an earlier
-one. Slides 3 and 4 are §2.1–§2.4 verbatim. If a constant changes here, the deck changes with it.
+one. The two slides are §2.1–§2.4: the forces, then the generalised blocker→move playbook (all four moves). If a constant changes here, the deck changes with it.
 
 ### 4.2 Design direction
 

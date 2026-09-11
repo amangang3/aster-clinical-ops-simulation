@@ -45,7 +45,7 @@ page.
 - `debrief.html` — the framework, all eight outcomes, and discussion questions
 - `facilitate.html` — the facilitator guide: what to do and say at each beat, the answer key, and the
   questions the room tends to ask. It has the answers on it, so do not project it.
-- `framework-deck.pptx` — four slides: the set-up, the exercise, the framework, and the framework applied
+- `framework-deck.pptx` — two slides for the close: the framework, and the framework applied (blocker → move, all four)
 
 ## What it teaches
 
@@ -115,7 +115,7 @@ what to say at each beat and what to do when it goes sideways.
 4. When two divisions have committed, stop and point at the enterprise figure. It has gone **down**. Sit in that.
 5. Close the third. Let the gate reveal play without talking over it.
 6. `C` to close the round. Read the wasted spend aloud.
-7. Move to `debrief.html`, or straight to slides 3 and 4 of `framework-deck.pptx`.
+7. Move to `debrief.html`, or straight to `framework-deck.pptx`.
 
 If the room stalls, `H` reveals the block labels and turns the exercise from diagnosis into matching. That is a
 worse lesson but a better use of the remaining minutes.
@@ -149,7 +149,7 @@ assets/division.js  renders whichever division a page declares in data-group
 assets/nav.js       the flow between the pages
 data/model.js       constants and the one compute() function
 data/script.js      all copy and dialogue
-framework-deck.pptx the slides this sits between
+framework-deck.pptx two framework slides for the close
 BUILD_SPEC.md       the full specification this was built from
 ```
 

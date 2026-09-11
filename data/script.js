@@ -402,7 +402,7 @@ window.ASTER_SCRIPT = {
         { label: "5 · The debrief", href: "debrief.html",
           body: "Afterwards. The two framework tables, the four moves, the applied diagnosis, all eight outcomes with your round marked, the pilot trap named under the table that proves it, why any of this is different with agents rather than with a shared warehouse, and six questions to open the discussion." }
       ],
-      deck: { label: "The deck", body: "framework-deck.pptx holds four slides. Slide 1 sets up the case and slide 2 explains the exercise. Slides 3 and 4 are the framework, and they are the ones to use after the debrief." }
+      deck: { label: "The deck", body: "framework-deck.pptx is two slides for after the debrief: the framework (the forces for and against a shared asset), then the framework applied (blocker to move, all four). Project them to close." }
     },
 
     beats: {
@@ -431,7 +431,7 @@ window.ASTER_SCRIPT = {
          "Press C. The board freezes and the ledger appears.",
          "Read the ledger out, wasted spend included. A clean round costs {dealcost} and returns {gain}, which is {ret}. Anything misdiagnosed cost full price and bought nothing."],
         ["10:00 · Hand off",
-         "Go to the debrief, or to slides 3 and 4 of the deck.",
+         "Go to the debrief, or to the two-slide framework deck.",
          "Ask the transfer question before you show the framework: which of these three is your division, and which block are you actually arguing? If anyone asks why this is an agentic problem rather than the shared-services problem their company had in 1998, that is the right question — the debrief answers it in three lines, and it is worth reading out."]
       ]
     },
