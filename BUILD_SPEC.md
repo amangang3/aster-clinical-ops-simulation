@@ -12,6 +12,18 @@ page-by-page UI spec. Do not look for other source documents; there are none.
 > that framework rather than to stage a negotiation. That makes it deterministic, offline, instant, and
 > repeatable. No model calls, no API keys, no live agents, no student devices, no per-round reset ritual.
 
+> **Simplified 2026-09-11 — the exercise is now number-free (this note supersedes the numeric sections below).**
+> Feedback was that the information density overwhelmed the room, so all budget figures were removed. The model
+> (`data/model.js`) is now a plain boolean: each division is committed or not, and the shared layer is *realised*
+> only when all three commit. There are no pools, pledges, capital, multipliers, move costs, enterprise value or
+> outcome table. The only figure kept anywhere is the run-rate ambition, shown once on the landing.
+>
+> As a result, **§3 (the numeric model), §3.4 (the outcome table), and every dollar figure in §2 and §4 are
+> superseded** — treat `data/model.js`, `data/script.js` and `assets/sim.js` as the source of truth for the live
+> build. What remains accurate here: the three blocks and the four moves (§2.1–§2.3, with UNDERWRITE now
+> TRUST-BUILDING), the block→move diagnosis (§2.4), the page flow and copy discipline (§4), and the division
+> dialogue in §6. The debrief page was also removed; its framework content lives in `framework-deck.pptx`.
+
 ---
 
 ## 0. HARD CONSTRAINTS — read first

@@ -47,20 +47,10 @@
       '<div class="card__name"><span class="dot"></span></div>' +
       '<div class="card__lead"></div>' +
       '<p class="card__descriptor"></p>' +
-      '<div class="card__figures"></div>' +
       '<a class="link-quiet card__cta"></a>';
     card.querySelector(".card__name").appendChild(document.createTextNode(g.short));
     card.querySelector(".card__lead").textContent = g.lead;
-    card.querySelector(".card__descriptor").textContent = FMT.fillFor(copy.descriptor, g);
-
-    var figs = card.querySelector(".card__figures");
-    D.figures.forEach(function (f) {
-      var d = document.createElement("div");
-      d.innerHTML = '<b class="tabular"></b><span></span>';
-      d.querySelector("b").textContent = FMT.moneyInt(g[f.key]);
-      d.querySelector("span").textContent = f.label;
-      figs.appendChild(d);
-    });
+    card.querySelector(".card__descriptor").textContent = FMT.fill(copy.descriptor);
 
     var cta = card.querySelector(".card__cta");
     cta.href = g.id + ".html";

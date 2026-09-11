@@ -1,32 +1,32 @@
 /* Aster Coordination Simulation — state machine, rendering, animation.
-   Deterministic: identical inputs always produce identical output, including animation order. */
+   Deterministic: identical inputs always produce identical output, including animation order.
+
+   Number-free by design. The board is about matching the right deal to each division and
+   realising the shared upside once all three commit — not about budgets. */
 
 (function () {
   "use strict";
 
-  var A     = window.ASTER;
-  var S     = window.ASTER_SCRIPT;
-  var FMT   = window.ASTER_FMT;
-  var money = FMT.money;
-  var moneyInt = FMT.moneyInt;
+  var A   = window.ASTER;
+  var S   = window.ASTER_SCRIPT;
+  var FMT = window.ASTER_FMT;
 
   var REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  var TYPE_MS       = 18;    // per character
-  var COUNT_MS      = 800;
-  var GATE_COUNT_MS = 1200;
-  var SHAKE_MS      = 180;
-  var FLASH_MS      = 700;
+  var TYPE_MS  = 18;    // per character
+  var SHAKE_MS = 180;
+  var FLASH_MS = 700;
+  var REVEAL_MS = 900;
 
   var el = function (id) { return document.getElementById(id); };
 
   /* ---------------------------------------------------------------
-     State — three booleans, an ordered move log, and a spend tally
+     State — a committed flag per division, an ordered move log, and
+     a per-division record of which deals have been offered.
      --------------------------------------------------------------- */
 
   var state, selected, closed, busy, hinted, gateShown, notesOn = false;
   var epoch = 0;    // bumped by reset and close, to cancel anything still in flight
-  var shown = {};   // last displayed figures, so count-ups know where to start
 
   function freshState() {
     var committed = {}, spentMoves = {};
@@ -34,39 +34,15 @@
       committed[g.id] = false;
       spentMoves[g.id] = {};
     });
-    return { committed: committed, applied: [], spent: 0, moveSpent: spentMoves };
+    return { committed: committed, applied: [], moveSpent: spentMoves };
   }
 
   function now() { return window.compute(state); }
-
-  /* Baseline and ceiling are properties of the model, not of the round. */
-  function withCommitted(ids) {
-    var c = {};
-    A.groups.forEach(function (g) { c[g.id] = ids.indexOf(g.id) !== -1; });
-    return window.compute({ committed: c, applied: [], spent: 0 });
-  }
-  var BASELINE = withCommitted([]);                                  // nobody moved
-  var CEILING  = withCommitted(A.groups.map(function (g) { return g.id; }));
+  function committedIds() { return now().committed; }
 
   /* ---------------------------------------------------------------
      Animation helpers
      --------------------------------------------------------------- */
-
-  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-
-  function countTo(node, key, to, ms, format) {
-    var from = typeof shown[key] === "number" ? shown[key] : to;
-    shown[key] = to;
-    if (REDUCED || ms === 0 || from === to) { node.textContent = format(to); return; }
-    var start = null;
-    function step(ts) {
-      if (start === null) start = ts;
-      var t = Math.min(1, (ts - start) / ms);
-      node.textContent = format(from + (to - from) * easeOut(t));
-      if (t < 1) window.requestAnimationFrame(step);
-    }
-    window.requestAnimationFrame(step);
-  }
 
   function typeInto(node, text, cls, token) {
     node.className = "response" + (cls ? " " + cls : "");
@@ -126,42 +102,22 @@
 
       var meta = document.createElement("div");
       meta.className = "row__meta";
-      meta.innerHTML =
-        '<div class="bar">' +
-          '<div class="bar__seg bar__local"></div>' +
-          '<div class="bar__seg bar__cross"></div>' +
-        '</div>' +
-        '<div class="bar__legend"></div>' +
-        '<div class="moves"></div>';
+      var moves = document.createElement("div");
+      moves.className = "moves";
+      meta.appendChild(moves);
 
-      // The two legend words come from the copy file, so they are built rather than
-      // written into the markup above.
-      var legend = meta.querySelector(".bar__legend");
-      [[S.board.own, "v-local"], [S.board.span, "v-cross"]].forEach(function (pair) {
-        var cell = document.createElement("span");
-        cell.appendChild(document.createTextNode(pair[0] + " "));
-        var v = document.createElement("b");
-        v.className = pair[1] + " tabular";
-        cell.appendChild(v);
-        legend.appendChild(cell);
-      });
-
-      var moves = meta.querySelector(".moves");
       A.moves.forEach(function (m) {
         var b = document.createElement("button");
         b.className = "move";
         b.dataset.move = m.id;
         b.title = S.deals[m.id].what;
         b.appendChild(document.createTextNode(m.label));
-        // The label alone says nothing to a room seeing it for the first time, so the
-        // button carries what the deal actually is, then what it costs.
+        // The framework label says nothing to a room seeing it cold, so the button also
+        // carries what the deal actually is, in plain words.
         var plain = document.createElement("span");
         plain.className = "move__plain";
         plain.textContent = S.deals[m.id].name;
         b.appendChild(plain);
-        var s = document.createElement("span");
-        s.textContent = moneyInt(m.cost);
-        b.appendChild(s);
         b.addEventListener("click", function () { applyMove(g.id, m.id); });
         moves.appendChild(b);
       });
@@ -180,35 +136,37 @@
      Rendering
      --------------------------------------------------------------- */
 
-  function renderBand(animate) {
+  function renderBand() {
     var r = now();
-    countTo(el("f-enterprise"), "enterprise", r.enterprise, animate ? COUNT_MS : 0, money);
-    el("f-enterprise-sub").textContent = "Ambition " + moneyInt(A.ambition);
+    el("upside-heading").textContent = S.board.upside_heading;
+    el("count-heading").textContent = S.board.count_heading;
+    el("offered-heading").textContent = S.board.offered_heading;
 
-    var gapNode = el("f-gap");
-    var ahead = r.gap <= 0;
-    gapNode.className = "band__value tabular " + (ahead ? "mint" : "coral");
-    countTo(gapNode, "gap", Math.abs(r.gap), animate ? COUNT_MS : 0, function (v) {
-      return (ahead ? "Ahead " : "Short ") + money(v);
-    });
+    var up = el("f-upside");
+    up.textContent = r.funded ? S.board.realized : S.board.locked;
+    up.className = "band__value " + (r.funded ? "mint" : "coral");
 
-    countTo(el("f-spent"), "spent", r.spent, animate ? COUNT_MS : 0, moneyInt);
-    el("f-spent-sub").textContent = closed && r.wasted > 0
-      ? "Of which wasted " + moneyInt(r.wasted)
+    var sub = el("f-upside-sub");
+    if (r.funded)               sub.textContent = S.board.realized_sub;
+    else if (r.count > 0)       sub.textContent = S.board.partial_sub;
+    else                        sub.textContent = S.board.locked_sub;
+
+    el("f-count").textContent = r.count + " of " + r.total;
+
+    el("f-offered").textContent = state.applied.length;
+    var wasted = state.applied.filter(function (a) { return !a.correct; }).length;
+    el("f-offered-sub").textContent = (closed && wasted > 0)
+      ? S.board.offered_wasted.replace("{n}", wasted)
       : "";
-
-    renderNotes();
   }
 
   function renderMeter(animate) {
     var r = now();
     var meter = el("meter");
     meter.classList.toggle("is-funded", r.funded);
-    el("meter-label").textContent = S.board.meter
-      .replace("{paid}", moneyInt(r.pledged))
-      .replace("{needed}", moneyInt(A.infrastructure_required));
-    el("meter-status").textContent = r.funded ? S.board.funded : S.board.not_funded;
-    var pct = Math.min(100, (r.pledged / A.infrastructure_required) * 100);
+    el("meter-label").textContent = S.board.meter;
+    el("meter-status").textContent = r.funded ? S.board.built : S.board.not_built;
+    var pct = (r.count / r.total) * 100;
     if (!animate) el("meter-fill").style.transition = "none";
     el("meter-fill").style.width = pct + "%";
     if (!animate) { void el("meter-fill").offsetWidth; el("meter-fill").style.transition = ""; }
@@ -216,44 +174,22 @@
 
   function renderNote() {
     var r = now();
-    if (closed) { el("sim-note").textContent = "Round closed — press R to reset."; return; }
-    el("sim-note").textContent = r.funded
-      ? S.system.gate_funded
-      : S.system.gate_short
-          .replace("{pledged}", moneyInt(r.pledged))
-          .replace("{required}", moneyInt(A.infrastructure_required));
+    if (closed) { el("sim-note").textContent = S.system.closed_note; return; }
+    if (r.funded)       el("sim-note").textContent = S.system.gate_funded;
+    else if (r.count)   el("sim-note").textContent = S.system.partial;
+    else                el("sim-note").textContent = S.system.opening;
   }
 
-  /* skipBars holds the value bars at their current widths so the gate reveal,
-     and only the gate reveal, gets to grow them. */
-  function renderRows(animateBars, skipBars) {
-    var r = now();
+  function renderRows() {
     A.groups.forEach(function (g) {
       var row = rowOf(g.id);
-      var p = r.per.filter(function (x) { return x.id === g.id; })[0];
-      var max = g.local_pool + g.cross_value;
       var committed = state.committed[g.id];
-
       row.classList.toggle("is-committed", committed);
-      row.querySelector(".badge--state").textContent = committed ? "Committed" : "Defending";
+      row.querySelector(".badge--state").textContent = committed ? S.board.committed : S.board.defending;
 
       var blockBadge = row.querySelector(".badge--block");
       blockBadge.textContent = (committed ? "✓ " : "") + g.block.toUpperCase();
       blockBadge.hidden = !(committed || hinted);
-
-      if (!skipBars) {
-        var localSeg = row.querySelector(".bar__local");
-        var crossSeg = row.querySelector(".bar__cross");
-        if (!animateBars) { localSeg.style.transition = "none"; crossSeg.style.transition = "none"; }
-        localSeg.style.width = (p.local / max * 100) + "%";
-        crossSeg.style.width = (p.cross / max * 100) + "%";
-        if (!animateBars) {
-          void localSeg.offsetWidth;
-          localSeg.style.transition = ""; crossSeg.style.transition = "";
-        }
-        row.querySelector(".v-local").textContent = money(p.local);
-        row.querySelector(".v-cross").textContent = money(p.cross);
-      }
 
       renderMoves(g.id);
     });
@@ -267,22 +203,22 @@
       var mark = state.moveSpent[gid][m.id];
       b.classList.toggle("is-spent", mark === "spent");
       b.classList.toggle("is-landed", mark === "landed");
-      // A move once spent on a group cannot be spent again, and a committed group is done.
+      // A deal once offered to a division cannot be offered again, and a committed division is done.
       b.disabled = closed || busy || committed || !!mark;
     });
   }
 
   /* ---------------------------------------------------------------
-     Presenter note — off by default, toggled with N. The beat is derived
-     from the board, so it can never disagree with what is on screen.
+     Presenter note — off by default, toggled with N. Derived from the
+     board, so it can never disagree with what is on screen.
      --------------------------------------------------------------- */
 
   function beatId() {
     if (closed) return "closed";
-    if (now().funded) return "funded";
-    var committed = committedIds().length;
-    if (committed === 2) return "pivot";
-    if (committed === 1) return "first";
+    var r = now();
+    if (r.funded) return "funded";
+    if (r.count === 2) return "pivot";
+    if (r.count === 1) return "first";
     return state.applied.length ? "probing" : "opening";
   }
 
@@ -298,10 +234,11 @@
   }
 
   function renderAll(animate) {
-    renderBand(animate);
+    renderBand();
     renderMeter(animate);
-    renderRows(animate);
+    renderRows();
     renderNote();
+    renderNotes();
   }
 
   function select(i) {
@@ -320,27 +257,24 @@
     if (state.committed[gid]) return;
     if (state.moveSpent[gid][mid]) return;
 
-    var g = FMT.group(gid);
-    var m = FMT.move(mid);
     var copy = S.groups[gid];
-    var needs = FMT.needs(gid);            // one move, or two for Data & Analytics
-    var correct = needs.indexOf(mid) !== -1;   // a move this division actually needs
+    var needs = FMT.needs(gid);              // one move, or two for Data & Analytics
+    var correct = needs.indexOf(mid) !== -1; // a move this division actually needs
     var token = epoch;
 
     busy = true;
 
-    // 1. The button locks and the money is gone before anyone knows whether it worked.
-    state.spent += m.cost;
+    // The button locks the moment the deal is offered.
     state.moveSpent[gid][mid] = correct ? "landed" : "spent";
     state.applied.push({ group_id: gid, move_id: mid, correct: correct });
-    renderBand(true);
+    renderBand();
     A.groups.forEach(function (x) { renderMoves(x.id); });
 
     var row = rowOf(gid);
     var resp = row.querySelector(".response");
 
     if (!correct) {
-      // Wrong move: one shake, the rejection line, and nothing else changes.
+      // Wrong deal: one shake, the rejection line, nothing else changes.
       if (!REDUCED) {
         row.classList.add("is-shaking");
         window.setTimeout(function () { row.classList.remove("is-shaking"); }, SHAKE_MS);
@@ -353,23 +287,21 @@
       return;
     }
 
-    // A needed move landed. It only commits the division once every needed move has —
-    // so for Data & Analytics, the first of PRICE/STATUS is a real concession that still
-    // does not close the deal.
+    // A needed deal landed. It only commits the division once every needed deal has —
+    // so the first of Data & Analytics' PRICE/STATUS pair is a real concession that still
+    // does not close it.
     var complete = needs.every(function (n) { return state.moveSpent[gid][n] === "landed"; });
 
     if (!complete) {
-      // Partial: the move helped, but the block is not fully answered yet. No commit.
       typeInto(resp, "“" + copy.responses[mid] + "”", "response--partial", token).then(function () {
         if (token !== epoch) return;
-        renderMoves(gid);
         busy = false;
         A.groups.forEach(function (x) { renderMoves(x.id); });
       });
       return;
     }
 
-    // Every needed move is in: the division commits.
+    // Every needed deal is in: the division commits.
     state.committed[gid] = true;
     var opensGate = now().funded && !gateShown;
 
@@ -377,27 +309,25 @@
       if (token !== epoch) return;
       row.classList.add("is-flashing");
       window.setTimeout(function () { row.classList.remove("is-flashing"); }, FLASH_MS);
-      // The badge flips and the block label appears now; if this is the third commit
-      // the meter, the bars and the figures belong to the gate reveal instead.
-      renderRows(true, opensGate);
-      if (opensGate) return gateReveal(token);
+      renderRows();
       renderMeter(true);
-      renderBand(true);
       renderNote();
+      renderNotes();
+      if (opensGate) return gateReveal(token);
+      renderBand();
       busy = false;
       A.groups.forEach(function (x) { renderMoves(x.id); });
     });
   }
 
   /* ---------------------------------------------------------------
-     The gate reveal — the moment the session is built around.
-     Nothing here is conditional or random; it plays identically every time.
+     The gate reveal — the moment the session is built around. The shared
+     upside flips from locked to realised. No numbers; plays the same every time.
      --------------------------------------------------------------- */
 
   function gateReveal(token) {
     gateShown = true;
     var sim = el("sim");
-    var sub = el("f-enterprise-sub");
 
     if (REDUCED) {
       renderAll(false);
@@ -406,76 +336,41 @@
       return Promise.resolve();
     }
 
-    // 1. Everything else dims to 40%
     sim.classList.add("is-dimmed");
-
-    return wait(300)
-      // 2. The meter completes and the label flips
+    return wait(320)
       .then(function () {
         if (token !== epoch) throw 0;
-        renderMeter(true);
+        renderMeter(true);   // meter completes, status flips to Built
         renderNote();
+        return wait(420);
       })
-      // 3. The multiplier reads out 0.55 -> 1.00
-      .then(function () { return wait(300); })
-      .then(function () {
-        if (token !== epoch) throw 0;
-        return tickMultiplier(sub, token);
-      })
-      // 4. The bars grow, cross-boundary appearing for the first time
-      .then(function () {
-        if (token !== epoch) throw 0;
-        renderRows(true);
-        return wait(500);
-      })
-      // 5. Enterprise value counts up to the funded figure
       .then(function () {
         if (token !== epoch) throw 0;
         sim.classList.remove("is-dimmed");
-        sub.textContent = "Ambition " + moneyInt(A.ambition);
-        countTo(el("f-enterprise"), "enterprise", CEILING.enterprise, GATE_COUNT_MS, money);
-        return wait(GATE_COUNT_MS);
+        // The upside badge flips to REALIZED with a one-shot pulse.
+        renderBand();
+        var up = el("f-upside");
+        up.classList.add("is-revealing");
+        window.setTimeout(function () { up.classList.remove("is-revealing"); }, REVEAL_MS);
+        return wait(REVEAL_MS);
       })
-      // 6. Only then does VS AMBITION flip from coral SHORT to mint AHEAD
       .then(function () {
         if (token !== epoch) return;
-        renderBand(true);
         busy = false;
         A.groups.forEach(function (x) { renderMoves(x.id); });
       })
       .catch(function () { /* superseded by a reset */ });
   }
 
-  function tickMultiplier(node, token) {
-    var from = A.multiplier_unfunded, to = A.multiplier_funded, ms = 500;
-    return new Promise(function (resolve) {
-      var start = null;
-      (function step(ts) {
-        if (token !== epoch) { resolve(); return; }
-        if (start === null) start = ts;
-        var t = Math.min(1, (ts - start) / ms);
-        var v = from + (to - from) * easeOut(t);
-        node.textContent = "Multiplier " + from.toFixed(2) + " → " + v.toFixed(2);
-        if (t < 1) window.requestAnimationFrame(step); else resolve();
-      })(window.performance.now());
-    });
-  }
-
   /* ---------------------------------------------------------------
      Closing the round — reachable from any state, including all-defending
      --------------------------------------------------------------- */
-
-  function committedIds() {
-    return A.groups.filter(function (g) { return state.committed[g.id]; })
-                   .map(function (g) { return g.id; });
-  }
 
   function closeRound() {
     if (closed) return;
     closed = true;
     busy = false;
     epoch++;                       // cancel any typing still in flight
-    // Closing mid-gate-reveal abandons the reveal, so undim the board it left behind.
     el("sim").classList.remove("is-dimmed");
     renderAll(false);
     buildScoreboard();
@@ -484,19 +379,19 @@
 
   function buildScoreboard() {
     var r = now();
-    var ids = committedIds();
-    var all = ids.length === A.groups.length;
+    var all = r.funded;
 
+    /* Headline cells — qualitative, no figures */
     el("score-head").innerHTML = "";
+    var wasted = state.applied.filter(function (a) { return !a.correct; }).length;
     [
-      ["Enterprise value", money(r.enterprise), ""],
-      ["Vs ambition", (r.gap <= 0 ? "Ahead " : "Short ") + money(Math.abs(r.gap)), r.gap <= 0 ? "mint" : "coral"],
-      ["Spent on deals", moneyInt(r.spent), ""],
-      ["Of which wasted", moneyInt(r.wasted), r.wasted > 0 ? "coral" : ""]
+      ["Cross-division upside", all ? S.board.realized : S.board.locked, all ? "mint" : "coral"],
+      ["Divisions committed", r.count + " of " + r.total, ""],
+      ["Deals that changed nothing", String(wasted), wasted > 0 ? "coral" : ""]
     ].forEach(function (c) {
       var d = document.createElement("div");
       d.className = "band__cell";
-      d.innerHTML = '<div class="micro"></div><div class="band__value tabular ' + c[2] + '"></div>';
+      d.innerHTML = '<div class="micro"></div><div class="band__value ' + c[2] + '"></div>';
       d.querySelector(".micro").textContent = c[0];
       d.querySelector(".band__value").textContent = c[1];
       el("score-head").appendChild(d);
@@ -507,75 +402,51 @@
     v.innerHTML = "";
     var lines = [];
     if (all) {
-      var landed = state.applied.filter(function (a) { return a.correct; })
-        .reduce(function (s, a) { return s + FMT.move(a.move_id).cost; }, 0);
-      var gain = r.enterprise - BASELINE.enterprise;
-      lines.push({
-        html: "<b>" + moneyInt(landed) + "</b> of deals unlocked <b>" + money(gain) +
-              "</b>. A return of <b>" + (gain / landed).toFixed(2) + "×</b>."
-      });
+      lines.push({ html: S.scoreboard.verdict_all });
+    } else if (r.count > 0) {
+      lines.push({ html: S.scoreboard.verdict_partial });
+      lines.push({ invariant: true, html: S.scoreboard.verdict_partial_note });
     } else {
-      lines.push({
-        html: "All three committed would have produced <b>" + money(CEILING.enterprise) +
-              "</b>. You reached " + money(r.enterprise) + ". The layer was never built."
-      });
-      if (ids.length > 0) {
-        lines.push({
-          invariant: true,
-          html: "Partial coordination cost more than doing nothing. Doing nothing produced <b>" +
-                money(BASELINE.enterprise) + "</b>."
-        });
-      } else {
-        lines.push({ html: S.system.nobody_moved });
-      }
+      lines.push({ html: S.scoreboard.verdict_none });
     }
     lines.forEach(function (l) {
       var d = document.createElement("div");
       d.className = "score__verdict" + (l.invariant ? " score__invariant" : "");
-      d.innerHTML = l.html;
+      d.innerHTML = FMT.fill(l.html);
       v.appendChild(d);
     });
 
-    /* Per-group table */
+    /* Per-division table — state and the deal(s) it needed */
     el("score-table-heading").textContent = S.scoreboard.table_heading;
     var t = el("score-table");
     t.innerHTML =
-      "<thead><tr><th>Division</th><th>State</th><th class='num'>Capability</th>" +
-      "<th class='num'>" + S.board.own + "</th><th class='num'>" + S.board.span +
-      "</th><th class='num'>" + S.board.total + "</th></tr></thead><tbody></tbody>";
+      "<thead><tr><th>Division</th><th>State</th><th>What it needed</th></tr></thead><tbody></tbody>";
     var tb = t.querySelector("tbody");
     A.groups.forEach(function (g) {
-      var p = r.per.filter(function (x) { return x.id === g.id; })[0];
       var c = state.committed[g.id];
       var tr = document.createElement("tr");
-      tr.innerHTML =
-        "<td></td><td class='" + (c ? "mint" : "coral") + "'></td>" +
-        "<td class='num'></td><td class='num'></td><td class='num'></td><td class='num'></td>";
-      var td = tr.children;
-      td[0].textContent = g.short;
-      td[1].textContent = c ? "Committed" : "Defending";
-      td[2].textContent = p.capability.toFixed(3);
-      td[3].textContent = money(p.local);
-      td[4].textContent = money(p.cross);
-      td[5].textContent = money(p.value);
+      tr.innerHTML = "<td></td><td class='" + (c ? "mint" : "coral") + "'></td><td></td>";
+      tr.children[0].textContent = g.short;
+      tr.children[1].textContent = c ? S.board.committed : S.board.defending;
+      tr.children[2].textContent = FMT.needs(g.id).map(function (id) { return FMT.move(id).label; }).join(" + ");
       tb.appendChild(tr);
     });
 
-    /* Deal ledger */
+    /* Deal ledger — every deal offered, in order, without costs */
     el("score-ledger-heading").textContent = S.scoreboard.ledger_heading;
     var ul = el("score-ledger");
     ul.innerHTML = "";
     if (state.applied.length === 0) {
-      var li = document.createElement("li");
-      li.innerHTML = '<span class="idx"></span><span></span><span></span>';
-      li.children[1].textContent = S.scoreboard.ledger_empty;
-      ul.appendChild(li);
+      var li0 = document.createElement("li");
+      li0.innerHTML = '<span class="idx"></span><span></span>';
+      li0.children[1].textContent = S.scoreboard.ledger_empty;
+      ul.appendChild(li0);
     }
     state.applied.forEach(function (a, i) {
       var g = FMT.group(a.group_id), m = FMT.move(a.move_id);
       var li = document.createElement("li");
       li.className = a.correct ? "right" : "wrong";
-      li.innerHTML = '<span class="idx"></span><span></span><span class="cost tabular"></span>';
+      li.innerHTML = '<span class="idx"></span><span></span>';
       li.children[0].textContent = (i + 1) + ".";
       li.children[1].innerHTML = "<b></b> on <span></span>";
       li.children[1].querySelector("b").textContent = m.label;
@@ -583,10 +454,9 @@
       if (!a.correct) {
         var note = document.createElement("span");
         note.className = "outcome";
-        note.textContent = " — " + S.scoreboard.bought_nothing;
+        note.textContent = " — " + S.scoreboard.changed_nothing;
         li.children[1].appendChild(note);
       }
-      li.children[2].textContent = moneyInt(m.cost);
       ul.appendChild(li);
     });
 
@@ -605,7 +475,6 @@
     busy = false;
     hinted = false;
     gateShown = false;
-    shown = {};
     el("sim").classList.remove("is-dimmed");
     el("scoreboard").hidden = true;
     el("keys").hidden = true;
@@ -616,6 +485,7 @@
       resp.className = "response";
       resp.textContent = "";
     });
+    el("f-upside").classList.remove("is-revealing");
     renderAll(false);
     select(0);
   }
@@ -624,8 +494,8 @@
      Facilitator keys — never shown on screen
      --------------------------------------------------------------- */
 
-  // Left-to-right across the four deal buttons on each row. Reset moved off R, which now
-  // applies TRUST-BUILDING, onto Backspace.
+  // Left-to-right across the four deal buttons on each row. Reset is on Backspace,
+  // since R now applies TRUST-BUILDING.
   var MOVE_KEYS = { q: "sequence", w: "price", e: "status", r: "trust" };
 
   function onKey(ev) {
@@ -644,7 +514,7 @@
       applyMove(A.groups[selected].id, MOVE_KEYS[lower]);
       ev.preventDefault(); return;
     }
-    if (lower === "h") { hinted = !hinted; renderRows(false); ev.preventDefault(); return; }
+    if (lower === "h") { hinted = !hinted; renderRows(); ev.preventDefault(); return; }
     if (lower === "n") { notesOn = !notesOn; renderNotes(); ev.preventDefault(); return; }
     if (lower === "c") { closeRound(); ev.preventDefault(); return; }
   }

@@ -19,8 +19,6 @@
 
   <section class="landing__body" id="body"></section>
 
-  <section class="figures figures--slim" id="figures"></section>
-
   <section class="cards" id="cards"></section>
 
   <section class="doer">
@@ -55,25 +53,6 @@
       el("body").appendChild(p);
     });
 
-    // Every figure on this page is read out of the model, never typed here.
-    var values = [
-      FMT.moneyInt(A.ambition),
-      FMT.moneyInt(A.infrastructure_required),
-      FMT.moneyInt(FMT.sum("capital_need")),
-      FMT.moneyInt(FMT.sum("cross_value"))
-    ];
-    L.figures.forEach(function (f, i) {
-      var d = document.createElement("div");
-      d.className = "figures__cell";
-      d.innerHTML = '<div class="figures__value tabular"></div>' +
-                    '<div class="figures__label"></div>' +
-                    '<div class="figures__note"></div>';
-      d.querySelector(".figures__value").textContent = values[i];
-      d.querySelector(".figures__label").textContent = f.label;
-      d.querySelector(".figures__note").textContent = f.note;
-      el("figures").appendChild(d);
-    });
-
     A.groups.forEach(function (g) {
       // Each card is the way into that division's own page.
       var c = document.createElement("a");
@@ -86,7 +65,7 @@
       c.querySelector(".card__name").appendChild(document.createTextNode(g.short));
       c.querySelector(".card__lead").textContent = g.lead;
       c.querySelector(".card__descriptor").textContent =
-        FMT.fillFor(S.groups[g.id].descriptor, g);
+        FMT.fill(S.groups[g.id].descriptor);
       var cta = document.createElement("span");
       cta.className = "card__cta";
       cta.textContent = S.divisions.cta;

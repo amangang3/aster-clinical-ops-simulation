@@ -431,6 +431,14 @@ a.card--link:hover .card__cta { color: var(--accent); }
 .move.is-landed { color: var(--mint); border-color: var(--mint); }
 .move:disabled:not(.is-spent):not(.is-landed) { opacity: 0.35; }
 
+/* the shared-upside flip from Locked to Realised — one pulse on the gate reveal */
+@keyframes upside-reveal {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.09); }
+  100% { transform: scale(1); }
+}
+.band__value.is-revealing { animation: upside-reveal 900ms var(--ease) 1; transform-origin: left center; }
+
 /* wrong-move shake: one horizontal pass, 6px, 180ms */
 @keyframes row-shake {
   0%, 100% { transform: translateX(0); }

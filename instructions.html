@@ -35,13 +35,6 @@
   </section>
 
   <section>
-    <h2 id="numbers-heading"></h2>
-    <p class="caption" id="numbers-caption"></p>
-    <table class="grid" id="numbers"></table>
-    <p class="prose callout" id="numbers-note"></p>
-  </section>
-
-  <section>
     <h2 id="job-heading"></h2>
     <div class="prose" id="job"></div>
   </section>
@@ -51,9 +44,6 @@
     <p class="caption" id="moves-caption"></p>
     <table class="grid grid--deals" id="moves"></table>
     <p class="prose" id="moves-note"></p>
-
-    <h3 id="money-heading"></h3>
-    <table class="grid" id="money"></table>
   </section>
 
   <section class="pair">
@@ -82,7 +72,7 @@
   "use strict";
   var A = window.ASTER, S = window.ASTER_SCRIPT, FMT = window.ASTER_FMT;
   var I = S.instructions;
-  var fill = FMT.fill, money = FMT.moneyInt;
+  var fill = FMT.fill;
   var el = function (id) { return document.getElementById(id); };
 
   function paras(hostId, list) {
@@ -140,25 +130,15 @@
   });
   el("blocks-note").textContent = fill(I.blocks.note);
 
-  /* Where the numbers come from */
-  el("numbers-heading").textContent = I.numbers.heading;
-  el("numbers-caption").textContent = fill(I.numbers.caption);
-  var numbers = tbody(el("numbers"));
-  I.numbers.rows.forEach(function (row) {
-    tr(numbers, [{ cls: "factor", text: row[0] }, { text: row[1] }]);
-  });
-  el("numbers-note").textContent = fill(I.numbers.note);
-
   el("job-heading").textContent = I.job.heading;
   paras("job", I.job.body);
 
-  /* The four deals: framework label, what it is in plain words, and the price. */
+  /* The four deals: framework label, what it is in plain words. No cost — this is number-free. */
   el("moves-heading").textContent = I.moves.heading;
   el("moves-caption").textContent = fill(I.moves.caption);
   var moves = tbody(el("moves"));
   el("moves").insertAdjacentHTML("afterbegin",
-    "<thead><tr><th>The deal</th><th class='num'>What it costs you</th>" +
-    "<th>What you are offering them</th></tr></thead>");
+    "<thead><tr><th>The deal</th><th>What you are offering them</th></tr></thead>");
   A.moves.forEach(function (m) {
     var d = S.deals[m.id];
     var head = document.createElement("span");
@@ -168,18 +148,10 @@
     head.querySelector("span").textContent = d.name;
     tr(moves, [
       { cls: "factor", node: head },
-      { cls: "num", text: money(m.cost) },
       { text: d.what }
     ]);
   });
   el("moves-note").textContent = fill(I.moves.note);
-
-  /* Your budget vs theirs. Confusing these two is the single easiest mistake to make. */
-  el("money-heading").textContent = I.moves.money_heading;
-  var moneyTable = tbody(el("money"));
-  I.moves.money.forEach(function (row) {
-    tr(moneyTable, [{ cls: "factor", text: row[0] }, { text: row[1] }]);
-  });
 
   el("rules-heading").textContent = I.rules.heading;
   I.rules.items.forEach(function (item) {
