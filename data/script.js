@@ -111,7 +111,7 @@ window.ASTER_SCRIPT = {
       { label: "Where things stand",
         body: "Aster Life Sciences runs its clinical operations through three divisions, each with its own plan and its own targets. All three agree they should build one shared trial-data layer, so their AI agents can work across the divisions instead of stopping at the edge of each one. The upside they are leaving on the table is worth about {ambition}." },
       { label: "Why nobody has said yes",
-        body: "Every division has still said no — each for a different, fair reason. One cannot take the disruption right now. One is already ahead and does not want to help the others catch up. One does not believe the organisation can actually deliver it. None of them is arguing about the money." },
+        body: "Every division has still said no — each for a different, fair reason. One cannot take the disruption right now. One is already ahead and does not want to help the others catch up. One does not believe the organisation can actually deliver it." },
       { label: "What you can do about it",
         body: "You are {you}, {you_title}. You cannot order any of this — you own no division and cannot commit anyone’s plan. What you can do is work out what each one needs to say yes, and give it to them. There are four deals you can offer." }
     ],
@@ -150,7 +150,7 @@ window.ASTER_SCRIPT = {
 
     blocks: {
       heading: "What each division is worried about",
-      caption: "Not one of them is arguing about the money. Each is holding back for a different, human reason — and that reason is what you have to answer. Two things shape how badly each one needs this: where it sits in the flow of work, and how early it started. The division that sits where the handoffs land needs it most. The division that started first needs it least — it is already working the way it would have to work anyway.",
+      caption: "Each is holding back for a different, human reason — and that reason is what you have to answer. Two things shape how badly each one needs this: where it sits in the flow of work, and how early it started. The division that sits where the handoffs land needs it most. The division that started first needs it least — it is already working the way it would have to work anyway.",
       note: "Read the three division briefs next; this is only the headline of each. Working out which deal answers which worry is the exercise."
     },
 
@@ -319,6 +319,9 @@ window.ASTER_SCRIPT = {
         "Bring the room back together and ask what it took to get all three in, and what happened when only one or two committed."
       ]
     },
+
+    to_sim: "OPEN THE EXERCISE",
+    to_index: "The situation",
 
     flow: {
       heading: "What each group works through",
