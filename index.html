@@ -1,99 +1,108 @@
 <!doctype html>
-<html lang="en" class="fit">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aster Life Sciences — The Coordination Problem</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
-<body class="landing">
+<body class="doc-body">
+<div class="doc">
 
   <nav id="nav"></nav>
 
-  <header class="landing__head">
-    <h1 class="landing__title" id="title"></h1>
-    <p class="landing__subtitle" id="subtitle"></p>
+  <header class="doc__head">
+    <h1 id="title"></h1>
+    <p class="standfirst" id="subtitle"></p>
   </header>
 
-  <section class="story" id="story"></section>
+  <!-- The situation, one labelled section per block, read top to bottom. -->
+  <div id="story"></div>
 
-  <section class="landing__divisions">
-    <p class="eyebrow" id="cards-label"></p>
+  <section>
+    <h2 id="cards-heading"></h2>
+    <p class="caption" id="cards-caption"></p>
     <div class="cards" id="cards"></div>
   </section>
 
-  <section class="doer">
-    <p class="doer__line" id="do-line"></p>
-    <a class="link-quiet" id="do-link" href="instructions.html"></a>
+  <section>
+    <h2 id="do-heading"></h2>
+    <div class="prose"><p id="do-line"></p></div>
   </section>
 
-  <footer class="landing__foot">
-    <div class="landing__actions">
-      <a class="btn btn--primary" id="begin" href="instructions.html"></a>
-      <a class="link-quiet" id="guide" href="facilitate.html"></a>
-    </div>
-    <p class="landing__disclaimer" id="disclaimer"></p>
+  <footer class="doc__foot">
+    <a class="btn btn--primary" id="begin" href="instructions.html"></a>
+    <a class="link-quiet" id="do-link" href="instructions.html"></a>
+    <a class="link-quiet" id="guide" href="facilitate.html"></a>
   </footer>
 
-  <script src="data/model.js"></script>
-  <script src="data/script.js"></script>
-  <script src="assets/nav.js"></script>
-  <script>
-  (function () {
-    "use strict";
-    var A = window.ASTER, S = window.ASTER_SCRIPT, FMT = window.ASTER_FMT;
-    var L = S.landing;
-    var el = function (id) { return document.getElementById(id); };
+  <p class="disclaimer" id="disclaimer"></p>
 
-    document.title = A.meta.org + " — " + L.title;
-    el("title").textContent = L.title;
-    el("subtitle").textContent = L.subtitle;
-    el("disclaimer").textContent = A.meta.disclaimer +
-      " " + A.meta.unit + ", " + A.meta.setting + ".";
+</div>
 
-    // The first block is the lead — set larger, so the eye has one place to start.
-    L.story.forEach(function (item, i) {
-      var d = document.createElement("div");
-      d.className = "story__item" + (i === 0 ? " story__item--lead" : "");
-      var label = document.createElement("p");
-      label.className = "eyebrow";
-      label.textContent = item.label;
-      var p = document.createElement("p");
-      p.textContent = FMT.fill(item.body);
-      d.appendChild(label);
-      d.appendChild(p);
-      el("story").appendChild(d);
-    });
+<script src="data/model.js"></script>
+<script src="data/script.js"></script>
+<script src="assets/nav.js"></script>
+<script>
+(function () {
+  "use strict";
+  var A = window.ASTER, S = window.ASTER_SCRIPT, FMT = window.ASTER_FMT;
+  var L = S.landing;
+  var el = function (id) { return document.getElementById(id); };
 
-    el("cards-label").textContent = L.cards_label;
+  document.title = A.meta.org + " — " + L.title;
+  el("title").textContent = L.title;
+  el("subtitle").textContent = L.subtitle;
+  el("disclaimer").textContent = A.meta.disclaimer +
+    " " + A.meta.unit + ", " + A.meta.setting + ".";
 
-    A.groups.forEach(function (g) {
-      // Each card is the way into that division's own page.
-      var c = document.createElement("a");
-      c.className = "card card--link accent-" + g.accent;
-      c.href = g.id + ".html";
-      c.innerHTML =
-        '<div class="card__name"><span class="dot"></span></div>' +
-        '<div class="card__lead"></div>' +
-        '<div class="card__descriptor"></div>';
-      c.querySelector(".card__name").appendChild(document.createTextNode(g.short));
-      c.querySelector(".card__lead").textContent = g.lead;
-      c.querySelector(".card__descriptor").textContent =
-        FMT.fill(S.groups[g.id].descriptor);
-      var cta = document.createElement("span");
-      cta.className = "card__cta";
-      cta.textContent = S.divisions.cta;
-      c.appendChild(cta);
-      el("cards").appendChild(c);
-    });
+  /* The situation — each block is a heading and a paragraph, so the page says
+     what you are reading before you read it, and the order is top to bottom. */
+  L.story.forEach(function (item) {
+    var s = document.createElement("section");
+    var h = document.createElement("h2");
+    h.textContent = item.label;
+    var wrap = document.createElement("div");
+    wrap.className = "prose";
+    var p = document.createElement("p");
+    p.textContent = FMT.fill(item.body);
+    wrap.appendChild(p);
+    s.appendChild(h);
+    s.appendChild(wrap);
+    el("story").appendChild(s);
+  });
 
-    el("do-line").textContent = FMT.fill(L.do_line);
-    el("do-link").textContent = L.do_link;
+  el("cards-heading").textContent = L.cards_heading;
+  el("cards-caption").textContent = FMT.fill(L.cards_caption);
 
-    el("begin").textContent = L.begin;
-    el("guide").textContent = S.nav.guide;
-    el("guide").title = S.nav.guide_note;
-  })();
-  </script>
+  A.groups.forEach(function (g) {
+    // Each card is the way into that division's own page.
+    var c = document.createElement("a");
+    c.className = "card card--link accent-" + g.accent;
+    c.href = g.id + ".html";
+    c.innerHTML =
+      '<div class="card__name"><span class="dot"></span></div>' +
+      '<div class="card__lead"></div>' +
+      '<div class="card__descriptor"></div>';
+    c.querySelector(".card__name").appendChild(document.createTextNode(g.short));
+    c.querySelector(".card__lead").textContent = g.lead;
+    c.querySelector(".card__descriptor").textContent =
+      FMT.fill(S.groups[g.id].descriptor);
+    var cta = document.createElement("span");
+    cta.className = "card__cta";
+    cta.textContent = S.divisions.cta;
+    c.appendChild(cta);
+    el("cards").appendChild(c);
+  });
+
+  el("do-heading").textContent = L.do_heading;
+  el("do-line").textContent = FMT.fill(L.do_line);
+  el("do-link").textContent = L.do_link;
+
+  el("begin").textContent = L.begin;
+  el("guide").textContent = S.nav.guide;
+  el("guide").title = S.nav.guide_note;
+})();
+</script>
 </body>
 </html>

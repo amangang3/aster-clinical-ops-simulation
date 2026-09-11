@@ -382,7 +382,9 @@ outcome must be identical either way.
 
 ### 4.3 `index.html` — landing
 
-One screen, no scrolling at 1080p.
+A document, like the rest of the flow: it uses the shared `.doc` layout and scrolls. It is not pinned to one
+screen — that pinning clipped the page whenever the content grew, and took the nav and the BEGIN button with
+it. Only `sim.html` is a one-screen page.
 
 - Title, and the disclaimer from `meta.disclaimer` in small dim text
 - The situation in three short paragraphs: three operating groups each with its own P&L; the CIO has run a
