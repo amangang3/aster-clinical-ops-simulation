@@ -117,7 +117,6 @@ window.ASTER_SCRIPT = {
       { label: "Their own tech budgets",  note: "what the three had set aside for their own plans" },
       { label: "Work spanning divisions", note: "worth nothing today, and only pays once the layer exists" }
     ],
-    pool_label: "of potential upside a year",
     do_line: "You are {you}, and you cannot order any of this. You will read the three divisions, work out what each one needs before it will pay its share, and spend the centre\u2019s own budget to give it to them. There are four deals to offer, and matching the right one \u2014 sometimes the right two \u2014 to each division is the whole exercise.",
     do_link: "How the session works",
     begin: "BEGIN",
@@ -145,9 +144,8 @@ window.ASTER_SCRIPT = {
       heading: "What is being decided",
       body: [
         "Aster wants to build one shared trial-data layer: a single place where all three divisions keep their trial data, so AI agents can follow a piece of work through the whole Center instead of stopping at the edge of one division.",
-        "It costs {infra}, and it is all or nothing — there is no half version and no pilot. Each division has been asked to pay a fixed share out of its own technology budget. The three shares add up to exactly {infra}, and no two of them are enough on their own."
+        "It costs {infra}, and it is all or nothing — there is no half version and no pilot. Each division has been asked to pay a fixed share out of its own technology budget: {shares}. The three add up to exactly {infra}, and no two of them are enough on their own."
       ],
-      table_caption: "What each division is being asked for. The shares are fixed — you are not negotiating the amounts.",
       note: "The only open question is whether all three divisions will pay their share. All three agree the layer should exist. All three have still said no."
     },
 
@@ -190,29 +188,14 @@ window.ASTER_SCRIPT = {
       note: "There is no partial credit and no refund. A deal offered to a division it does not suit costs you the same and changes nothing."
     },
 
-    applying: {
-      heading: "What happens when you offer a deal",
-      lead: "Name a division and a deal. The cost leaves your budget straight away, before anyone knows whether it worked, and that deal is then used up for that division.",
-      rows: [
-        ["If it is not what that division needed",
-         "It says no, in its own words, and nothing else on the board moves. Your money is gone and you have learned something."],
-        ["If it helps but is not enough on its own",
-         "The division says as much: the concession is real, but it still will not pay until everything it needs is in. Your money is spent either way."],
-        ["If it is everything they needed",
-         "They agree to pay their share. The funding bar rises by that share, and their own number drops slightly, because they have just spent part of their own budget."],
-        ["Once all three have agreed",
-         "The shares reach {infra}, the layer gets built, every division goes from {unfunded} to full rate, and the total jumps to {ceiling}."]
-      ]
-    },
-
     rules: {
-      heading: "The rules",
+      heading: "The rules, and what a deal does",
       items: [
-        "Each deal can be offered to each division once.",
-        "The money is spent the moment you offer it, before you find out whether it worked.",
+        "You offer a division a deal. The cost leaves your budget the moment you offer it, before anyone knows whether it worked.",
+        "If it is not what that division needed, it says no and nothing on the board moves. Your money is gone.",
+        "If it answers the division, it agrees to pay its share: the funding bar rises and its own number dips slightly, because it has just spent part of its budget.",
         "A deal that helps but is not enough leaves the division where it was — it still has not paid.",
-        "Once a division agrees to pay, it stays in for the rest of the round.",
-        "Nothing can be taken back.",
+        "Each deal can be offered to each division once, agreement is permanent, and nothing can be taken back.",
         "The layer only gets built if all three divisions agree."
       ]
     },

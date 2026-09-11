@@ -19,7 +19,7 @@
 
   <section class="landing__body" id="body"></section>
 
-  <section class="figures" id="figures"></section>
+  <section class="figures figures--slim" id="figures"></section>
 
   <section class="cards" id="cards"></section>
 
@@ -83,14 +83,9 @@
       c.innerHTML =
         '<div class="card__name"><span class="dot"></span></div>' +
         '<div class="card__lead"></div>' +
-        '<div class="card__pool tabular"><span></span></div>' +
         '<div class="card__descriptor"></div>';
       c.querySelector(".card__name").appendChild(document.createTextNode(g.short));
       c.querySelector(".card__lead").textContent = g.lead;
-      c.querySelector(".card__pool").insertBefore(
-        document.createTextNode(FMT.moneyInt(g.local_pool)),
-        c.querySelector(".card__pool span"));
-      c.querySelector(".card__pool span").textContent = S.landing.pool_label;
       c.querySelector(".card__descriptor").textContent =
         FMT.fillFor(S.groups[g.id].descriptor, g);
       var cta = document.createElement("span");

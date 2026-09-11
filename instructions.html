@@ -24,8 +24,6 @@
   <section>
     <h2 id="situation-heading"></h2>
     <div class="prose" id="situation"></div>
-    <p class="caption" id="situation-table-caption"></p>
-    <table class="grid" id="pledges"></table>
     <p class="prose callout" id="situation-note"></p>
   </section>
 
@@ -56,12 +54,6 @@
 
     <h3 id="money-heading"></h3>
     <table class="grid" id="money"></table>
-  </section>
-
-  <section>
-    <h2 id="applying-heading"></h2>
-    <p class="caption" id="applying-lead"></p>
-    <table class="grid" id="applying"></table>
   </section>
 
   <section class="pair">
@@ -126,32 +118,9 @@
   el("you-heading").textContent = I.you.heading;
   paras("you", I.you.body);
 
-  /* What is being decided, and what each division is asked for */
+  /* What is being decided */
   el("situation-heading").textContent = I.situation.heading;
   paras("situation", I.situation.body);
-  el("situation-table-caption").textContent = fill(I.situation.table_caption);
-  var pledges = tbody(el("pledges"));
-  A.groups.forEach(function (g) {
-    var name = document.createElement("span");
-    name.className = "swatch accent-" + g.accent;
-    name.innerHTML = '<span class="dot"></span>';
-    name.appendChild(document.createTextNode(g.short));
-    tr(pledges, [
-      { cls: "factor", node: name },
-      { cls: "num", text: money(g.capital_need) },
-      { cls: "num", text: money(g.pledge) }
-    ]);
-  });
-  // The total row is the point of the table: the three shares are exactly the build cost.
-  var total = tr(pledges, [
-    { cls: "factor", text: "All three together" },
-    { cls: "num", text: money(FMT.sum("capital_need")) },
-    { cls: "num", text: money(FMT.sum("pledge")) }
-  ]);
-  total.className = "is-total";
-  el("pledges").insertAdjacentHTML("afterbegin",
-    "<thead><tr><th>Division</th><th class='num'>Its own technology budget</th>" +
-    "<th class='num'>Share of the " + money(A.infrastructure_required) + " layer</th></tr></thead>");
   el("situation-note").textContent = fill(I.situation.note);
 
   /* What each division is worried about — the challenges, before any of the arithmetic.
@@ -205,19 +174,11 @@
   });
   el("moves-note").textContent = fill(I.moves.note);
 
-  /* The two pots of money. Confusing these two is the single easiest mistake to make. */
+  /* Your budget vs theirs. Confusing these two is the single easiest mistake to make. */
   el("money-heading").textContent = I.moves.money_heading;
-  var money = tbody(el("money"));
+  var moneyTable = tbody(el("money"));
   I.moves.money.forEach(function (row) {
-    tr(money, [{ cls: "factor", text: row[0] }, { text: row[1] }]);
-  });
-
-  /* What offering a deal actually does. */
-  el("applying-heading").textContent = I.applying.heading;
-  el("applying-lead").textContent = fill(I.applying.lead);
-  var applying = tbody(el("applying"));
-  I.applying.rows.forEach(function (row) {
-    tr(applying, [{ cls: "factor", text: row[0] }, { text: row[1] }]);
+    tr(moneyTable, [{ cls: "factor", text: row[0] }, { text: row[1] }]);
   });
 
   el("rules-heading").textContent = I.rules.heading;

@@ -198,14 +198,16 @@ window.ASTER = {
       pull: "dependent", block: "assurance" }
   ],
 
-  // PRICE was split into PRICE + STATUS (6 + 6), so the four move costs still sum to $27M and
-  // the outcome economics are unchanged. Both answer "advantage": Data & Analytics needs both.
+  // PRICE was split into PRICE ($11M) + STATUS ($1M), so the four move costs still sum to $27M
+  // and the outcome economics are unchanged. STATUS is cheap on purpose: a governance title
+  // costs the centre almost nothing, and the point lands that the near-free lever is what
+  // actually closes the deal the $11M one only half-answered. Both answer "advantage".
   moves: [
     { id: "sequence",   label: "SEQUENCE",   cost: 6,  answers: "absorption",
       blurb: "Commit the number, negotiate the clock." },
-    { id: "price",      label: "PRICE",      cost: 6,  answers: "advantage",
+    { id: "price",      label: "PRICE",      cost: 11, answers: "advantage",
       blurb: "Pay for the head start. Credit what they have already built, guarantee them demand." },
-    { id: "status",     label: "STATUS",     cost: 6,  answers: "advantage",
+    { id: "status",     label: "STATUS",     cost: 1,  answers: "advantage",
       blurb: "Protect the lead. Name them owner of the shared layer, so the others build on their platform." },
     { id: "underwrite", label: "UNDERWRITE", cost: 9,  answers: "assurance",
       blurb: "Guarantee the downside. Caps, kill criteria, migration costs covered." }
@@ -400,11 +402,10 @@ In order:
   name and title from `meta.you`, that everyone in the room plays the same person, what he cannot do (set a
   target, commit another P&L's money) and what he can (spend the centre's platform and engineering budget,
   which is what a deal costs).
-- **What is being decided**: the layer costs `infrastructure_required` and is all or nothing; each division
-  pays a fixed share out of the budget it had set aside for its own plans. Followed by a table rendered from
-  the model — division, its own budget, its share — with a total row, because the three shares summing to
-  exactly the build cost is the thing to see. Then the line that answers what people actually ask: nobody is
-  deciding how big anyone's budget is, or what the layer should do.
+- **What is being decided**, in prose only: the layer costs `infrastructure_required` and is all or nothing;
+  each division pays a fixed share (the three named inline via `{shares}`) that sums to exactly the build cost.
+  No separate shares table — the earlier one duplicated the shares that already appear in the your-budget/theirs
+  table below, and the page reads lighter without it. Then the line that answers what people actually ask.
 - **What each division is worried about**, placed before any of the arithmetic — one line per division, in its
   own accent, from the `worry` field in the copy. This centres the exercise on the three human challenges (a
   calendar, a lead worth protecting, a broken trust) rather than opening on a wall of numbers. It still names no
@@ -424,12 +425,12 @@ In order:
   share* is the division's own money going into the layer, and is fixed. *Your budget — the deal cost* is the
   centre's money, spent to get the agreement; it never enters the layer and never enters the enterprise total,
   which `compute()` confirms — `spent` is returned alongside `enterprise`, never subtracted from it.
-- **What happens when you offer a deal**, in four rows: the cost leaves before anyone knows whether it worked;
-  a deal that misses draws a refusal and moves nothing; a deal that *helps but is not enough* (the first of the
-  pair) draws a real concession but no commit; a deal that finishes the job has the division agree to its share,
-  the funding bar rise, and its own number fall slightly. Then what happens once all three have agreed.
-- **The rules**, as a short list: one offer of each deal per division, money spent when offered, a helping-but-
-  insufficient deal leaves the division where it was, agreement is permanent, nothing can be taken back, all
+- **The rules, and what a deal does** — one merged list, not a separate "what happens when you offer a deal"
+  table (that table overlapped the rules and made the page heavier than it needed to be). It covers: the cost
+  leaves the moment you offer, before anyone knows if it worked; a miss draws a refusal and moves nothing; a
+  deal that answers has the division agree, the funding bar rise, and its own number dip; a *helps-but-not-
+  enough* deal leaves the division where it was; one offer of each deal per division, agreement is permanent,
+  nothing can be taken back; all
   three needed to build the layer
 - **What to watch**: the enterprise figure, because it does not move the way people expect
 

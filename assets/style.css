@@ -179,6 +179,14 @@ button {
 .figures__label { font-size: 1.06rem; margin-top: 0.35rem; }
 .figures__note  { font-size: 1rem; color: var(--dim); margin-top: 0.1rem; }
 
+/* Landing variant: the four setup figures kept, but quieted to a caption strip so the page
+   leads with the story rather than a wall of stat tiles. No surface, no border, smaller value. */
+.figures--slim { gap: 0.6rem 1.6rem; }
+.figures--slim .figures__cell { background: transparent; border: 0; padding: 0.3rem 0; }
+.figures--slim .figures__value { font-size: 1.5rem; color: var(--muted); }
+.figures--slim .figures__label { font-size: 0.98rem; margin-top: 0.15rem; }
+.figures--slim .figures__note  { font-size: 0.92rem; }
+
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .card {
   background: var(--surface);
@@ -191,8 +199,6 @@ button {
 }
 .card__name { display: flex; align-items: center; gap: 0.67rem; font-size: 1.45rem; font-weight: 600; }
 .card__lead { font-size: 1rem; color: var(--muted); }
-.card__pool { font-size: 1.67rem; font-weight: 600; color: var(--accent); }
-.card__pool span { font-size: 1rem; color: var(--dim); font-weight: 400; margin-left: 0.45rem; }
 .card__descriptor { font-size: 1rem; color: var(--muted); margin: 0; }
 
 a.card--link { text-decoration: none; color: inherit; transition: border-color 200ms var(--ease); }
