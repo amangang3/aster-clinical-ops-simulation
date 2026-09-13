@@ -22,6 +22,15 @@
     <blockquote class="script" id="intro-body"></blockquote>
   </section>
 
+  <!-- The slide the faculty shows the room. The picture is Kate's own slide, embedded as-is. -->
+  <section>
+    <h2 id="schematic-heading"></h2>
+    <p class="caption" id="schematic-caption"></p>
+    <figure class="schematic">
+      <img id="schematic-img" alt="">
+    </figure>
+  </section>
+
   <section>
     <h2 id="run-heading"></h2>
     <p class="caption" id="run-caption"></p>
@@ -64,6 +73,12 @@
     p.textContent = fill(text);
     el("intro-body").appendChild(p);
   });
+
+  /* The slide that sets it up */
+  el("schematic-heading").textContent = G.schematic.heading;
+  el("schematic-caption").textContent = fill(G.schematic.caption);
+  el("schematic-img").src = G.schematic.src;
+  el("schematic-img").alt = fill(G.schematic.alt);
 
   /* How to run it — numbered steps */
   el("run-heading").textContent = G.run.heading;

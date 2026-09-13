@@ -2,7 +2,7 @@
    Deterministic: identical inputs always produce identical output, including animation order.
 
    Number-free by design. The board is about matching the right deal to each division and
-   realising the shared upside once all three commit — not about budgets. */
+   realizing the shared upside once all three commit — not about budgets. */
 
 (function () {
   "use strict";
@@ -322,7 +322,7 @@
 
   /* ---------------------------------------------------------------
      The gate reveal — the moment the session is built around. The shared
-     upside flips from locked to realised. No numbers; plays the same every time.
+     upside flips from locked to realized. No numbers; plays the same every time.
      --------------------------------------------------------------- */
 
   function gateReveal(token) {
@@ -454,7 +454,7 @@
       if (!a.correct) {
         var note = document.createElement("span");
         note.className = "outcome";
-        note.textContent = " — " + S.scoreboard.changed_nothing;
+        note.textContent = " (" + S.scoreboard.changed_nothing + ")";
         li.children[1].appendChild(note);
       }
       ul.appendChild(li);

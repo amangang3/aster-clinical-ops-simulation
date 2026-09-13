@@ -2,7 +2,7 @@
    Loaded with a <script> tag rather than fetched as JSON so the site runs from file://.
 
    The exercise is deliberately number-free: it is about matching the right deal to each
-   division and realising the shared upside, not about budgets. The only figure kept anywhere
+   division and realizing the shared upside, not about budgets. The only figure kept anywhere
    is the run-rate ambition, used once on the landing to set the stakes. */
 
 window.ASTER = {
@@ -22,7 +22,7 @@ window.ASTER = {
   /* Each division has one block; one or more moves answer it. The block→move map is derived
      (FMT.needs), never hand-listed, so it cannot drift: a division commits once every move
      whose `answers` matches its block has landed. Data & Analytics is the one division whose
-     block takes two moves — PRICE and STATUS — so it needs both to say yes. */
+     block takes two moves — FUNDING and STATUS — so it needs both to say yes. */
   groups: [
     { id: "site-ops",           name: "Site Operations & Trial Execution",  short: "Site Operations",
       lead: "Senior Director Luis Moreno",  accent: "amber",  block: "absorption" },
@@ -36,18 +36,20 @@ window.ASTER = {
 
   moves: [
     { id: "sequence",   label: "SEQUENCE",       answers: "absorption",
-      blurb: "Commit the number, negotiate the clock, and incremental improvements stage by stage." },
-    { id: "price",      label: "PRICE",          answers: "advantage",
-      blurb: "Pay for the head start. Credit what they have already built, guarantee them demand." },
+      blurb: "Same commitment, later and in stages. Each stage is a chance to negotiate improvements." },
+    // The id stays `price` — the state machine and the derived block->move map key off it.
+    // Only the label a human reads is FUNDING. Do not "helpfully" rename the id to match.
+    { id: "price",      label: "FUNDING",        answers: "advantage",
+      blurb: "Credit what they have already funded. Their earlier spend counts against their share of the central engineering build." },
     { id: "status",     label: "STATUS",         answers: "advantage",
       blurb: "Protect the lead. Name them owner of the shared layer, and the rules the others run by." },
     { id: "trust",      label: "TRUST-BUILDING", answers: "assurance",
-      blurb: "Build belief that the organisation can deliver. Roadshows, visible internal wins, outside proof." }
+      blurb: "Build belief that the organization can deliver. Roadshows, visible internal wins, outside proof." }
   ]
 };
 
 /* The computation — one pure function, no side effects, no numbers.
-   The shared layer is realised only when every division has committed. */
+   The shared layer is realized only when every division has committed. */
 window.compute = function compute(state) {
   const A = window.ASTER;
   const committed = A.groups.filter(g => state.committed[g.id]).map(g => g.id);
@@ -64,7 +66,7 @@ window.ASTER_FMT = {
   group: id => window.ASTER.groups.find(g => g.id === id),
   move:  id => window.ASTER.moves.find(m => m.id === id),
   // The moves a division needs before it commits: every move that answers its block.
-  // One for two of the divisions; two (PRICE and STATUS) for Data & Analytics.
+  // One for two of the divisions; two (FUNDING and STATUS) for Data & Analytics.
   needs: id => {
     const b = window.ASTER_FMT.group(id).block;
     return window.ASTER.moves.filter(m => m.answers === b).map(m => m.id);
@@ -79,7 +81,15 @@ window.ASTER_FMT = {
       you_title: A.meta.you.title,
       unit:      A.meta.unit,
       council:   A.meta.council,
-      ambition:  A.ambition
+      ambition:  A.ambition,
+      // The four deal names in sentence case, joined "a, b, c and d". Derived from the
+      // moves so a sentence naming them always matches the buttons on the board.
+      deals:     A.moves.map(function (m) {
+                   return m.label.charAt(0) + m.label.slice(1).toLowerCase();
+                 }).reduce(function (acc, name, i, all) {
+                   if (i === 0) return name;
+                   return acc + (i === all.length - 1 ? " and " : ", ") + name;
+                 }, "")
     };
     return String(text).replace(/\{(\w+)\}/g, function (whole, key) {
       return Object.prototype.hasOwnProperty.call(f, key) ? f[key] : whole;

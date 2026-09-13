@@ -14,7 +14,7 @@ page-by-page UI spec. Do not look for other source documents; there are none.
 
 > **Simplified 2026-09-11 — the exercise is now number-free (this note supersedes the numeric sections below).**
 > Feedback was that the information density overwhelmed the room, so all budget figures were removed. The model
-> (`data/model.js`) is now a plain boolean: each division is committed or not, and the shared layer is *realised*
+> (`data/model.js`) is now a plain boolean: each division is committed or not, and the shared layer is *realized*
 > only when all three commit. There are no pools, pledges, capital, multipliers, move costs, enterprise value or
 > outcome table. The only figure kept anywhere is the run-rate ambition, shown once on the landing.
 >
@@ -23,6 +23,27 @@ page-by-page UI spec. Do not look for other source documents; there are none.
 > build. What remains accurate here: the three blocks and the four moves (§2.1–§2.3, with UNDERWRITE now
 > TRUST-BUILDING), the block→move diagnosis (§2.4), the page flow and copy discipline (§4), and the division
 > dialogue in §6. The debrief page was also removed; its framework content lives in `framework-deck.pptx`.
+
+> **Refined 2026-09-12 — central engineering, FUNDING, and the display name.** Three things below are now
+> settled and every section here reads to them:
+>
+> - **No division builds the layer.** Aster has a **central engineering group**, reporting into the Global
+>   Clinical Operations Center, and it builds the shared trial-data layer. Each division is asked for its
+>   **share of the funding** for that build, plus a change in how it works so it runs on the layer. Data &
+>   Analytics is not the builder. It is the division that went furthest, earliest, and its objection is about
+>   **paying twice**.
+> - **The `price` move is labeled FUNDING.** The **id stays `price`**. `data/model.js`, `data/script.js`
+>   (`deals.price`), `state.moveSpent` and the `W` binding all key off it, and the block→move map is derived
+>   from it. Only the label a human reads is FUNDING, and the concession it names is **credit rather than
+>   cash**: what a division has already funded through central engineering counts against its share of the new
+>   build. The id and the label differ on purpose. Do not "helpfully" rename the id to match.
+> - **Display name.** The exercise is presented to the room as **The Cross-Division Collaboration Problem**
+>   (`landing.title`, and the `<title>` of `index.html` and `sim.html`). *Aster Coordination Simulation* is the
+>   internal name of the repository and stays in file headers and these docs; the two are not the same string
+>   and should not be conflated.
+>
+> §6's dialogue transcription predates this refinement as well as the number-free pass; `data/script.js` is the
+> original and wins wherever the two disagree.
 
 ---
 
@@ -50,7 +71,7 @@ Violating any of these is a build failure.
   where `fetch()` of a local JSON file is blocked by CORS and a `<script>` tag is not. Never hardcode a number
   twice. Every displayed figure is computed from these constants at runtime — no figure is ever typed into HTML.
 - **Projector legibility is a functional requirement.** This is driven from a lectern and read from the back of
-  a room. The three headline figures must be legible at a glance from ~15 metres.
+  a room. The three headline figures must be legible at a glance from about 50 feet.
 - **Every size is relative; the root scale is fluid.** No layout may assume 1920×1080. Sizes are set in `rem`
   and the root size is a `clamp()` on the viewport, so the same design fits a 1280×720 projector, a 1366×768
   laptop and a 4K panel at identical proportions. At 1920×1080 the projected scale resolves to 18px, which is
@@ -64,15 +85,17 @@ Violating any of these is a build failure.
 
 The class has already discussed a case in which the protagonist must decide whether to push for a single
 enterprise-wide agentic AI target held across all three divisions, or let each division set its own inside its
-own plan while the centre supplies platform capability and technical support. The class has then been shown a
+own plan while the center supplies platform capability and technical support. The class has then been shown a
 framework (§2). This simulation makes the framework land by letting the room try to use it and watch what
 happens.
 
 **The room plays the case protagonist**, and every page says so: `meta.you` in `data/model.js` names him, and
 `instructions.html` opens with who he is (§4.3a). He sits on the Leadership Council and can argue for a
 proposal, owns no P&L, and cannot set a target for any function — any number entering a five-year plan has to
-be committed by the P&L owner who will carry it. What he does control is the centre: the platform, the
-engineering group, and the budget behind both. **That is the money a deal spends.** Without this, the exercise
+be committed by the P&L owner who will carry it. What the protagonist does control is the center: the shared
+platform, the **central engineering group that builds the trial-data layer**, and the budget behind both.
+**That is the money a deal spends.** It is also why no division is ever asked to build the layer, only to fund
+its share of the build and move onto it. Without this, the exercise
 contradicts the case: the protagonist cannot commit money, yet the room spends it.
 
 **Where this sits.** After the class has argued the case question, and before the practitioner conversation
@@ -109,10 +132,10 @@ is actually for:
 1. **Agents remove partial credit.** Software that covers half the data returns a worse answer, which is still
    worth having. An agent that can reach half a workflow does not complete it. Coverage scaled the value of a
    system; with agents it gates it. This is what makes `multiplier_unfunded` a property of automation rather
-   than a modelling convenience — the facilitator concedes the *size* of the number and never the shape.
+   than a modeling convenience — the facilitator concedes the *size* of the number and never the shape.
 2. **Agents act; they do not report.** A shared data layer is a read. An agent that reschedules a site visit or
    contacts a patient takes an action inside a division that answers for the consequences. That is an objection
-   none of the four moves can answer, and in a real agent programme it is usually the one that stops the work.
+   none of the four moves can answer, and in a real agent program it is usually the one that stops the work.
    It stays out of the mechanic on purpose and is named by the facilitator in discussion (§4.7).
 3. **The constraint has swapped ends.** Agent capability arrives in weeks; these agreements take quarters. For
    most of the history of enterprise technology the build was the bottleneck and the business waited for it.
@@ -132,41 +155,41 @@ workflow, and the enterprise ends up behind where it started.
 This is the intellectual content the simulation demonstrates. It is carried by the framework deck (§6) and referenced in
 the copy elsewhere. Do not paraphrase these definitions — they are used verbatim in class.
 
-### 2.1 Forces incentivising collaboration — why any division comes to the table
+### 2.1 Forces incentivizing collaboration — why any division comes to the table
 
 | Factor | Description |
 |---|---|
-| **Dependency** | Value you cannot realise without an asset another division owns. The more of your value sits on a boundary, the more you need the deal — and if you are the one who owns that asset, your upside is their commitment, not your own roadmap. |
+| **Dependency** | Value you cannot realize without an asset another division owns. The more of your value sits on a boundary, the more you need the deal — and if you are the one who owns that asset, your upside is their commitment, not your own roadmap. |
 | **Threshold** | The shared asset is lumpy. It exists only above a funding line that no single division can justify on its own numbers, so it gets built jointly or it does not get built. |
 | **Duplication** | Left alone, divisions quietly build the same capability twice. Nobody can see it from inside their own plan, and the waste only surfaces once both have been funded. |
 
-### 2.2 Forces incentivising individualism — why it defends its own plan instead
+### 2.2 Forces incentivizing individualism — why it defends its own plan instead
 
 | Factor | Description |
 |---|---|
 | **Absorption** | *"We cannot take this much change this fast."* A timing problem, not a size problem — so commit the number and negotiate the clock. |
-| **Advantage** | *"We are ahead. Why would we help them catch up?"* A head-start problem, not a property one — the division is out in front and does not want the others levelling up to it. So let it keep the lead while it shares: pay for what it built, **and** make it the owner the others build on. |
-| **Assurance** | *"We do not believe this organisation can actually deliver."* A belief problem — so build the belief: roadshows, visible internal wins, outside proof points. |
+| **Advantage** | *"We are ahead. Why would we contribute our own funds to build, for the other two, a capability we already have?"* A head-start problem. The division is out in front, has already funded the capability it runs on, and does not want the others leveling up to it at its expense. So let it keep the lead while it shares: credit what it has already funded against its share of the build, **and** make it the owner the others run on. |
+| **Assurance** | *"We do not believe this organization can actually deliver."* A belief problem — so build the belief: roadshows, visible internal wins, outside proof points. |
 
 ### 2.3 The four moves
 
-Each individualism factor is answered by one move — **except Advantage, which takes two** (PRICE *and* STATUS). A
+Each individualism factor is answered by one move — **except Advantage, which takes two** (FUNDING *and* STATUS). A
 division commits only once every move that answers its block has landed, so the division out in front does not
 say yes to either lever alone. Everything else is a one-to-one mapping. This is the mechanic.
 
 | Move | Answers | What it is |
 |---|---|---|
 | **SEQUENCE** | Absorption | Commit the number, negotiate the clock and incremental improvements stage by stage, not the size. |
-| **PRICE** | Advantage | Pay for the head start — credit the work they already built, guarantee them demand. |
+| **FUNDING** (id `price`) | Advantage | Credit what they have already funded — their earlier spend through central engineering counts against their share of the new build, so they are not asked to pay twice. |
 | **STATUS** | Advantage | Protect the lead — name them owner of the shared layer, so the others build on their platform *and the rules they set for it* (autonomy levels, escalation thresholds, what "good enough" means). The authority lever, not a title. |
-| **TRUST-BUILDING** | Assurance | Build belief that the organisation can deliver — roadshows, visible internal wins, outside proof points. |
+| **TRUST-BUILDING** | Assurance | Build belief that the organization can deliver — roadshows, visible internal wins, outside proof points. |
 
 ### 2.4 The applied diagnosis
 
 | Division | Pull | Block | Move(s) |
 |---|---|---|---|
 | Site Operations | **Dependent** — 40% of its value needs a layer it cannot build; six of nine top workflows cross its boundary | **Absorption** (timing) | **Sequence** |
-| Clinical Data & Analytics | **Supplier** — the only group that can build the layer; already ahead of the other two, and least riding on a layer that lets them catch up | **Advantage** (head start) | **Price + Status** |
+| Clinical Data & Analytics | **Supplier** — went furthest earliest and already funded the capability it runs on; least riding on a layer that brings the other two up to it | **Advantage** (head start) | **Funding + Status** |
 | Patient Engagement | **Dependent** — best return per dollar in the room, nearly all of it gone without shared data | **Assurance** (belief) | **Trust-building** |
 
 ---
@@ -212,7 +235,7 @@ window.ASTER = {
 
   // PRICE was split into PRICE ($11M) + STATUS ($1M), so the four move costs still sum to $27M
   // and the outcome economics are unchanged. STATUS is cheap on purpose: a governance title
-  // costs the centre almost nothing, and the point lands that the near-free lever is what
+  // costs the center almost nothing, and the point lands that the near-free lever is what
   // actually closes the deal the $11M one only half-answered. Both answer "advantage".
   moves: [
     { id: "sequence",   label: "SEQUENCE",   cost: 6,  answers: "absorption",
@@ -222,7 +245,7 @@ window.ASTER = {
     { id: "status",     label: "STATUS",     cost: 1,  answers: "advantage",
       blurb: "Protect the lead. Name them owner of the shared layer, so the others build on their platform and the rules they set for it." },
     { id: "trust",      label: "TRUST-BUILDING", cost: 9, answers: "assurance",
-      blurb: "Build belief that the organisation can deliver. Roadshows, visible internal wins, and outside proof points." }
+      blurb: "Build belief that the organization can deliver. Roadshows, visible internal wins, and outside proof points." }
   ]
 };
 ```
@@ -345,7 +368,7 @@ framework-deck.pptx the two framework slides used to close the session (§6)
 README.md           §7
 BUILD_SPEC.md       this file
 .nojekyll
-.gitignore          editor and OS cruft only — this build produces no run artefacts
+.gitignore          editor and OS cruft only — this build produces no run artifacts
 LICENSE
 ```
 
@@ -360,7 +383,7 @@ facilitator copy. Each division page is a shell that names its division and read
 sentence from `data/model.js` and `data/script.js`, like every other page here.
 
 The deck carries the same constants as `data/model.js` and is written against this mechanic, not an earlier
-one. The two slides are §2.1–§2.4: the forces, then the generalised blocker→move playbook (all four moves). If a constant changes here, the deck changes with it.
+one. The two slides are §2.1–§2.4: the forces, then the generalized blocker→move playbook (all four moves). If a constant changes here, the deck changes with it.
 
 ### 4.2 Design direction
 
@@ -406,7 +429,7 @@ The page the room reads, and the answer to "where are the instructions?". It scr
 participants, not for the facilitator, and it **names no blocks and gives nothing away**: it explains the
 situation and the rules, never the diagnosis.
 
-**Plain words are the requirement, not a preference.** No "boundary", no "realise", no "multiplier", no
+**Plain words are the requirement, not a preference.** No "boundary", no "realize", no "multiplier", no
 "platform capital", no "pledge" where "pay its share" will do. A reader who has never seen the case has to
 follow it cold. Where a figure could be doubted, the page shows the arithmetic instead of asserting it.
 
@@ -414,14 +437,14 @@ In order:
 
 - **Who you are in this exercise**, first, because nothing after it makes sense otherwise: the protagonist by
   name and title from `meta.you`, that everyone in the room plays the same person, what he cannot do (set a
-  target, commit another P&L's money) and what he can (spend the centre's platform and engineering budget,
+  target, commit another P&L's money) and what he can (spend the center's platform and engineering budget,
   which is what a deal costs).
 - **What is being decided**, in prose only: the layer costs `infrastructure_required` and is all or nothing;
   each division pays a fixed share (the three named inline via `{shares}`) that sums to exactly the build cost.
   No separate shares table — the earlier one duplicated the shares that already appear in the your-budget/theirs
   table below, and the page reads lighter without it. Then the line that answers what people actually ask.
 - **What each division is worried about**, placed before any of the arithmetic — one line per division, in its
-  own accent, from the `worry` field in the copy. This centres the exercise on the three human challenges (a
+  own accent, from the `worry` field in the copy. This centers the exercise on the three human challenges (a
   calendar, a lead worth protecting, a broken trust) rather than opening on a wall of numbers. It still names no
   block and no move; working out which deal answers which worry is the exercise.
 - **Where the numbers on the board come from**, condensed to two rows: each division has a *potential upside*
@@ -430,14 +453,14 @@ In order:
   cap comes off, `cross_value` becomes reachable, and the total reaches the ceiling — but only if all three pay.
   No worked arithmetic block: the goal here is fewer numbers, not more.
 - **What the room is asked to do**: work out what each division needs, then offer the deal that gives it —
-  spending the centre's budget, not theirs. Four deals; two divisions need one each, one needs two.
+  spending the center's budget, not theirs. Four deals; two divisions need one each, one needs two.
 - **The four deals**: for each one, its framework label, what it is in plain words, and its cost from `moves`,
   under a header that says whose money that is. The plain name is what makes the labels usable cold; it never
   says which division a deal suits.
 - **Your budget, and theirs**, as its own table, because confusing them is the easiest mistake on the page and
   the amounts invite it — `SEQUENCE` costs $6M and Data & Analytics' share is also $6M. *Their budget — the
   share* is the division's own money going into the layer, and is fixed. *Your budget — the deal cost* is the
-  centre's money, spent to get the agreement; it never enters the layer and never enters the enterprise total,
+  center's money, spent to get the agreement; it never enters the layer and never enters the enterprise total,
   which `compute()` confirms — `spent` is returned alongside `enterprise`, never subtracted from it.
 - **The rules, and what a deal does** — one merged list, not a separate "what happens when you offer a deal"
   table (that table overlapped the rules and made the page heavier than it needed to be). It covers: the cost
@@ -445,7 +468,7 @@ In order:
   deal that answers has the division agree, the funding bar rise, and its own number dip; a *helps-but-not-
   enough* deal leaves the division where it was; one offer of each deal per division, agreement is permanent,
   nothing can be taken back; all
-  three needed to build the layer
+  three needed before the layer gets built
 - **What to watch**: the enterprise figure, because it does not move the way people expect
 
 ### 4.3b The division pages — one brief per division
@@ -477,7 +500,7 @@ This is the whole exercise. One screen, no scrolling, driven from a lectern.
 | **VS AMBITION** | `gap` | Shown as `SHORT $82.25M` in coral or `AHEAD $28.25M` in mint. |
 | **SPENT ON DEALS** | `spent` | Neutral until the close, where wasted spend is broken out. |
 
-Below them, a thin **shared trial-data layer** meter filling toward `$18M`, labelled with the running pledge
+Below them, a thin **shared trial-data layer** meter filling toward `$18M`, labeled with the running pledge
 total and `NOT FUNDED` / `FUNDED`.
 
 **The board.** Three rows, one per group. Each row carries:
@@ -503,8 +526,8 @@ total and `NOT FUNDED` / `FUNDED`.
    worked.* This ordering is deliberate; do not defer it until after the outcome is known.
 2. The group's response line types in beneath the objection, 18ms per character.
 3. **Wrong move:** the row shakes horizontally once, 6px, 180ms. The response is the group's rejection line.
-   The button stays locked and greys out — a move once spent on a group cannot be spent again. State unchanged.
-4. **Correct but not enough** (only the first of Data & Analytics' PRICE/STATUS pair): the button turns mint
+   The button stays locked and grays out — a move once spent on a group cannot be spent again. State unchanged.
+4. **Correct but not enough** (only the first of Data & Analytics' FUNDING/STATUS pair): the button turns mint
    and the partial line types in amber (`response--partial`). The concession is real and the money is spent,
    but the division does not commit — the badge stays `DEFENDING` and no numbers move. The other needed move
    and the two wrong moves remain live.
@@ -536,7 +559,7 @@ a complete and instructive outcome, not an error.
 | Key | Action |
 |---|---|
 | `1` `2` `3` | Select group row |
-| `Q` `W` `E` `R` | Apply Sequence / Price / Status / Trust-building to the selected row |
+| `Q` `W` `E` `R` | Apply Sequence / Funding / Status / Trust-building to the selected row |
 | `N` | Toggle the presenter note (§4.7) |
 | `C` | Close the round |
 | `Backspace` | Reset (moved off `R`, which now applies Trust-building) |
@@ -561,7 +584,7 @@ Replaces the board on close. Everything computed, nothing typed.
 ### 4.6 `debrief.html` — REMOVED
 
 The debrief page was cut. Its framework content now lives in the two-slide `framework-deck.pptx` (§6): slide 1
-is the two force tables (§2.1–§2.2), slide 2 the generalised blocker→move playbook (§2.3, all four moves). The
+is the two force tables (§2.1–§2.2), slide 2 the generalized blocker→move playbook (§2.3, all four moves). The
 material that had no home on the slides — the eight-outcome table, the pilot trap, the "why agentic" three
 lines, the discussion questions, and the fourth-block closing note — is now the facilitator's to deliver from
 `facilitate.html` (§4.7): the beat script names the pilot trap and the three agentic points at the close, and
@@ -597,7 +620,7 @@ talking about. It shows on the projector like everything else, and the copy says
 ## 5. THE SCRIPT
 
 Every line lives in `data/script.js` as `window.ASTER_SCRIPT`, keyed by group id. Nothing is generated,
-templated, or randomised. Voice: senior, specific, not hostile. Each division is right about its own situation.
+templated, or randomized. Voice: senior, specific, not hostile. Each division is right about its own situation.
 
 **`data/script.js` is the original; what follows is a transcription of it.** If the two disagree, the copy file
 wins and this section is stale — regenerate it from the copy file rather than editing it here. Plain words are
@@ -606,38 +629,38 @@ a requirement of the dialogue too: a division says "money is not the problem", n
 ### Site Operations & Trial Execution — Luis Moreno · block: absorption · needs: sequence
 
 - **Objection (visible from the start):** *“We are not against this, and we are not arguing about the money. Q3 and
-  Q4 are our enrolment peak. We cannot change how we work in the two busiest quarters of our year. On top of that, I
+  Q4 are our enrollment peak. We cannot change how we work in the two busiest quarters of our year. On top of that, I
   hand over to my successor in two quarters. Ask me for something that will still be running when they arrive.”*
 - **On SEQUENCE (right):** *“So we start after the peak, in stages my successor can pick up? Then yes. We will pay
   the full share.”*
-- **On PRICE (wrong):** *“Money is not the problem. You would be giving us more to spend in the two quarters when we
+- **On FUNDING (wrong):** *“Money is not the problem. You would be giving us more to spend in the two quarters when we
   have the least room to change anything.”*
-- **On TRUST-BUILDING (wrong):** *“Roadshows and success stories do not move our enrolment peak. We are short of a
+- **On TRUST-BUILDING (wrong):** *“Roadshows and success stories do not move our enrollment peak. We are short of a
   quarter we can change, not short of belief.”*
 
-### Clinical Data & Analytics — Evan Cole · block: advantage · needs: price + status
+### Clinical Data & Analytics — Evan Cole · block: advantage · needs: price + status  *(labeled FUNDING + STATUS on the board)*
 
 - **Objection (visible from the start):** *“We have already paid for this. It is in our five-year plan, the team is
   hired, and we are further along than either of them. What you are asking is that we slow down and build it for two
   divisions who have not started.”*
 - **On SEQUENCE (wrong):** *“Time is not our problem. We are the ones who are ready. Giving us longer just wastes
   the head start we paid for.”*
-- **On PRICE (right):** *“So you pay us for what we have already built, the other two buy their data services from
+- **On FUNDING (right):** *“So you pay us for what we have already built, the other two buy their data services from
   us, and you guarantee they actually will? Then it is a business, not a tax. We will build it.”*
-- **On TRUST-BUILDING (wrong):** *“We do not need convincing that it works — we built it. Selling it to the sceptics
+- **On TRUST-BUILDING (wrong):** *“We do not need convincing that it works — we built it. Selling it to the skeptics
   is someone else’s job, not ours.”*
 
 ### Patient Engagement & Recruitment — Clara Vega · block: assurance (belief) · needs: trust
 
-- **Objection (visible from the start):** *“We have watched the centre promise big things before, and stall. It is
-  not the money, and it is not the numbers — those are good. We just do not believe this organisation can actually
+- **Objection (visible from the start):** *“We have watched the center promise big things before, and stall. It is
+  not the money, and it is not the numbers — those are good. We just do not believe this organization can actually
   pull something like this off. Show us it can.”*
 - **On SEQUENCE (wrong):** *“More time does not change whether we believe it will work. We would just spend it
   waiting to see if it does.”*
-- **On PRICE (wrong):** *“A better price does not make the thing more likely to get built. We are not holding out for
+- **On FUNDING (wrong):** *“A better price does not make the thing more likely to get built. We are not holding out for
   money.”*
 - **On TRUST-BUILDING (right):** *“So you will show it working — roadshows, the early wins where we can see them, the
-  outside companies who have already done it — until we believe this organisation can deliver? Then we are in, and we
+  outside companies who have already done it — until we believe this organization can deliver? Then we are in, and we
   will be the cheapest yes you get.”*
 
 ### System lines
@@ -655,7 +678,7 @@ Eight to twelve minutes at the lectern. Write this into the README so a facilita
 
 1. Open `sim.html`. Read the three objections aloud, or have three students read them.
 2. Ask the room: *what does each of them actually need?* Take suggestions. Apply them.
-3. Let the room misdiagnose. The first instinct is almost always PRICE on everybody — money is the move
+3. Let the room misdiagnose. The first instinct is almost always FUNDING on everybody — money is the move
    executives reach for — and it lands on exactly one of the three.
 4. When two groups have committed, stop and point at the enterprise figure. It has gone **down**. Sit in that.
 5. Close the third. Let the gate reveal play without talking over it.
@@ -707,7 +730,7 @@ course name, no institution, no instructor, no dates.
 - [ ] Every page reaches every other page: the flow renders on all of them, marks the current page — including
       the three division briefs, which mark step 3 — and the guide is reachable from each of them
 - [ ] `instructions.html` and the three division briefs name no block and no move mapping anywhere on them
-- [ ] Nothing a participant reads uses "boundary", "realise", "multiplier", "platform capital" or "pledge"
+- [ ] Nothing a participant reads uses "boundary", "realize", "multiplier", "platform capital" or "pledge"
       where plain words would do — including the board's legend, the meter and the deal buttons
 - [ ] No page asserts a figure a participant could check and find wrong: the instructions show the share
       arithmetic and say why all three paying lands short of the pools plus the cross-boundary value

@@ -40,6 +40,16 @@ html.fit {
   --mint:      #0C8F6E;   /* collaboration / committed */
   --coral:     #D8483F;   /* individualism / defending */
 
+  /* TRAFFIC LIGHT. The three response states read as stop / wait / go from the back of a
+     lit room: --coral refuses, --signal-partial is "partway there", --mint commits. The
+     yellow is a SIGNAL, deliberately separate from --amber, which is Site Operations'
+     division accent — do not fold the two back together in a theme pass.
+     --signal-partial carries text, so it is dark enough to clear 4.5:1 on --surface
+     (4.87:1); a real yellow cannot. The yellow reading comes from --signal-mark, which
+     only ever fills a dot or a bar and never carries a word. */
+  --signal-partial: #8A6E00;
+  --signal-mark:    #FFC400;
+
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --serif: Georgia, "Iowan Old Style", "Times New Roman", Times, serif;
 
@@ -358,8 +368,20 @@ a.card--link:hover .btn--card { background: var(--accent); color: var(--surface)
 .response--right { color: var(--mint); }
 .response--wrong { color: var(--coral); }
 /* A needed move that landed but has not closed the deal on its own — the first of the two
-   Data & Analytics needs. Warm, not the green of a full commit nor the red of a refusal. */
-.response--partial { color: var(--amber); }
+   Data & Analytics needs. The amber of the traffic light: not the green of a full commit,
+   not the red of a refusal. The dot carries the yellow the text cannot. */
+.response--partial { color: var(--signal-partial); }
+.response--partial::before {
+  content: "";
+  display: inline-block;
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 50%;
+  background: var(--signal-mark);
+  box-shadow: inset 0 0 0 0.75px rgba(0, 0, 0, 0.28);
+  margin-right: 0.5rem;
+  vertical-align: 0.06em;
+}
 .response::after {
   content: "";
   display: inline-block;
@@ -413,7 +435,7 @@ a.card--link:hover .btn--card { background: var(--accent); color: var(--surface)
 .move.is-landed { color: var(--mint); border-color: var(--mint); }
 .move:disabled:not(.is-spent):not(.is-landed) { opacity: 0.35; }
 
-/* the shared-upside flip from Locked to Realised — one pulse on the gate reveal */
+/* the shared-upside flip from Locked to Realized — one pulse on the gate reveal */
 @keyframes upside-reveal {
   0%   { transform: scale(1); }
   40%  { transform: scale(1.09); }
@@ -620,7 +642,7 @@ table.grid tr.is-current td:first-child { box-shadow: inset 3px 0 0 var(--mint);
   max-width: 76ch;
 }
 
-/* The pledge table's total row, and a coloured division name inside a table cell */
+/* The pledge table's total row, and a colored division name inside a table cell */
 table.grid tr.is-total td { border-bottom: none; color: var(--text); font-weight: 600; }
 table.grid tr.is-total td:first-child { color: var(--muted); font-weight: 400; }
 .swatch { display: inline-flex; align-items: baseline; gap: 0.5rem; white-space: nowrap; }
@@ -712,6 +734,19 @@ table.grid tr.is-total td:first-child { color: var(--muted); font-weight: 400; }
 }
 a.flow__label { border-bottom: var(--hair); padding-bottom: 2px; }
 a.flow__label:hover { color: var(--mint); }
+
+/* The slide schematic in the facilitator guide: the faculty's own slide, shown at the
+   width of the document and never wider than the screen. */
+.schematic { margin: 0; }
+.schematic img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  background: var(--surface);
+  border: var(--hair);
+  border-radius: var(--radius);
+}
 .flow__item p { margin: 0.55rem 0 0; color: var(--muted); }
 
 .grid--beats td.beat { white-space: nowrap; font-weight: 600; color: var(--text); }

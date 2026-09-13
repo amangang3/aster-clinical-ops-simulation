@@ -8,7 +8,7 @@ agrees the opportunity is real. Nobody agrees who commits. The exercise is to wo
 actually needs in order to say yes — and to watch the shared upside stay locked until you get all three.
 
 **Aster Life Sciences and every person, number, division and event in this repository are invented.** Nothing
-here describes, is based on, or is disguised from any real organisation.
+here describes, is based on, or is disguised from any real organization.
 
 ## Running it
 
@@ -21,9 +21,10 @@ it runs from a lectern on room wifi you should not trust.
 **The room plays the case protagonist** — the Chief Information Officer of Aster's Global Clinical Operations
 Center, named in `meta.you` in `data/model.js`. He can argue for a proposal at the Leadership Council, owns no
 P&L, and cannot set a target for any division: a number entering a five-year plan has to be committed by the
-P&L owner carrying it. What he controls is the centre — the platform, the engineering group, and the budget
-behind both — and that is what a deal spends. The three shares the divisions pay are their own money; the deal
-costs are his. `instructions.html` opens with this.
+P&L owner carrying it. What the CIO controls is the center: the shared platform, the central engineering group
+that builds the trial-data layer, and the budget behind both. That is what a deal spends. No division builds
+the layer. Each division is asked for its share of the funding, plus a change in how it works so it runs on the
+layer. `instructions.html` opens with this.
 
 The exercise sits after the class has argued the case question and before the practitioner conversation that
 follows, so it deliberately argues neither side of the mandate question. It shows what division-led adoption
@@ -36,7 +37,7 @@ two-slide framework deck closes the session once the round is done.
 - `index.html` — the situation and the three divisions
 - `instructions.html` — written for the room: what is being decided, where the numbers come from, the three
   deals, which of the two pots of money each amount comes out of, what offering a deal does, and the rules.
-  Send it round beforehand or spend a minute on it at the start. It names no blocks.
+  Send it around beforehand or spend a minute on it at the start. It names no blocks.
 - `site-ops.html`, `data-analytics.html`, `patient-engagement.html` — one brief per division: what it
   does, what it is measured on, its four numbers, where it stands, and what it has said. This is the
   material the room diagnoses from
@@ -60,16 +61,17 @@ two-slide framework deck closes the session once the round is done.
 3. Partial coordination is worse than none. The model is built to prove this rather than assert it.
 
 Three divisions defend their own plans for three different reasons — a timing problem, a head-start problem,
-and a trust problem. There are four levers: **Sequence**, **Price**, **Status**, **Trust-building**. Two of the
-divisions are answered by a single lever each (Sequence, Trust-building). The division that is already ahead needs
-**both Price and Status** — money alone only half-answers it, because being paid still lets the others catch
-up; it commits only once it is also made the owner of the shared layer. Offering the wrong lever changes nothing.
+and a trust problem. There are four levers: **Sequence**, **Funding**, **Status**, **Trust-building**. The
+`price` id carries the FUNDING label; see `data/model.js`. Two of the divisions are answered by a single lever
+each (Sequence, Trust-building). The division that is already ahead needs **both Funding and Status**. Crediting
+what it has already funded only half-answers it, because not paying twice still lets the others catch up. It
+commits once it is also made the owner of the shared layer. Offering the wrong lever changes nothing.
 
-## What realising the upside takes
+## What realizing the upside takes
 
-The shared layer is all or nothing: it is built, and the cross-division upside is realised, only when all three
+The shared layer is all or nothing: it is built, and the cross-division upside is realized, only when all three
 divisions commit. There is deliberately no scoring and no partial credit. One or two divisions committing
-realises nothing — the work that spans divisions still cannot run — so partial coordination is visibly worse
+realizes nothing — the work that spans divisions still cannot run — so partial coordination is visibly worse
 than none: real effort is spent and the upside stays locked. That is the third teaching point, made mechanical
 without a single number on screen.
 
@@ -80,7 +82,7 @@ Keyboard only, and never shown on screen during the exercise.
 | Key | Action |
 |---|---|
 | `1` `2` `3` | Select division |
-| `Q` `W` `E` `R` | Apply Sequence / Price / Status / Trust-building to the selected division |
+| `Q` `W` `E` `R` | Apply Sequence / Funding / Status / Trust-building to the selected division |
 | `N` | Toggle the presenter note for whatever beat the board is on |
 | `C` | Close the round |
 | `⌫` Backspace | Reset |
@@ -93,7 +95,7 @@ what to say at each beat and what to do when it goes sideways.
 
 1. Open `sim.html`. Read the three objections aloud, or have three people read them.
 2. Ask the room: *what does each of them actually need?* Take suggestions. Apply them.
-3. Let the room misdiagnose. The first instinct is almost always **Price** on everybody — money is the move
+3. Let the room misdiagnose. The first instinct is almost always **Funding** on everybody — money is the move
    executives reach for. It commits nobody: it is wrong for two of the divisions, and only half of what the
    division out in front needs.
 4. When two divisions have committed, stop and point at the shared upside. It is **still locked**. Sit in that.
@@ -107,12 +109,12 @@ out for is in what it says, and the brief is the only place it is written down.
 ## Structure
 
 The model lives in `data/model.js` and every line of copy in `data/script.js`. The exercise is deliberately
-number-free: the model is a plain boolean — each division is committed or not, and the shared layer is realised
+number-free: the model is a plain boolean — each division is committed or not, and the shared layer is realized
 only when all three are — and nothing on any page is a budget figure. The one framing number kept anywhere is
 the run-rate ambition, shown once on the landing to set the stakes.
 
-Anything a participant reads is written in plain words: no "boundary", no "realise", no "multiplier". The board
-shows a division as *Defending* or *Committed* and the shared upside as *Locked* or *Realised*; the deal buttons
+Anything a participant reads is written in plain words: no "boundary", no "realize", no "multiplier". The board
+shows a division as *Defending* or *Committed* and the shared upside as *Locked* or *Realized*; the deal buttons
 carry a plain line under the framework label. Framework terms belong on `facilitate.html` and the deck, where
 there is someone to explain them.
 
@@ -141,6 +143,6 @@ Everything is deterministic. Identical inputs always produce identical output, t
 anywhere, and nothing is carried between runs. `prefers-reduced-motion: reduce` is respected and reaches an
 identical final state with no transitions.
 
-## Licence
+## License
 
 MIT. See `LICENSE`.
